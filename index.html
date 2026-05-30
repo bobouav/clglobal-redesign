@@ -431,58 +431,50 @@
       .hero-panel {
         align-self: end;
         justify-self: end;
-        width: min(420px, 100%);
-        padding-left: 34px;
-        border-left: 1px solid rgba(255, 255, 255, 0.42);
+        width: min(430px, 100%);
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.42);
         color: rgba(255, 255, 255, 0.9);
         text-shadow: 0 2px 16px rgba(0, 0, 0, 0.28);
       }
 
-      .hero-panel-title {
-        margin: 0;
+      .hero-panel-label {
+        display: block;
+        color: rgba(255, 255, 255, 0.8);
+        font-family: Inter, Arial, sans-serif;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .hero-panel-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+        margin-top: 18px;
+      }
+
+      .hero-panel-stat strong {
+        display: block;
         color: var(--white);
         font-family: Inter, Arial, sans-serif;
-        font-size: 0.88rem;
+        font-size: 1.22rem;
         font-weight: 800;
-        line-height: 1.35;
-        text-transform: uppercase;
+        line-height: 1;
       }
 
-      .hero-panel p {
-        margin: 16px 0 0;
-        font-size: 1.04rem;
-        line-height: 1.62;
-      }
-
-      .hero-panel-list {
-        display: grid;
-        margin: 28px 0 0;
-        padding: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.28);
-        list-style: none;
-      }
-
-      .hero-panel-list li {
-        display: flex;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 17px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
-      }
-
-      .hero-panel-list strong,
-      .hero-panel-list span {
-        font-family: Inter, Arial, sans-serif;
-        font-size: 0.82rem;
-        font-weight: 800;
-        line-height: 1.35;
-        text-transform: uppercase;
-      }
-
-      .hero-panel-list span {
-        max-width: 180px;
+      .hero-panel-stat span {
+        display: block;
+        max-width: 150px;
+        margin-top: 9px;
         color: rgba(255, 255, 255, 0.74);
-        text-align: right;
+        font-family: Inter, Arial, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 800;
+        line-height: 1.35;
+        text-transform: uppercase;
       }
 
       .hero-metrics {
@@ -1402,17 +1394,18 @@
             </div>
           </div>
 
-          <aside class="hero-panel" aria-label="Programme summary">
-            <p class="hero-panel-title">A complete Cambridge learning journey</p>
-            <p>
-              Academic seminars, project work, college life and cultural immersion are arranged as
-              one connected experience, not separate activities.
-            </p>
-            <ul class="hero-panel-list">
-              <li><strong>Academic</strong><span>Advanced subject pathways</span></li>
-              <li><strong>Place</strong><span>Central Cambridge colleges</span></li>
-              <li><strong>Outcome</strong><span>Projects, confidence and network</span></li>
-            </ul>
+          <aside class="hero-panel" aria-label="Programme highlights">
+            <span class="hero-panel-label">Cambridge academic programmes</span>
+            <div class="hero-panel-stats">
+              <div class="hero-panel-stat">
+                <strong>Since 2009</strong>
+                <span>Designed in Cambridge</span>
+              </div>
+              <div class="hero-panel-stat">
+                <strong>24,000+</strong>
+                <span>Alumni worldwide</span>
+              </div>
+            </div>
           </aside>
         </div>
 
