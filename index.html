@@ -258,28 +258,46 @@
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
-        gap: 18px;
-        margin-top: 44px;
+        gap: 22px;
+        margin-top: 54px;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 60px;
-        padding: 0 34px;
+        min-height: 66px;
+        padding: 0 40px;
         border: 2px solid transparent;
         border-radius: 999px;
         font-family: Inter, Arial, sans-serif;
-        font-size: 1rem;
+        font-size: 1.07rem;
         font-weight: 800;
         line-height: 1;
+        transition:
+          background 180ms ease,
+          border-color 180ms ease,
+          box-shadow 180ms ease,
+          color 180ms ease,
+          transform 180ms ease;
+      }
+
+      .hero-actions .button {
+        min-width: 208px;
+        min-height: 74px;
+        padding: 0 46px;
+        font-size: 1.1rem;
+      }
+
+      .hero-actions .button:first-child {
+        min-width: 288px;
       }
 
       .button.outline {
-        border-color: rgba(255, 255, 255, 0.88);
+        border-color: rgba(255, 255, 255, 0.92);
         color: var(--white);
-        background: rgba(0, 0, 0, 0.04);
+        background: rgba(4, 20, 18, 0.18);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
         text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
       }
 
@@ -291,6 +309,21 @@
       .button.paper {
         color: var(--green-900);
         background: var(--white);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button.outline:hover {
+        border-color: var(--white);
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .button.paper:hover {
+        color: var(--white);
+        background: var(--green-800);
       }
 
       .hero-note {
@@ -379,7 +412,9 @@
       }
 
       .impact-section {
-        padding-top: clamp(108px, 11vw, 168px);
+        padding-top: clamp(86px, 9vw, 132px);
+        background:
+          linear-gradient(180deg, var(--paper), #fbf6ec 100%);
       }
 
       .impact-layout {
@@ -422,7 +457,7 @@
       .impact-stats {
         display: grid;
         grid-template-columns: 0.95fr 1.08fr 1.22fr 1fr;
-        margin-top: clamp(68px, 7vw, 96px);
+        margin-top: clamp(48px, 5.6vw, 74px);
         border-top: 1px solid var(--rule);
         border-bottom: 1px solid var(--rule);
       }
@@ -431,9 +466,10 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-height: 228px;
+        min-height: 206px;
         padding: 32px clamp(22px, 2.4vw, 38px) 30px;
         border-right: 1px solid var(--rule);
+        background: rgba(255, 253, 248, 0.36);
       }
 
       .impact-stat:first-child {
@@ -923,6 +959,13 @@
 
         .button {
           width: 100%;
+        }
+
+        .hero-actions .button {
+          min-width: 0;
+          min-height: 64px;
+          padding: 0 28px;
+          font-size: 1.02rem;
         }
 
         .hero-note {
