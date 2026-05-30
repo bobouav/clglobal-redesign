@@ -1,0 +1,105 @@
+{
+  "company": {
+    "name": "CL Global Academy",
+    "website": "https://www.clglobal.org/",
+    "category": "Cambridge academic and cultural immersion programmes",
+    "founded": "2009",
+    "locations_or_bases": ["UK", "Shanghai", "US"],
+    "positioning": "Academic programmes in Cambridge that combine rigorous courses, project-based learning, cultural immersion, and global student networks."
+  },
+  "audiences": [
+    "University students seeking AI, data science, engineering, and systems-thinking courses",
+    "Students aged 13-18 seeking advanced academic research preparation",
+    "Parents comparing credible supervised Cambridge programmes",
+    "Schools, universities, and institutions interested in bespoke course partnerships",
+    "Academic and industry instructors considering collaboration"
+  ],
+  "buyer_needs": [
+    "Understand course fit quickly by age, dates, and academic level",
+    "Trust the programme before applying",
+    "See how Cambridge housing, dining, culture, supervision, and project work fit together",
+    "Apply or enquire without hunting through the site",
+    "Understand the independence and partnership model clearly"
+  ],
+  "current_site_strengths": [
+    "Strong Cambridge video/photo atmosphere",
+    "Clear official application link",
+    "Strong proof metrics and alumni testimonials",
+    "Useful course detail on linked pages",
+    "Transparent independence disclaimer in footer and partnerships page"
+  ],
+  "current_site_gaps": [
+    "Course routes are not visible early enough on the homepage",
+    "Application journey is not explained as a workflow",
+    "Proof is separated from some key conversion decisions",
+    "Course dates and audiences are buried on the courses page",
+    "Partnership/form details are not easy to understand from the homepage"
+  ],
+  "redesign_goal": "Create a polished, contentful, video-led homepage that makes CL Global Academy's Cambridge programmes easier to understand, trust, apply for, and enquire about.",
+  "design_strategy": [
+    "Keep the current Cambridge video as the immersive first-viewport signal",
+    "Make Apply now and Explore courses visible in the hero",
+    "Place proof metrics beside the first decision",
+    "Add a programme journey tracker from application through alumni network",
+    "Turn the 2026 catalogue into three clear course cards",
+    "Add transparent partnership and independence language near credibility claims",
+    "Preserve public backend/contact paths only"
+  ],
+  "tracking_model": {
+    "name": "OxCam Programme Journey",
+    "stages": [
+      "Choose academic route",
+      "Apply or enquire",
+      "Review and confirm fit",
+      "Pre-course preparation",
+      "Cambridge arrival and college life",
+      "Project showcase",
+      "Alumni network and next steps"
+    ]
+  },
+  "preserved_assets": {
+    "hero_vimeo_background": "https://player.vimeo.com/video/1062106828?background=1&api=1&autopause=0&autoplay=1&mute=1&badge=0&loop=1&portrait=0&title=0",
+    "hero_poster": "https://uploads.strikinglycdn.com/static/videos/1741024304/video/1988968907-e530cbaa3fe8783fac9970b2b3023bbe44139d44794005cdf466984c298733a8-d_1280",
+    "logo": "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_630,w_1200,f_auto,q_auto/243274/119769_798809.png",
+    "cambridge_experience_image": "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/81623_246246.jpeg",
+    "course_images": [
+      "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/405793_275273.jpeg",
+      "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/373724_495403.jpg",
+      "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/634231_700537.jpg"
+    ]
+  },
+  "backend_api_reuse": {
+    "application_url": "https://jinshuju.com/f/L0N0o5",
+    "general_email": "mailto:contact@clglobal.org",
+    "partnership_email": "mailto:partnership@clglobal.org",
+    "course_page": "https://www.clglobal.org/courses",
+    "partnerships_page": "https://www.clglobal.org/partnerships",
+    "contact_page": "https://www.clglobal.org/contact",
+    "live_partnership_form": {
+      "platform": "Strikingly custom form",
+      "fields_visible": ["Name", "Email", "Message"],
+      "email_field_name": "$item1606282596776#email",
+      "submit_endpoint": "Not exposed in static HTML; appears runtime/recaptcha dependent.",
+      "reuse_decision": "Do not clone a private Strikingly submission endpoint. Link to live partnerships page and preserve mailto routes."
+    },
+    "redesign_static_form": {
+      "action": "mailto:contact@clglobal.org",
+      "method": "post",
+      "enctype": "text/plain",
+      "fields": ["student_or_institution", "email", "route", "message"]
+    }
+  },
+  "sources": [
+    "https://www.clglobal.org/",
+    "https://www.clglobal.org/courses",
+    "https://www.clglobal.org/our-team",
+    "https://www.clglobal.org/partnerships",
+    "https://www.clglobal.org/contact",
+    "https://www.enterprise.cam.ac.uk/connecting-cambridge-innovation/global-outreach/cl-global-academy/",
+    "https://cebc.eng.cam.ac.uk/education/short-training-sessions",
+    "https://www.immerse.education/",
+    "https://www.oxford-royale.com/index",
+    "https://www.reachcambridge.com/",
+    "https://oxbridgesummerschool.com/"
+  ]
+}
