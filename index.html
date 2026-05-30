@@ -378,49 +378,100 @@
         line-height: 1.76;
       }
 
-      .intro-copy {
-        max-width: 1180px;
+      .impact-section {
+        padding-top: clamp(108px, 11vw, 168px);
       }
 
-      .intro-copy .lead {
-        max-width: 1060px;
-        margin-top: 30px;
-      }
-
-      .stats {
+      .impact-layout {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0;
-        margin-top: clamp(58px, 7vw, 86px);
+        grid-template-columns: minmax(0, 0.9fr) minmax(460px, 0.62fr);
+        gap: clamp(56px, 8vw, 118px);
+        align-items: end;
+      }
+
+      .impact-heading h2 {
+        max-width: 900px;
+      }
+
+      .impact-story {
+        padding: 34px 0 6px 42px;
+        border-left: 2px solid var(--gold);
+      }
+
+      .impact-story .lead {
+        color: #485650;
+        font-size: 1.34rem;
+        line-height: 1.72;
+      }
+
+      .impact-thread {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 34px;
+        padding-top: 24px;
+        border-top: 1px solid var(--rule);
+        color: var(--green-800);
+        font-family: Inter, Arial, sans-serif;
+        font-size: 0.78rem;
+        font-weight: 800;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .impact-stats {
+        display: grid;
+        grid-template-columns: 0.95fr 1.08fr 1.22fr 1fr;
+        margin-top: clamp(68px, 7vw, 96px);
         border-top: 1px solid var(--rule);
         border-bottom: 1px solid var(--rule);
       }
 
-      .stat {
-        min-height: 250px;
-        padding: 34px 20px 32px 0;
+      .impact-stat {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 228px;
+        padding: 32px clamp(22px, 2.4vw, 38px) 30px;
         border-right: 1px solid var(--rule);
       }
 
-      .stat:last-child {
+      .impact-stat:first-child {
+        padding-left: 0;
+      }
+
+      .impact-stat:last-child {
         border-right: 0;
       }
 
-      .stat strong {
+      .impact-stat strong {
         display: block;
         color: var(--gold);
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 5rem;
+        font-size: 4.85rem;
         font-weight: 700;
-        line-height: 0.9;
+        line-height: 0.88;
       }
 
-      .stat span {
+      .impact-stat.since strong {
         display: block;
-        max-width: 275px;
+        white-space: nowrap;
+      }
+
+      .impact-stat.since strong span {
+        display: inline;
+        margin-right: 0.02em;
+        font-size: 0.62em;
+      }
+
+      .impact-stat em {
+        display: block;
+        max-width: 285px;
         margin-top: 22px;
         color: var(--soft-ink);
-        font-size: 1.02rem;
+        font-family: Lora, Georgia, serif;
+        font-size: 1.03rem;
+        font-style: normal;
         line-height: 1.55;
       }
 
@@ -729,7 +780,7 @@
           font-size: 1.38rem;
         }
 
-        .stat strong {
+        .impact-stat strong {
           font-size: 4.05rem;
         }
 
@@ -737,11 +788,17 @@
           font-size: 2.08rem;
         }
 
+        .impact-layout,
         .experience-grid,
         .advisors,
         .courses-heading,
         .cta-grid {
           grid-template-columns: 1fr;
+        }
+
+        .impact-story {
+          max-width: 860px;
+          padding-top: 28px;
         }
 
         .experience-media {
@@ -754,12 +811,12 @@
           height: auto;
         }
 
-        .stats,
+        .impact-stats,
         .testimonials {
           grid-template-columns: repeat(2, 1fr);
         }
 
-        .stat:nth-child(2) {
+        .impact-stat:nth-child(2) {
           border-right: 0;
         }
       }
@@ -842,7 +899,16 @@
           font-size: 1.06rem;
         }
 
-        .stat strong {
+        .impact-story {
+          padding: 24px 0 0 22px;
+        }
+
+        .impact-thread {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .impact-stat strong {
           font-size: 3.3rem;
         }
 
@@ -874,20 +940,24 @@
           padding: 78px 0;
         }
 
-        .stats,
+        .impact-stats,
         .testimonials,
         .advisor-points {
           grid-template-columns: 1fr;
         }
 
-        .stat {
+        .impact-stat {
           min-height: 0;
           padding: 28px 0;
           border-right: 0;
           border-bottom: 1px solid var(--rule);
         }
 
-        .stat:last-child {
+        .impact-stat.since strong {
+          white-space: normal;
+        }
+
+        .impact-stat:last-child {
           border-bottom: 0;
         }
 
@@ -969,11 +1039,14 @@
         <div class="hero-note">Independent education organization. Not affiliated to any universities.</div>
       </section>
 
-      <section class="section paper" aria-labelledby="approach-title">
-        <div class="narrow">
-          <div class="intro-copy">
+      <section class="section paper impact-section" aria-labelledby="approach-title">
+        <div class="container impact-layout">
+          <div class="impact-heading">
             <p class="eyebrow">An innovative approach</p>
             <h2 id="approach-title">Innovative, inspiring &amp; impactful</h2>
+          </div>
+
+          <div class="impact-story">
             <p class="lead">
               Every year, CL Global Academy welcomes over 1,500 talented students to Cambridge,
               where they engage in intellectually challenging and collaborative courses. Our
@@ -981,24 +1054,31 @@
               Cambridge, who nurture interdisciplinary curiosity and diverse academic interests
               through an innovative, project-based learning approach.
             </p>
+            <div class="impact-thread" aria-label="Programme qualities">
+              <span>Cambridge setting</span>
+              <span>Project-based learning</span>
+              <span>Global connections</span>
+            </div>
           </div>
+        </div>
 
-          <div class="stats" aria-label="CL Global Academy highlights">
-            <div class="stat">
+        <div class="container">
+          <div class="impact-stats" aria-label="CL Global Academy highlights">
+            <div class="impact-stat">
               <strong>38%</strong>
-              <span>of students report acceptances to UK G5 and Ivy League institutions.</span>
+              <em>of students report acceptances to UK G5 and Ivy League institutions.</em>
             </div>
-            <div class="stat">
+            <div class="impact-stat">
               <strong>24,000+</strong>
-              <span>students have graduated into a growing international alumni network.</span>
+              <em>students have graduated into a growing international alumni network.</em>
             </div>
-            <div class="stat">
-              <strong>Since 2009</strong>
-              <span>designing and delivering academic programmes in Cambridge.</span>
+            <div class="impact-stat since">
+              <strong><span>Since</span> 2009</strong>
+              <em>designing and delivering academic programmes in Cambridge.</em>
             </div>
-            <div class="stat">
+            <div class="impact-stat">
               <strong>1,500+</strong>
-              <span>talented students welcomed to Cambridge programmes each year.</span>
+              <em>talented students welcomed to Cambridge programmes each year.</em>
             </div>
           </div>
         </div>
