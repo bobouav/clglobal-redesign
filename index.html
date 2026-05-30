@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CL Global Academy - OxCam Programmes</title>
+    <title>CL Global Academy - Cambridge Academic Programmes</title>
     <meta
       name="description"
-      content="CL Global Academy designs academically rigorous Cambridge programmes that spark curiosity and foster global connections."
+      content="CL Global Academy designs academically rigorous courses that spark curiosity and foster global connections in the heart of Cambridge."
     >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +17,13 @@
     <style>
       :root {
         --green: #113c3b;
-        --green-dark: #0a2b2a;
-        --green-pale: #dfeae4;
+        --green-dark: #082725;
+        --green-mid: #1c5953;
+        --cream: #fbf8ef;
+        --warm: #efe4d1;
         --gold: #af9c6b;
-        --paper: #faf8f1;
-        --paper-warm: #f1e8d8;
-        --ink: #172321;
-        --muted: #5a6662;
+        --ink: #17211f;
+        --muted: #5e6864;
         --line: rgba(17, 60, 59, 0.16);
         --white: #ffffff;
       }
@@ -39,10 +39,11 @@
       body {
         margin: 0;
         overflow-x: hidden;
-        background: var(--paper);
+        background: var(--cream);
         color: var(--ink);
         font-family: Bitter, Georgia, serif;
-        line-height: 1.62;
+        font-size: 18px;
+        line-height: 1.66;
       }
 
       a {
@@ -62,68 +63,64 @@
 
       .site-header {
         position: fixed;
-        z-index: 20;
-        top: 24px;
-        left: clamp(22px, 4vw, 54px);
-        right: clamp(22px, 4vw, 54px);
+        z-index: 30;
+        top: 30px;
+        left: clamp(24px, 4.4vw, 72px);
+        right: clamp(24px, 4.4vw, 72px);
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        gap: 24px;
+        gap: 30px;
         color: var(--white);
       }
 
       .brand img {
-        width: 154px;
+        width: 172px;
         height: auto;
-        filter: brightness(0) invert(1) drop-shadow(0 2px 12px rgba(0, 0, 0, 0.32));
+        filter: brightness(0) invert(1) drop-shadow(0 2px 18px rgba(0, 0, 0, 0.3));
       }
 
       .nav {
         display: flex;
         align-items: center;
-        gap: 25px;
-        padding-top: 4px;
+        gap: 30px;
+        padding-top: 5px;
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.92rem;
-        font-weight: 700;
+        font-size: 1rem;
+        font-weight: 800;
       }
 
       .nav a {
-        color: rgba(255, 255, 255, 0.95);
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+        color: rgba(255, 255, 255, 0.96);
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.36);
       }
 
-      .nav a:hover {
-        color: var(--white);
-      }
-
-      .nav .apply {
+      .nav .apply-link {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 44px;
-        padding: 0 24px;
-        border: 1px solid rgba(255, 255, 255, 0.62);
+        min-height: 50px;
+        padding: 0 28px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
         border-radius: 999px;
-        background: rgba(17, 60, 59, 0.74);
+        background: rgba(17, 60, 59, 0.76);
       }
 
       .menu-button {
         display: none;
-        width: 44px;
-        height: 44px;
-        border: 1px solid rgba(255, 255, 255, 0.58);
-        border-radius: 8px;
+        width: 50px;
+        height: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.62);
+        border-radius: 9px;
         color: var(--white);
-        background: rgba(17, 60, 59, 0.68);
+        background: rgba(17, 60, 59, 0.72);
       }
 
       .menu-button span,
       .menu-button::before,
       .menu-button::after {
         display: block;
-        width: 20px;
+        width: 22px;
         height: 2px;
         margin: 5px auto;
         background: currentColor;
@@ -176,8 +173,8 @@
         inset: 0;
         z-index: -1;
         background:
-          linear-gradient(90deg, rgba(5, 20, 20, 0.58), rgba(5, 20, 20, 0.34) 48%, rgba(5, 20, 20, 0.06)),
-          linear-gradient(180deg, rgba(5, 20, 20, 0.1), rgba(5, 20, 20, 0.05) 54%, rgba(5, 20, 20, 0.34));
+          linear-gradient(90deg, rgba(6, 22, 21, 0.64), rgba(6, 22, 21, 0.34) 48%, rgba(6, 22, 21, 0.06)),
+          linear-gradient(180deg, rgba(6, 22, 21, 0.06), rgba(6, 22, 21, 0.04) 58%, rgba(6, 22, 21, 0.32));
         content: "";
         pointer-events: none;
       }
@@ -185,28 +182,28 @@
       .hero-inner {
         display: flex;
         align-items: center;
-        width: 100%;
         min-height: 100svh;
-        padding: 142px clamp(26px, 6.5vw, 96px) 118px;
+        padding: 150px clamp(28px, 7vw, 112px) 122px;
       }
 
       .hero-copy {
-        width: min(100%, 1030px);
+        width: min(100%, 1160px);
       }
 
       .eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 12px;
-        margin: 0 0 22px;
+        gap: 16px;
+        margin: 0 0 28px;
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.78rem;
+        font-size: 0.9rem;
         font-weight: 800;
+        line-height: 1.2;
         text-transform: uppercase;
       }
 
       .eyebrow::before {
-        width: 36px;
+        width: 48px;
         height: 2px;
         background: var(--gold);
         content: "";
@@ -220,39 +217,39 @@
       }
 
       h1 {
-        max-width: 1000px;
+        max-width: 1130px;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(4.5rem, 8.2vw, 7.9rem);
-        line-height: 0.92;
-        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.24);
+        font-size: clamp(5.4rem, 8.8vw, 9.4rem);
+        line-height: 0.9;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
       }
 
       .hero-copy p:not(.eyebrow) {
-        max-width: 820px;
-        margin: 28px 0 0;
-        color: rgba(255, 255, 255, 0.93);
-        font-size: clamp(1.12rem, 1.7vw, 1.38rem);
-        line-height: 1.52;
-        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.24);
+        max-width: 860px;
+        margin: 32px 0 0;
+        color: rgba(255, 255, 255, 0.94);
+        font-size: clamp(1.35rem, 2vw, 1.72rem);
+        line-height: 1.48;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.26);
       }
 
       .actions {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 42px;
+        gap: 16px;
+        margin-top: 48px;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 52px;
-        padding: 0 28px;
+        min-height: 58px;
+        padding: 0 34px;
         border: 1px solid transparent;
         border-radius: 999px;
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.95rem;
+        font-size: 1.02rem;
         font-weight: 800;
       }
 
@@ -263,8 +260,8 @@
 
       .button.ghost {
         color: var(--white);
-        border-color: rgba(255, 255, 255, 0.76);
-        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.05);
       }
 
       .button.green {
@@ -272,28 +269,27 @@
         background: var(--green);
       }
 
-      .hero-footnote {
+      .hero-note {
         position: absolute;
-        left: clamp(26px, 6.5vw, 96px);
-        right: clamp(26px, 6.5vw, 96px);
-        bottom: 28px;
-        color: rgba(255, 255, 255, 0.78);
+        left: clamp(28px, 7vw, 112px);
+        right: clamp(28px, 7vw, 112px);
+        bottom: 32px;
+        color: rgba(255, 255, 255, 0.82);
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.76rem;
-        font-weight: 600;
+        font-size: 0.86rem;
+        font-weight: 700;
       }
 
       .stats {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        width: 100%;
         border-bottom: 1px solid var(--line);
-        background: var(--paper);
+        background: var(--cream);
       }
 
       .stat {
-        min-height: 160px;
-        padding: 36px clamp(24px, 4vw, 64px);
+        min-height: 178px;
+        padding: 40px clamp(28px, 4.6vw, 72px);
         border-right: 1px solid var(--line);
       }
 
@@ -305,26 +301,26 @@
         display: block;
         color: var(--green);
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(2.5rem, 4vw, 3.8rem);
-        line-height: 0.95;
+        font-size: clamp(3rem, 4.7vw, 4.65rem);
+        line-height: 0.94;
       }
 
       .stat span {
         display: block;
-        margin-top: 12px;
+        margin-top: 16px;
         color: var(--muted);
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
-        line-height: 1.45;
+        font-size: 0.96rem;
+        font-weight: 650;
+        line-height: 1.48;
       }
 
       .section {
-        padding: 108px 0;
+        padding: 124px 0;
       }
 
-      .section.paper {
-        background: var(--paper-warm);
+      .section.warm {
+        background: var(--warm);
       }
 
       .section.green {
@@ -333,23 +329,23 @@
       }
 
       .container {
-        width: min(1180px, calc(100% - 48px));
+        width: min(1380px, calc(100% - 56px));
         margin: 0 auto;
       }
 
       .section-head {
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.56fr);
-        gap: 54px;
+        grid-template-columns: minmax(0, 0.92fr) minmax(320px, 0.56fr);
+        gap: 64px;
         align-items: end;
-        margin-bottom: 48px;
+        margin-bottom: 58px;
       }
 
       .kicker {
-        margin: 0 0 16px;
+        margin: 0 0 18px;
         color: #806d3d;
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.78rem;
+        font-size: 0.9rem;
         font-weight: 800;
         text-transform: uppercase;
       }
@@ -360,167 +356,163 @@
 
       h2 {
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(2.75rem, 5.4vw, 5.6rem);
-        line-height: 0.98;
+        font-size: clamp(3.5rem, 6vw, 7.2rem);
+        line-height: 0.94;
       }
 
       .lede {
         margin: 0;
         color: var(--muted);
-        font-size: 1.08rem;
-        line-height: 1.74;
+        font-size: 1.28rem;
+        line-height: 1.72;
       }
 
       .section.green .lede {
-        color: rgba(255, 255, 255, 0.78);
+        color: rgba(255, 255, 255, 0.82);
       }
 
       .intro {
         display: grid;
         grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-        gap: 58px;
+        gap: 70px;
         align-items: center;
       }
 
       .intro p {
-        margin: 24px 0 0;
+        margin: 28px 0 0;
         color: var(--muted);
-        font-size: 1.08rem;
+        font-size: 1.28rem;
       }
 
       .triptych {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        gap: 18px;
       }
 
       .triptych img {
         width: 100%;
-        aspect-ratio: 1 / 1.22;
+        aspect-ratio: 1 / 1.24;
         object-fit: cover;
       }
 
       .triptych img:nth-child(2) {
-        margin-top: 42px;
+        margin-top: 48px;
       }
 
       .course-list {
         display: grid;
-        gap: 0;
         border-top: 1px solid var(--line);
       }
 
       .course {
         display: grid;
-        grid-template-columns: minmax(260px, 0.38fr) minmax(0, 1fr);
-        gap: 34px;
-        padding: 34px 0;
+        grid-template-columns: minmax(320px, 0.42fr) minmax(0, 1fr);
+        gap: 52px;
+        padding: 46px 0;
         border-bottom: 1px solid var(--line);
         align-items: center;
       }
 
       .course img {
         width: 100%;
-        aspect-ratio: 1.28 / 1;
+        aspect-ratio: 1.32 / 1;
         object-fit: cover;
       }
 
       .course-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 12px;
+        gap: 12px;
+        margin-bottom: 16px;
         color: #806d3d;
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.76rem;
+        font-size: 0.86rem;
         font-weight: 800;
         text-transform: uppercase;
       }
 
       .course h3 {
         font-family: "Playfair Display", Georgia, serif;
-        font-size: clamp(2rem, 3vw, 3.3rem);
-        line-height: 1;
+        font-size: clamp(2.8rem, 4.4vw, 5.5rem);
+        line-height: 0.96;
       }
 
       .course p {
-        max-width: 760px;
-        margin: 16px 0 0;
+        max-width: 840px;
+        margin: 22px 0 0;
         color: var(--muted);
+        font-size: 1.18rem;
       }
 
       .text-link {
         display: inline-flex;
-        margin-top: 20px;
+        margin-top: 26px;
         color: var(--green);
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.86rem;
+        font-size: 0.95rem;
         font-weight: 800;
       }
 
       .experience {
         display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-        gap: 58px;
+        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+        gap: 70px;
         align-items: center;
-      }
-
-      .experience-image {
-        position: relative;
       }
 
       .experience-image img {
         width: 100%;
-        min-height: 570px;
+        min-height: 620px;
         object-fit: cover;
       }
 
       .experience-copy {
         display: grid;
-        gap: 24px;
+        gap: 28px;
       }
 
       .experience-item {
-        padding: 22px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 26px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.22);
       }
 
       .experience-item h3 {
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 1rem;
+        font-size: 1.16rem;
         font-weight: 800;
       }
 
       .experience-item p {
-        margin: 8px 0 0;
-        color: rgba(255, 255, 255, 0.78);
+        margin: 9px 0 0;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.08rem;
       }
 
       .testimonials {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
+        gap: 32px;
       }
 
       blockquote {
         margin: 0;
-        padding: 0;
       }
 
       blockquote p {
         margin: 0;
         color: #243431;
         font-family: "Playfair Display", Georgia, serif;
-        font-size: 1.36rem;
-        line-height: 1.36;
+        font-size: clamp(1.75rem, 2.35vw, 2.45rem);
+        line-height: 1.24;
       }
 
       blockquote cite {
         display: block;
-        margin-top: 20px;
+        margin-top: 24px;
         color: #806d3d;
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.78rem;
+        font-size: 0.88rem;
         font-style: normal;
         font-weight: 800;
         text-transform: uppercase;
@@ -530,84 +522,89 @@
         position: relative;
         color: var(--white);
         background:
-          linear-gradient(90deg, rgba(5, 20, 20, 0.54), rgba(5, 20, 20, 0.22)),
+          linear-gradient(90deg, rgba(5, 20, 20, 0.54), rgba(5, 20, 20, 0.2)),
           url("https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/81623_246246.jpeg")
           center / cover;
       }
 
       .cta .container {
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.4fr);
-        gap: 44px;
+        grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.42fr);
+        gap: 54px;
         align-items: end;
       }
 
       .cta p {
-        max-width: 730px;
-        color: rgba(255, 255, 255, 0.86);
-        font-size: 1.1rem;
+        max-width: 820px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.28rem;
       }
 
       .contact-box {
-        padding: 26px;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        background: rgba(17, 60, 59, 0.42);
+        padding: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.34);
+        background: rgba(17, 60, 59, 0.44);
       }
 
       .contact-box a {
         display: block;
         color: var(--white);
         font-family: Montserrat, Arial, sans-serif;
+        font-size: 1rem;
         font-weight: 800;
       }
 
+      .contact-box a + a {
+        margin-top: 12px;
+      }
+
       footer {
-        padding: 44px clamp(24px, 4vw, 54px);
-        color: rgba(255, 255, 255, 0.76);
+        padding: 52px clamp(28px, 4.4vw, 72px);
+        color: rgba(255, 255, 255, 0.78);
         background: var(--green-dark);
       }
 
       .footer-inner {
         display: flex;
         justify-content: space-between;
-        gap: 34px;
+        gap: 40px;
       }
 
       footer img {
-        width: 150px;
+        width: 162px;
         filter: brightness(0) invert(1);
       }
 
       footer p {
-        max-width: 780px;
-        margin: 18px 0 0;
-        font-size: 0.84rem;
+        max-width: 820px;
+        margin: 20px 0 0;
+        font-size: 0.98rem;
       }
 
       .footer-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px 20px;
+        gap: 14px 22px;
         justify-content: flex-end;
         font-family: Montserrat, Arial, sans-serif;
-        font-size: 0.82rem;
+        font-size: 0.92rem;
         font-weight: 700;
       }
 
-      @media (max-width: 920px) {
+      @media (max-width: 1000px) {
         .site-header {
-          top: 16px;
+          top: 18px;
           left: 24px;
           right: 24px;
         }
 
         .brand img {
-          width: 132px;
+          width: 142px;
         }
 
         .nav {
-          gap: 16px;
-          font-size: 0.78rem;
+          gap: 18px;
+          font-size: 0.84rem;
         }
 
         .section-head,
@@ -623,11 +620,19 @@
         }
       }
 
-      @media (max-width: 720px) {
+      @media (max-width: 740px) {
+        body {
+          font-size: 17px;
+        }
+
         .site-header {
           align-items: flex-start;
           left: 14px;
           right: 14px;
+        }
+
+        .brand img {
+          width: 138px;
         }
 
         .menu-button {
@@ -636,7 +641,7 @@
 
         .nav {
           position: absolute;
-          top: 58px;
+          top: 62px;
           right: 0;
           left: 0;
           display: none;
@@ -645,7 +650,7 @@
           gap: 0;
           padding: 12px;
           border: 1px solid rgba(255, 255, 255, 0.2);
-          background: rgba(8, 37, 36, 0.96);
+          background: rgba(8, 39, 37, 0.97);
         }
 
         .site-header.open .nav {
@@ -656,20 +661,20 @@
           padding: 12px;
         }
 
-        .nav .apply {
+        .nav .apply-link {
           margin-top: 8px;
         }
 
         .hero-inner {
-          padding: 138px 15px 98px;
+          padding: 142px 17px 104px;
         }
 
         h1 {
-          font-size: clamp(3.8rem, 16vw, 5.1rem);
+          font-size: clamp(4.2rem, 17vw, 5.7rem);
         }
 
         .hero-copy p:not(.eyebrow) {
-          font-size: 1.04rem;
+          font-size: 1.12rem;
         }
 
         .actions {
@@ -679,6 +684,12 @@
 
         .button {
           width: 100%;
+        }
+
+        .hero-note {
+          left: 17px;
+          right: 17px;
+          font-size: 0.74rem;
         }
 
         .stats,
@@ -693,16 +704,36 @@
           border-bottom: 1px solid var(--line);
         }
 
-        .course {
-          grid-template-columns: 1fr;
+        .section {
+          padding: 86px 0;
+        }
+
+        .container {
+          width: min(100% - 34px, 1380px);
+        }
+
+        h2 {
+          font-size: clamp(3rem, 13vw, 4.35rem);
+        }
+
+        .intro p,
+        .lede,
+        .course p,
+        .cta p {
+          font-size: 1.06rem;
         }
 
         .triptych img:nth-child(2) {
           margin-top: 0;
         }
 
+        .course {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
         .experience-image img {
-          min-height: 420px;
+          min-height: 430px;
         }
 
         .footer-inner {
@@ -732,7 +763,7 @@
         <a href="#partnerships">Partnerships</a>
         <a href="#alumni">Alumni</a>
         <a href="https://www.clglobal.org/our-team">About</a>
-        <a class="apply" href="https://jinshuju.com/f/L0N0o5">Apply</a>
+        <a class="apply-link" href="https://jinshuju.com/f/L0N0o5">Apply</a>
       </nav>
     </header>
 
@@ -746,6 +777,7 @@
             referrerpolicy="strict-origin-when-cross-origin"
           ></iframe>
         </div>
+
         <div class="hero-inner">
           <div class="hero-copy">
             <p class="eyebrow">OxCam Programmes in Cambridge</p>
@@ -760,7 +792,7 @@
             </div>
           </div>
         </div>
-        <div class="hero-footnote">Independent education organization. Not affiliated to any universities.</div>
+        <div class="hero-note">Independent education organization. Not affiliated to any universities.</div>
       </section>
 
       <section class="stats" aria-label="CL Global Academy highlights">
@@ -788,9 +820,8 @@
             <p class="kicker">An innovative approach</p>
             <h2>Academic substance, cultural context, lasting connection.</h2>
             <p>
-              This redesign follows the original site’s best instincts: full-width Cambridge
-              atmosphere, generous editorial pacing, useful proof, and clear routes into the
-              current course catalogue and application form.
+              CL Global Academy brings rigorous study into a setting students remember: Cambridge
+              teaching, college life, cultural experiences, and a global peer community.
             </p>
           </div>
           <div class="triptych">
@@ -813,7 +844,7 @@
         </div>
       </section>
 
-      <section class="section paper" id="courses">
+      <section class="section warm" id="courses">
         <div class="container">
           <div class="section-head">
             <div>
@@ -821,10 +852,11 @@
               <h2>Choose the academic route that fits the student.</h2>
             </div>
             <p class="lede">
-              Course information is presented as a clean editorial catalogue, not as a product
-              dashboard. Dates, audience, and official links are visible without overwhelming the page.
+              A clearer catalogue for the current OxCam routes, with dates, audience, and official
+              next steps visible without making the page feel like software.
             </p>
           </div>
+
           <div class="course-list">
             <article class="course">
               <img
