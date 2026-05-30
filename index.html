@@ -83,7 +83,8 @@
       }
 
       .site-header.scrolled,
-      .site-header.open {
+      .site-header.open,
+      .site-header.search-open {
         min-height: 92px;
         color: var(--ink);
         background: rgba(255, 253, 248, 0.96);
@@ -104,7 +105,8 @@
       }
 
       .site-header.scrolled .brand img,
-      .site-header.open .brand img {
+      .site-header.open .brand img,
+      .site-header.search-open .brand img {
         filter: none;
       }
 
@@ -124,7 +126,8 @@
       }
 
       .site-header.scrolled .nav a,
-      .site-header.open .nav a {
+      .site-header.open .nav a,
+      .site-header.search-open .nav a {
         text-shadow: none;
       }
 
@@ -138,6 +141,82 @@
         color: var(--white);
         background: var(--green-800);
         text-shadow: none;
+      }
+
+      .search-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        border-radius: 999px;
+        color: currentColor;
+        background: rgba(5, 25, 23, 0.12);
+        cursor: pointer;
+      }
+
+      .site-header.scrolled .search-toggle,
+      .site-header.open .search-toggle,
+      .site-header.search-open .search-toggle {
+        border-color: rgba(20, 32, 29, 0.18);
+        background: rgba(18, 63, 59, 0.08);
+      }
+
+      .search-toggle svg {
+        width: 21px;
+        height: 21px;
+        stroke-width: 2.25;
+      }
+
+      .search-label {
+        display: none;
+      }
+
+      .site-search {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: clamp(32px, 4.4vw, 76px);
+        width: min(460px, calc(100vw - 48px));
+        padding: 14px;
+        border: 1px solid rgba(20, 32, 29, 0.14);
+        border-radius: 8px;
+        background: rgba(255, 253, 248, 0.98);
+        box-shadow: 0 24px 70px rgba(20, 32, 29, 0.18);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease,
+          visibility 180ms ease;
+        visibility: hidden;
+      }
+
+      .site-header.search-open .site-search {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .site-search input {
+        width: 100%;
+        height: 56px;
+        padding: 0 18px;
+        border: 1px solid rgba(18, 63, 59, 0.22);
+        border-radius: 6px;
+        color: var(--ink);
+        background: var(--white);
+        font-family: Inter, Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        outline: none;
+      }
+
+      .site-search input:focus {
+        border-color: var(--green-800);
+        box-shadow: 0 0 0 3px rgba(18, 63, 59, 0.12);
       }
 
       .menu-button {
@@ -223,6 +302,27 @@
         width: min(1040px, 100%);
       }
 
+      .hero-copy .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        margin: 0 0 26px;
+        color: rgba(255, 255, 255, 0.92);
+        font-family: Inter, Arial, sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+        line-height: 1.2;
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+        text-transform: uppercase;
+      }
+
+      .hero-copy .hero-kicker::before {
+        width: 52px;
+        height: 2px;
+        background: var(--gold);
+        content: "";
+      }
+
       h1,
       h2,
       h3,
@@ -242,7 +342,7 @@
       h1 {
         max-width: 1060px;
         font-size: 8.9rem;
-        line-height: 0.86;
+        line-height: 0.98;
         text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
       }
 
@@ -329,13 +429,44 @@
       .hero-note {
         position: absolute;
         left: clamp(30px, 4vw, 66px);
-        right: clamp(30px, 4vw, 66px);
+        right: auto;
         bottom: 30px;
+        max-width: 560px;
         color: rgba(255, 255, 255, 0.9);
         font-family: Inter, Arial, sans-serif;
         font-size: 0.82rem;
         font-weight: 700;
         letter-spacing: 0;
+      }
+
+      .hero-proof {
+        position: absolute;
+        right: clamp(30px, 4vw, 66px);
+        bottom: 30px;
+        display: flex;
+        gap: 34px;
+        max-width: 560px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.36);
+        color: rgba(255, 255, 255, 0.92);
+        font-family: Inter, Arial, sans-serif;
+        line-height: 1.2;
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+      }
+
+      .hero-proof strong {
+        display: block;
+        color: var(--white);
+        font-size: 1.04rem;
+        font-weight: 800;
+      }
+
+      .hero-proof span {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
       }
 
       .section {
@@ -788,7 +919,8 @@
         }
 
         .site-header.scrolled,
-        .site-header.open {
+        .site-header.open,
+        .site-header.search-open {
           min-height: 86px;
         }
 
@@ -814,6 +946,10 @@
 
         .hero-copy p {
           font-size: 1.38rem;
+        }
+
+        .hero-proof {
+          display: none;
         }
 
         .impact-stat strong {
@@ -872,7 +1008,8 @@
         }
 
         .site-header.scrolled,
-        .site-header.open {
+        .site-header.open,
+        .site-header.search-open {
           min-height: 84px;
         }
 
@@ -911,12 +1048,48 @@
           margin-top: 6px;
         }
 
+        .nav .search-toggle {
+          justify-content: flex-start;
+          width: 100%;
+          height: auto;
+          gap: 10px;
+          padding: 13px 14px;
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+          color: currentColor;
+        }
+
+        .search-label {
+          display: inline;
+          font-family: Lora, Georgia, serif;
+          font-size: 1.02rem;
+          font-weight: 700;
+        }
+
+        .site-search {
+          top: 92px;
+          left: 17px;
+          right: 17px;
+          width: auto;
+        }
+
         .hero-inner {
           padding: 132px 20px 116px;
         }
 
         .hero-copy p {
           font-size: 1.18rem;
+        }
+
+        .hero-copy .hero-kicker {
+          gap: 12px;
+          margin-bottom: 18px;
+          font-size: 0.74rem;
+        }
+
+        .hero-copy .hero-kicker::before {
+          width: 36px;
         }
 
         h1 {
@@ -971,6 +1144,7 @@
         .hero-note {
           left: 20px;
           right: 20px;
+          max-width: none;
           font-size: 0.74rem;
         }
 
@@ -1051,8 +1225,24 @@
         <a href="#experience">Activities</a>
         <a href="#partnerships">Partnerships</a>
         <a href="https://www.clglobal.org/our-team">About</a>
+        <button class="search-toggle" type="button" aria-label="Search" aria-controls="site-search" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+          <span class="search-label">Search</span>
+        </button>
         <a class="apply-link" href="https://jinshuju.com/f/L0N0o5">Apply</a>
       </nav>
+      <form class="site-search" id="site-search" role="search" aria-label="Site search">
+        <input
+          id="search-input"
+          type="search"
+          name="q"
+          autocomplete="off"
+          placeholder="Search courses, activities, partnerships"
+        >
+      </form>
     </header>
 
     <main id="top">
@@ -1068,6 +1258,7 @@
 
         <div class="hero-inner">
           <div class="hero-copy">
+            <p class="hero-kicker">OxCam programmes in Cambridge</p>
             <h1 id="hero-title">Meticulously crafted academic programmes</h1>
             <p>
               We design academically rigorous courses that spark curiosity and foster global
@@ -1080,6 +1271,16 @@
           </div>
         </div>
         <div class="hero-note">Independent education organization. Not affiliated to any universities.</div>
+        <div class="hero-proof" aria-label="Programme highlights">
+          <div>
+            <strong>Since 2009</strong>
+            <span>Cambridge programmes</span>
+          </div>
+          <div>
+            <strong>24,000+</strong>
+            <span>Alumni worldwide</span>
+          </div>
+        </div>
       </section>
 
       <section class="section paper impact-section" aria-labelledby="approach-title">
@@ -1338,6 +1539,9 @@
     <script>
       const header = document.getElementById("site-header");
       const menuButton = header.querySelector(".menu-button");
+      const searchToggle = header.querySelector(".search-toggle");
+      const searchForm = document.getElementById("site-search");
+      const searchInput = document.getElementById("search-input");
       const videoWrap = document.querySelector(".hero-video");
       const heroVideo = videoWrap.querySelector("iframe");
 
@@ -1345,16 +1549,50 @@
         header.classList.toggle("scrolled", window.scrollY > 24);
       };
 
+      const closeSearch = () => {
+        header.classList.remove("search-open");
+        searchToggle.setAttribute("aria-expanded", "false");
+      };
+
       menuButton.addEventListener("click", () => {
         const open = header.classList.toggle("open");
         menuButton.setAttribute("aria-expanded", String(open));
+        if (open) {
+          closeSearch();
+        }
+      });
+
+      searchToggle.addEventListener("click", () => {
+        const open = !header.classList.contains("search-open");
+        header.classList.toggle("search-open", open);
+        searchToggle.setAttribute("aria-expanded", String(open));
+        if (open) {
+          header.classList.remove("open");
+          menuButton.setAttribute("aria-expanded", "false");
+          window.setTimeout(() => searchInput.focus(), 80);
+        }
+      });
+
+      searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const query = searchInput.value.trim();
+        if (query) {
+          window.location.href = `https://www.clglobal.org/s/search?q=${encodeURIComponent(query)}`;
+        }
       });
 
       header.querySelectorAll(".nav a").forEach((link) => {
         link.addEventListener("click", () => {
           header.classList.remove("open");
           menuButton.setAttribute("aria-expanded", "false");
+          closeSearch();
         });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeSearch();
+        }
       });
 
       window.addEventListener("scroll", syncHeader, { passive: true });
