@@ -8,7 +8,7 @@ Key facts from the official site:
 
 - Founded in 2009 by Allen and Katrina.
 - Welcomes over 1,500 students to Cambridge each year.
-- Reports 24,000+ graduates and 16 years designing and delivering Cambridge courses.
+- Reports 24,000+ graduates and a programme history dating to 2009.
 - Offers AI+, System Design & Engineering Thinking+, and OxCam Research+.
 - Serves both university students and younger students aged 13-18.
 - Has bases in the UK, Shanghai, and the US.
@@ -43,7 +43,7 @@ Strengths:
 
 - Beautiful Cambridge video/photo material in the first screen.
 - Clear Cambridge location and academic tone.
-- Strong proof metrics: annual students, alumni, years, acceptance statistic.
+- Strong proof metrics: annual students, alumni, history since 2009, and acceptance statistic.
 - Useful content about Authentic Cambridge Experiences, Fellow Advisors, Academic Excellence, and alumni testimonials.
 - Real application CTA points to `https://jinshuju.com/f/L0N0o5`.
 - Contact CTA uses `mailto:contact@clglobal.org`.
@@ -67,11 +67,11 @@ Design a polished, contentful homepage for ambitious students, parents, academic
 The redesigned homepage centers on:
 
 - A video hero with immediate application and course-routing CTAs.
-- Proof metrics adjacent to the first decision.
-- A programme journey tracker so students and parents understand the path from application to alumni network.
-- Course cards with dates, audience, and project themes.
+- The original homepage's content order: approach, proof, Cambridge experience, Fellow Advisors, academic routes, alumni, and sign up.
+- Full-width editorial sections that preserve the original prestige and Cambridge atmosphere.
+- Course rows with dates, audience, and project themes.
 - Transparent partnership and independence language.
-- A concise inquiry brief that preserves public mailto routes instead of inventing a private backend.
+- Public application, course, contact, and partnership paths rather than invented private backend flows.
 
 ## Backend/API Reuse
 
@@ -91,7 +91,7 @@ Visible frontend details:
 
 - Homepage has no public application form endpoint; application is an external Jinshuju link.
 - Partnerships page uses a Strikingly custom form. Visible fields include Name, Email, and Message. The email input name is `$item1606282596776#email`. No stable public form `action` endpoint is exposed in static HTML, and submission appears dependent on Strikingly runtime/recaptcha. The redesign documents and links the live partnerships page rather than inventing a private Strikingly submit API.
-- The redesign includes a static mailto-based inquiry brief only, with `action="mailto:contact@clglobal.org"`, `method="post"`, and `enctype="text/plain"`.
+- The redesign preserves mailto links and live official pages only; it does not create a new static form.
 
 Preserved media:
 

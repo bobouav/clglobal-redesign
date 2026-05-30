@@ -39,9 +39,9 @@
   "design_strategy": [
     "Keep the current Cambridge video as the immersive first-viewport signal",
     "Make Apply now and Explore courses visible in the hero",
-    "Place proof metrics beside the first decision",
-    "Add a programme journey tracker from application through alumni network",
-    "Turn the 2026 catalogue into three clear course cards",
+    "Preserve the original homepage order: approach, proof, Cambridge experience, Fellow Advisors, academic routes, alumni, and sign up",
+    "Use full-width editorial sections and large serif typography rather than a dashboard or template structure",
+    "Turn the 2026 catalogue into three clear editorial course rows",
     "Add transparent partnership and independence language near credibility claims",
     "Preserve public backend/contact paths only"
   ],
@@ -61,9 +61,10 @@
     "hero_vimeo_background": "https://player.vimeo.com/video/1062106828?background=1&api=1&autopause=0&autoplay=1&mute=1&badge=0&loop=1&portrait=0&title=0",
     "hero_poster": "https://uploads.strikinglycdn.com/static/videos/1741024304/video/1988968907-e530cbaa3fe8783fac9970b2b3023bbe44139d44794005cdf466984c298733a8-d_1280",
     "logo": "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_630,w_1200,f_auto,q_auto/243274/119769_798809.png",
-    "cambridge_experience_image": "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/81623_246246.jpeg",
+    "cambridge_experience_image": "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/243274/802369_526489.jpg",
+    "fellow_advisors_image": "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/243274/306614_871977.jpg",
     "course_images": [
-      "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/405793_275273.jpeg",
+      "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/243274/462987_804064.jpg",
       "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/373724_495403.jpg",
       "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1500,w_2000,f_auto,q_auto/243274/634231_700537.jpg"
     ]
@@ -81,12 +82,6 @@
       "email_field_name": "$item1606282596776#email",
       "submit_endpoint": "Not exposed in static HTML; appears runtime/recaptcha dependent.",
       "reuse_decision": "Do not clone a private Strikingly submission endpoint. Link to live partnerships page and preserve mailto routes."
-    },
-    "redesign_static_form": {
-      "action": "mailto:contact@clglobal.org",
-      "method": "post",
-      "enctype": "text/plain",
-      "fields": ["student_or_institution", "email", "route", "message"]
     }
   },
   "sources": [
