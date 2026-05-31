@@ -302,6 +302,8 @@
 
       .hero-copy {
         width: min(920px, 100%);
+        margin-bottom: 24px;
+        margin-left: clamp(0px, 1.15vw, 22px);
       }
 
       .hero-copy .hero-kicker {
@@ -475,6 +477,17 @@
         font-weight: 800;
         line-height: 1.35;
         text-transform: uppercase;
+      }
+
+      .hero-panel-note {
+        display: block;
+        margin-top: 24px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.22);
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 1.02rem;
+        font-weight: 600;
+        line-height: 1.52;
       }
 
       .section {
@@ -998,6 +1011,11 @@
           padding-bottom: 96px;
         }
 
+        .hero-copy {
+          margin-bottom: 0;
+          margin-left: 0;
+        }
+
         .hero-subtitle {
           font-size: 1.38rem;
         }
@@ -1318,8 +1336,8 @@
               culture and designed to turn curiosity into confident independent work.
             </p>
             <div class="hero-actions">
-              <a class="button outline" href="https://www.clglobal.org/courses">Browse our courses</a>
-              <a class="button paper" href="https://jinshuju.com/f/L0N0o5">Apply now</a>
+              <a class="button paper" href="https://www.clglobal.org/courses">Browse our courses</a>
+              <a class="button outline" href="https://www.clglobal.org/contact">Contact admissions</a>
             </div>
           </div>
 
@@ -1335,6 +1353,9 @@
                 <span>Alumni worldwide</span>
               </div>
             </div>
+            <span class="hero-panel-note">
+              Courses span AI, engineering, research and interdisciplinary seminars.
+            </span>
           </aside>
         </div>
 
