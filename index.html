@@ -477,6 +477,61 @@
         text-transform: uppercase;
       }
 
+      .hero-route-rail {
+        position: absolute;
+        right: clamp(30px, 4vw, 66px);
+        bottom: 28px;
+        left: clamp(30px, 4vw, 66px);
+        display: grid;
+        grid-template-columns: minmax(170px, 0.46fr) repeat(3, minmax(0, 1fr));
+        gap: 28px;
+        align-items: start;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.32);
+        color: rgba(255, 255, 255, 0.86);
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+      }
+
+      .hero-route-label,
+      .hero-route {
+        font-family: Inter, Arial, sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .hero-route-label {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.74rem;
+        line-height: 1.4;
+      }
+
+      .hero-route {
+        display: grid;
+        gap: 7px;
+        padding-left: 20px;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        transition:
+          color 180ms ease,
+          transform 180ms ease;
+      }
+
+      .hero-route strong {
+        color: var(--white);
+        font-size: 0.95rem;
+        line-height: 1.1;
+      }
+
+      .hero-route span {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.68rem;
+        line-height: 1.35;
+      }
+
+      .hero-route:hover {
+        color: var(--white);
+        transform: translateY(-2px);
+      }
+
       .section {
         position: relative;
         padding: clamp(92px, 12vw, 158px) 0;
@@ -1006,6 +1061,10 @@
           display: none;
         }
 
+        .hero-route-rail {
+          display: none;
+        }
+
         .impact-stat strong {
           font-size: 4.05rem;
         }
@@ -1338,6 +1397,21 @@
           </aside>
         </div>
 
+        <nav class="hero-route-rail" aria-label="Programme route shortcuts">
+          <span class="hero-route-label">Programme routes</span>
+          <a class="hero-route" href="https://www.clglobal.org/courses">
+            <strong>AI+ Course</strong>
+            <span>Machine learning &amp; data science</span>
+          </a>
+          <a class="hero-route" href="https://cebc.eng.cam.ac.uk/education/short-training-sessions">
+            <strong>System Design+</strong>
+            <span>Engineering thinking</span>
+          </a>
+          <a class="hero-route" href="https://www.clglobal.org/courses">
+            <strong>OxCam Research+</strong>
+            <span>Ages 13-18</span>
+          </a>
+        </nav>
       </section>
 
       <section class="section paper impact-section" aria-labelledby="approach-title">
