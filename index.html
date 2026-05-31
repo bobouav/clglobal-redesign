@@ -477,50 +477,6 @@
         text-transform: uppercase;
       }
 
-      .hero-metrics {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        padding: 24px clamp(30px, 4vw, 66px);
-        border-top: 1px solid rgba(255, 255, 255, 0.24);
-        background: rgba(5, 28, 26, 0.46);
-        backdrop-filter: blur(8px);
-      }
-
-      .hero-metric {
-        min-height: 76px;
-        padding-right: 28px;
-        border-right: 1px solid rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.8);
-        font-family: Inter, Arial, sans-serif;
-        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
-      }
-
-      .hero-metric:last-child {
-        border-right: 0;
-      }
-
-      .hero-metric strong {
-        display: block;
-        color: var(--white);
-        font-size: 2rem;
-        font-weight: 800;
-        line-height: 1;
-      }
-
-      .hero-metric span {
-        display: block;
-        max-width: 260px;
-        margin-top: 10px;
-        font-size: 0.78rem;
-        font-weight: 800;
-        line-height: 1.42;
-        text-transform: uppercase;
-      }
-
       .section {
         position: relative;
         padding: clamp(92px, 12vw, 158px) 0;
@@ -1039,7 +995,7 @@
 
         .hero-inner {
           grid-template-columns: 1fr;
-          padding-bottom: 238px;
+          padding-bottom: 132px;
         }
 
         .hero-subtitle {
@@ -1048,14 +1004,6 @@
 
         .hero-panel {
           display: none;
-        }
-
-        .hero-metrics {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .hero-metric:nth-child(2) {
-          border-right: 0;
         }
 
         .impact-stat strong {
@@ -1186,7 +1134,7 @@
         }
 
         .hero-inner {
-          padding: 124px 20px 290px;
+          padding: 124px 20px 108px;
         }
 
         .hero-subtitle {
@@ -1251,25 +1199,6 @@
           min-height: 64px;
           padding: 0 28px;
           font-size: 1.02rem;
-        }
-
-        .hero-metrics {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          padding: 18px 20px;
-        }
-
-        .hero-metric {
-          min-height: 72px;
-          padding: 0 16px 16px 0;
-        }
-
-        .hero-metric strong {
-          font-size: 1.62rem;
-        }
-
-        .hero-metric span {
-          margin-top: 8px;
-          font-size: 0.68rem;
         }
 
         .container,
@@ -1409,24 +1338,6 @@
           </aside>
         </div>
 
-        <div class="hero-metrics" aria-label="CL Global Academy highlights">
-          <div class="hero-metric">
-            <strong>Since 2009</strong>
-            <span>Designing academic programmes in Cambridge</span>
-          </div>
-          <div class="hero-metric">
-            <strong>1,500+</strong>
-            <span>Students welcomed to Cambridge each year</span>
-          </div>
-          <div class="hero-metric">
-            <strong>24,000+</strong>
-            <span>Alumni in a growing international network</span>
-          </div>
-          <div class="hero-metric">
-            <strong>38%</strong>
-            <span>Report UK G5 and Ivy League acceptances</span>
-          </div>
-        </div>
       </section>
 
       <section class="section paper impact-section" aria-labelledby="approach-title">
