@@ -362,6 +362,7 @@
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         gap: 22px;
         margin-top: 40px;
       }
@@ -387,14 +388,22 @@
       }
 
       .hero-actions .button {
-        min-width: 208px;
-        min-height: 74px;
-        padding: 0 46px;
-        font-size: 1.1rem;
+        min-width: auto;
       }
 
-      .hero-actions .button:first-child {
-        min-width: 288px;
+      .hero-actions .button.paper {
+        min-width: 304px;
+        min-height: 76px;
+        padding: 0 52px;
+        font-size: 1.14rem;
+      }
+
+      .hero-actions .button.outline {
+        min-width: 218px;
+        min-height: 58px;
+        padding: 0 30px;
+        font-size: 0.98rem;
+        font-weight: 750;
       }
 
       .button.outline {
@@ -1319,9 +1328,21 @@
 
         .hero-actions .button {
           min-width: 0;
-          min-height: 64px;
           padding: 0 28px;
-          font-size: 1.02rem;
+        }
+
+        .hero-actions .button.paper {
+          min-height: 66px;
+          font-size: 1.04rem;
+        }
+
+        .hero-actions .button.outline {
+          align-self: flex-start;
+          width: auto;
+          min-width: min(100%, 238px);
+          min-height: 54px;
+          padding: 0 24px;
+          font-size: 0.95rem;
         }
 
         .container,
