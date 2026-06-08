@@ -3,49 +3,46 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CL Global Programme Support Copilot</title>
+    <title>CL Global Internal Programme Support Copilot</title>
     <meta
       name="description"
-      content="A focused AI programme operations demo for CL Global Academy Fellow Advisors and Programme Coordinators."
+      content="A private internal AI support tool demo for CL Global Academy programme staff and Fellow Advisors."
     >
-    <meta property="og:title" content="CL Global Programme Support Copilot">
+    <meta property="og:title" content="CL Global Internal Programme Support Copilot">
     <meta
       property="og:description"
-      content="A student-support scenario showing approved next steps, parent-safe updates, and coordinator escalation."
+      content="A private staff tool for handling student-support incidents, coordinator review, parent-safe updates and incident logs."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     >
     <style>
       :root {
-        --ink: #14201d;
-        --muted: #66736e;
-        --paper: #f7f4eb;
+        --ink: #17211e;
+        --muted: #64716c;
+        --paper: #f3f1e9;
+        --panel: #fbfaf6;
         --white: #ffffff;
-        --green-950: #062b28;
-        --green-900: #0c3833;
-        --green-800: #174d46;
-        --green-700: #245f55;
-        --green-100: #dce9e3;
-        --gold: #bea96e;
-        --gold-soft: #efe2b7;
-        --blue-soft: #dcebf0;
-        --rose-soft: #f2ded8;
-        --line: rgba(20, 32, 29, 0.14);
-        --line-light: rgba(255, 255, 255, 0.2);
-        --shadow: 0 24px 80px rgba(15, 28, 25, 0.18);
+        --green-950: #082f2b;
+        --green-900: #103c37;
+        --green-800: #1d554d;
+        --green-700: #2d6a60;
+        --green-100: #dfeae4;
+        --gold: #bba66d;
+        --gold-soft: #eee1b7;
+        --blue-soft: #dce9ee;
+        --red-soft: #f4ddd7;
+        --red-ink: #6e2a20;
+        --line: rgba(23, 33, 30, 0.13);
+        --shadow: 0 24px 70px rgba(23, 33, 30, 0.12);
       }
 
       * {
         box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
       }
 
       body {
@@ -78,381 +75,404 @@
         margin-top: 0;
       }
 
-      h1,
-      h2,
-      h3 {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-weight: 600;
-        letter-spacing: 0;
-      }
-
-      .app {
-        position: relative;
+      .product {
         min-height: 100vh;
-        overflow: hidden;
-        background: var(--green-950);
-        color: var(--white);
-        isolation: isolate;
-      }
-
-      .app::before {
-        position: absolute;
-        inset: 0;
-        z-index: -2;
         background:
-          linear-gradient(90deg, rgba(6, 43, 40, 0.96), rgba(6, 43, 40, 0.86) 33%, rgba(6, 43, 40, 0.5) 68%, rgba(6, 43, 40, 0.25)),
-          url("https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/243274/462987_804064.jpg")
-            center / cover;
-        content: "";
+          linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(243, 241, 233, 0.92)),
+          var(--paper);
       }
 
-      .app::after {
-        position: absolute;
-        inset: auto 0 0;
-        z-index: -1;
-        height: 22%;
-        background: linear-gradient(180deg, rgba(6, 43, 40, 0), rgba(6, 43, 40, 0.72));
-        content: "";
-      }
-
-      .shell {
+      .app-header {
         display: grid;
-        grid-template-columns: minmax(330px, 0.5fr) minmax(780px, 1.5fr);
-        gap: clamp(26px, 3.4vw, 58px);
-        min-height: 100vh;
-        padding: 28px clamp(22px, 3.8vw, 68px) 34px;
-      }
-
-      .intro {
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
+        grid-template-columns: minmax(220px, 0.8fr) minmax(420px, 1.4fr) minmax(240px, 0.8fr);
+        gap: 18px;
+        align-items: center;
+        min-height: 74px;
+        padding: 14px clamp(20px, 3vw, 46px);
+        color: var(--white);
+        background: var(--green-950);
       }
 
       .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .brand-mark {
         display: grid;
-        gap: 4px;
-        width: max-content;
-        margin-bottom: auto;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 10px;
+        color: var(--green-950);
+        background: var(--white);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.18rem;
+        font-weight: 700;
+        line-height: 1;
       }
 
       .brand strong {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.88rem;
-        font-weight: 700;
-        line-height: 0.86;
+        display: block;
+        font-size: 0.96rem;
+        line-height: 1.1;
       }
 
       .brand span {
-        color: rgba(255, 255, 255, 0.76);
+        display: block;
+        color: rgba(255, 255, 255, 0.68);
         font-size: 0.68rem;
         font-weight: 800;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
       }
 
-      .intro-copy {
-        padding: 70px 0 36px;
+      .brand .brand-mark {
+        display: grid;
+        color: var(--green-950);
+        font-size: 1.18rem;
+        letter-spacing: 0;
+        text-transform: none;
       }
 
-      .eyebrow {
-        display: inline-flex;
+      .private-banner {
+        display: flex;
         align-items: center;
-        gap: 14px;
-        margin-bottom: 24px;
-        color: rgba(255, 255, 255, 0.84);
+        justify-content: center;
+        gap: 12px;
+        min-height: 44px;
+        padding: 0 18px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        text-align: center;
+      }
+
+      .private-banner strong {
+        color: var(--gold-soft);
+        font-size: 0.76rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .private-banner span {
+        color: rgba(255, 255, 255, 0.78);
         font-size: 0.78rem;
         font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
       }
 
-      .eyebrow::before {
-        width: 44px;
-        height: 2px;
-        background: var(--gold);
-        content: "";
-      }
-
-      h1 {
-        max-width: 560px;
-        margin-bottom: 22px;
-        font-size: clamp(4rem, 5.8vw, 7rem);
-        line-height: 0.9;
-        text-shadow: 0 3px 18px rgba(0, 0, 0, 0.22);
-      }
-
-      .lead {
-        max-width: 570px;
-        margin-bottom: 30px;
-        color: rgba(255, 255, 255, 0.9);
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(1.36rem, 1.8vw, 1.72rem);
-        line-height: 1.3;
-      }
-
-      .signal-strip {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        max-width: 610px;
-        border-top: 1px solid rgba(255, 255, 255, 0.24);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.24);
-      }
-
-      .signal-strip div {
-        min-height: 92px;
-        padding: 18px 16px 15px 0;
-      }
-
-      .signal-strip div + div {
-        padding-left: 18px;
-        border-left: 1px solid rgba(255, 255, 255, 0.2);
-      }
-
-      .signal-strip strong {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 1.08rem;
-        line-height: 1.15;
-      }
-
-      .signal-strip span {
-        display: block;
-        color: rgba(255, 255, 255, 0.72);
-        font-size: 0.68rem;
-        font-weight: 800;
-        letter-spacing: 0.07em;
-        line-height: 1.35;
-        text-transform: uppercase;
-      }
-
-      .scenario-tabs {
-        display: grid;
-        gap: 9px;
-        margin-top: auto;
-      }
-
-      .scenario-tabs span {
-        color: rgba(255, 255, 255, 0.62);
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .tab-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 9px;
-      }
-
-      .scenario-button {
-        min-height: 42px;
-        padding: 0 14px;
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        border-radius: 999px;
-        color: rgba(255, 255, 255, 0.86);
-        background: rgba(255, 255, 255, 0.08);
-        font-size: 0.8rem;
-        font-weight: 800;
-      }
-
-      .scenario-button.active {
-        color: var(--green-950);
-        background: var(--white);
-        border-color: var(--white);
-      }
-
-      .workspace {
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        color: var(--ink);
-      }
-
-      .ops-topbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 16px;
-        color: var(--white);
-      }
-
-      .ops-title {
-        display: grid;
-        gap: 4px;
-      }
-
-      .ops-title span {
-        color: rgba(255, 255, 255, 0.66);
-        font-size: 0.74rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .ops-title strong {
-        font-size: 1.02rem;
-      }
-
-      .day-stats {
+      .header-meta {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
-        gap: 10px;
+        gap: 8px;
       }
 
-      .day-stats span {
+      .header-meta span {
         display: inline-flex;
         align-items: center;
-        min-height: 38px;
-        padding: 0 12px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
+        min-height: 34px;
+        padding: 0 11px;
         border-radius: 999px;
         color: rgba(255, 255, 255, 0.82);
-        background: rgba(255, 255, 255, 0.08);
-        font-size: 0.72rem;
+        background: rgba(255, 255, 255, 0.1);
+        font-size: 0.68rem;
         font-weight: 800;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
         text-transform: uppercase;
       }
 
-      .command-center {
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.95);
+      .app-shell {
+        display: grid;
+        grid-template-columns: 268px minmax(0, 1fr);
+        gap: 0;
+        min-height: calc(100vh - 74px);
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        padding: 24px 18px;
+        color: var(--white);
+        background: var(--green-900);
+      }
+
+      .tool-title {
+        margin-bottom: 28px;
+        padding: 0 6px;
+      }
+
+      .tool-title span {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--gold-soft);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .tool-title h1 {
+        margin-bottom: 10px;
+        font-size: 1.44rem;
+        line-height: 1.1;
+      }
+
+      .tool-title p {
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.88rem;
+      }
+
+      .nav-list {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 44px;
+        padding: 0 12px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+
+      .nav-item.active {
+        color: var(--green-950);
+        background: var(--white);
+      }
+
+      .nav-item small {
+        font-size: 0.66rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .internal-card {
+        margin-top: auto;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .internal-card strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--gold-soft);
+        font-size: 0.86rem;
+      }
+
+      .internal-card span {
+        display: block;
+        color: rgba(255, 255, 255, 0.74);
+        font-size: 0.78rem;
+      }
+
+      .workbench {
+        min-width: 0;
+        padding: 22px clamp(20px, 2.5vw, 40px) 34px;
+      }
+
+      .workbench-head {
+        display: grid;
+        grid-template-columns: minmax(360px, 1fr) auto;
+        gap: 22px;
+        align-items: start;
+        margin-bottom: 18px;
+      }
+
+      .workbench-head span {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+        color: var(--green-700);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .workbench-head h2 {
+        margin-bottom: 8px;
+        font-size: clamp(2rem, 3.2vw, 4rem);
+        line-height: 0.94;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 700;
+      }
+
+      .workbench-head p {
+        max-width: 760px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .incident-status {
+        display: grid;
+        gap: 8px;
+        min-width: 260px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--white);
         box-shadow: var(--shadow);
       }
 
-      .timeline {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 1px;
-        background: rgba(20, 32, 29, 0.1);
+      .incident-status strong {
+        font-size: 0.94rem;
       }
 
-      .time-step {
-        min-height: 76px;
-        padding: 15px 16px;
-        background: rgba(255, 255, 255, 0.86);
+      .incident-status span {
+        margin: 0;
       }
 
-      .time-step strong {
-        display: block;
-        margin-bottom: 5px;
-        color: var(--green-800);
-        font-size: 0.76rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .time-step span {
-        color: var(--muted);
-        font-size: 0.86rem;
-        font-weight: 800;
-      }
-
-      .work-grid {
-        display: grid;
-        grid-template-columns: minmax(260px, 0.72fr) minmax(360px, 1fr) minmax(330px, 0.9fr);
-        min-height: 626px;
-      }
-
-      .panel {
-        min-width: 0;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.96);
-      }
-
-      .panel + .panel {
-        border-left: 1px solid var(--line);
-      }
-
-      .panel.dark {
-        color: var(--white);
-        background: rgba(9, 47, 43, 0.96);
-      }
-
-      .panel-head {
+      .status-row {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 14px;
-        margin-bottom: 16px;
-      }
-
-      .panel-kicker {
-        display: block;
-        margin-bottom: 6px;
-        color: var(--muted);
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .dark .panel-kicker {
-        color: rgba(255, 255, 255, 0.66);
-      }
-
-      .panel-title {
-        margin-bottom: 0;
-        font-family: Inter, Arial, sans-serif;
-        font-size: 1.08rem;
-        font-weight: 800;
-        line-height: 1.2;
+        flex-wrap: wrap;
+        gap: 8px;
       }
 
       .pill {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 30px;
+        min-height: 28px;
         padding: 0 10px;
         border-radius: 999px;
         color: var(--green-900);
         background: var(--green-100);
-        font-size: 0.68rem;
+        font-size: 0.66rem;
         font-weight: 800;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
         white-space: nowrap;
         text-transform: uppercase;
       }
 
-      .pill.warning {
-        color: #553207;
-        background: #f2ddb1;
+      .pill.private {
+        color: var(--red-ink);
+        background: var(--red-soft);
       }
 
-      .pill.review {
-        color: #5a241f;
-        background: var(--rose-soft);
+      .pill.warning {
+        color: #553207;
+        background: var(--gold-soft);
+      }
+
+      .scenario-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-bottom: 16px;
+      }
+
+      .scenario-button {
+        min-height: 38px;
+        padding: 0 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink);
+        background: var(--white);
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .scenario-button.active {
+        color: var(--white);
+        background: var(--green-800);
+        border-color: var(--green-800);
+      }
+
+      .support-grid {
+        display: grid;
+        grid-template-columns: minmax(270px, 0.78fr) minmax(390px, 1.05fr) minmax(340px, 0.94fr);
+        gap: 14px;
+        align-items: stretch;
+      }
+
+      .panel {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+      }
+
+      .panel.dark {
+        color: var(--white);
+        background: var(--green-950);
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .dark .panel-head {
+        border-bottom-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .panel-head span:first-child {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .dark .panel-head span:first-child {
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      .panel-head h3 {
+        margin-bottom: 0;
+        font-family: Inter, Arial, sans-serif;
+        font-size: 1.02rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .panel-body {
+        padding: 18px;
       }
 
       .message-card {
-        padding: 16px;
+        padding: 15px;
         border: 1px solid var(--line);
-        border-radius: 14px;
-        background: #fbfaf6;
+        border-radius: 12px;
+        background: var(--panel);
       }
 
-      .sender-row {
+      .message-top {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
       }
 
-      .sender-row strong {
+      .message-top strong {
         display: block;
-        margin-bottom: 3px;
-        font-size: 0.94rem;
+        margin-bottom: 4px;
       }
 
-      .sender-row span {
+      .message-top span {
         color: var(--muted);
         font-size: 0.78rem;
       }
@@ -461,85 +481,104 @@
         margin-bottom: 14px;
         color: var(--ink);
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.28rem;
-        line-height: 1.32;
+        font-size: 1.24rem;
+        line-height: 1.3;
       }
 
-      .context-grid {
+      .context-grid,
+      .log-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
+        gap: 9px;
       }
 
-      .context {
-        min-height: 74px;
+      .context,
+      .log-item {
+        min-height: 72px;
         padding: 10px;
         border: 1px solid var(--line);
-        border-radius: 10px;
+        border-radius: 9px;
         background: var(--white);
       }
 
-      .context span {
+      .context span,
+      .log-item span {
         display: block;
         margin-bottom: 4px;
         color: var(--muted);
-        font-size: 0.66rem;
+        font-size: 0.64rem;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
-      .context strong {
-        font-size: 0.86rem;
+      .context strong,
+      .log-item strong {
+        font-size: 0.84rem;
       }
 
-      .run-button {
+      .run-button,
+      .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        min-height: 48px;
-        margin-top: 14px;
-        border: 0;
+        min-height: 42px;
+        padding: 0 15px;
+        border: 1px solid var(--line);
         border-radius: 999px;
-        color: var(--white);
-        background: var(--green-800);
+        color: var(--ink);
+        background: transparent;
         font-weight: 800;
       }
 
-      .run-button:hover {
+      .run-button,
+      .button.primary {
+        color: var(--white);
+        background: var(--green-800);
+        border-color: var(--green-800);
+      }
+
+      .run-button {
+        width: 100%;
+        min-height: 48px;
+        margin-top: 13px;
+      }
+
+      .run-button:hover,
+      .button.primary:hover {
         background: var(--green-700);
       }
 
-      .queue-card {
+      .mini-queue {
         display: grid;
-        gap: 11px;
-        margin-top: 16px;
+        gap: 0;
+        margin-top: 14px;
+        border-top: 1px solid var(--line);
       }
 
-      .queue-item {
+      .queue-row {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        padding: 12px 0;
-        border-top: 1px solid var(--line);
+        min-height: 56px;
+        border-bottom: 1px solid var(--line);
       }
 
-      .queue-item strong {
+      .queue-row strong {
         display: block;
-        margin-bottom: 3px;
-        font-size: 0.86rem;
+        margin-bottom: 2px;
+        font-size: 0.84rem;
       }
 
-      .queue-item span {
+      .queue-row span {
         color: var(--muted);
-        font-size: 0.76rem;
+        font-size: 0.74rem;
       }
 
       .risk-meter {
-        margin-bottom: 18px;
-        padding-bottom: 18px;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.14);
       }
 
@@ -547,8 +586,8 @@
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 10px;
+        gap: 14px;
+        margin-bottom: 9px;
       }
 
       .risk-top span {
@@ -560,6 +599,7 @@
       }
 
       .risk-top strong {
+        color: var(--white);
         font-size: 2rem;
         line-height: 1;
       }
@@ -580,7 +620,7 @@
       }
 
       .ai-section {
-        padding: 15px 0;
+        padding: 14px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.13);
       }
 
@@ -592,13 +632,15 @@
         display: block;
         margin-bottom: 8px;
         color: rgba(255, 255, 255, 0.64);
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
-      .action-list {
+      .action-list,
+      .caution-list,
+      .task-list {
         display: grid;
         gap: 8px;
         margin: 0;
@@ -606,35 +648,33 @@
         list-style: none;
       }
 
+      .action-list {
+        counter-reset: action;
+      }
+
       .action-list li {
         position: relative;
-        padding-left: 26px;
+        min-height: 24px;
+        padding-left: 28px;
         color: rgba(255, 255, 255, 0.9);
-        font-size: 0.94rem;
+        font-size: 0.92rem;
       }
 
       .action-list li::before {
         position: absolute;
-        top: 0.1em;
+        top: 0;
         left: 0;
         display: grid;
         place-items: center;
-        width: 17px;
-        height: 17px;
+        width: 18px;
+        height: 18px;
         border-radius: 999px;
         color: var(--green-950);
         background: var(--gold-soft);
-        font-size: 0.66rem;
+        font-size: 0.64rem;
         font-weight: 800;
-        content: "";
-      }
-
-      .caution-list {
-        display: grid;
-        gap: 7px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
+        counter-increment: action;
+        content: counter(action);
       }
 
       .caution-list li {
@@ -649,76 +689,61 @@
       }
 
       .draft-card {
-        padding: 16px;
+        padding: 15px;
         border: 1px solid var(--line);
-        border-radius: 14px;
+        border-radius: 12px;
         background: var(--white);
       }
 
-      .draft-card h3 {
-        margin-bottom: 12px;
-        font-family: Inter, Arial, sans-serif;
-        font-size: 0.98rem;
-        font-weight: 800;
+      .draft-card h4,
+      .log-card h4 {
+        margin: 0 0 10px;
+        font-size: 0.94rem;
       }
 
       textarea {
         width: 100%;
-        min-height: 150px;
+        min-height: 136px;
         resize: vertical;
-        padding: 14px;
+        padding: 13px;
         border: 1px solid var(--line);
         border-radius: 10px;
         color: var(--ink);
-        background: #fbfaf6;
+        background: var(--panel);
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.04rem;
+        font-size: 1.02rem;
         line-height: 1.35;
         outline: none;
       }
 
-      .log-card {
-        margin-top: 14px;
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: #fbfaf6;
+      .draft-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 12px;
       }
 
-      .log-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-        margin-bottom: 12px;
-      }
-
-      .log-item {
-        padding: 10px;
-        border: 1px solid var(--line);
-        border-radius: 9px;
-        background: var(--white);
-      }
-
-      .log-item span {
-        display: block;
-        margin-bottom: 4px;
-        color: var(--muted);
-        font-size: 0.66rem;
+      .status-line {
+        min-height: 39px;
+        margin-top: 11px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        color: var(--green-900);
+        background: var(--green-100);
+        font-size: 0.82rem;
         font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
       }
 
-      .log-item strong {
-        font-size: 0.86rem;
+      .log-card {
+        margin-top: 13px;
+        padding: 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
       }
 
       .task-list {
-        display: grid;
-        gap: 8px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
+        margin-top: 12px;
       }
 
       .task-list li {
@@ -726,51 +751,14 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        padding-top: 9px;
+        padding-top: 8px;
         border-top: 1px solid var(--line);
         color: var(--muted);
-        font-size: 0.86rem;
+        font-size: 0.84rem;
       }
 
       .task-list strong {
         color: var(--green-900);
-      }
-
-      .draft-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 14px;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 42px;
-        padding: 0 15px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--ink);
-        background: transparent;
-        font-weight: 800;
-      }
-
-      .button.primary {
-        color: var(--white);
-        background: var(--green-800);
-        border-color: var(--green-800);
-      }
-
-      .status-line {
-        min-height: 40px;
-        margin-top: 12px;
-        padding: 10px 12px;
-        border-radius: 10px;
-        color: var(--green-900);
-        background: var(--green-100);
-        font-size: 0.84rem;
-        font-weight: 800;
       }
 
       .thinking .meter-fill {
@@ -778,71 +766,86 @@
       }
 
       .thinking .panel.dark {
-        background: rgba(13, 58, 53, 0.96);
+        background: #123f3a;
       }
 
-      @media (max-width: 1280px) {
-        .shell {
+      @media (max-width: 1220px) {
+        .app-header {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+
+        .private-banner {
+          justify-content: flex-start;
+          border-radius: 12px;
+        }
+
+        .header-meta {
+          justify-content: flex-start;
+        }
+
+        .app-shell {
           grid-template-columns: 1fr;
         }
 
-        .brand {
-          margin-bottom: 0;
+        .sidebar {
+          display: block;
         }
 
-        .intro {
-          min-height: auto;
+        .tool-title,
+        .nav-list {
+          margin-bottom: 16px;
         }
 
-        .intro-copy {
-          padding-top: 58px;
+        .nav-list {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .internal-card {
+          margin-top: 0;
         }
       }
 
       @media (max-width: 960px) {
-        .ops-topbar {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .day-stats {
-          justify-content: flex-start;
-        }
-
-        .timeline,
-        .work-grid {
+        .workbench-head,
+        .support-grid {
           grid-template-columns: 1fr;
         }
 
-        .panel + .panel {
-          border-left: 0;
-          border-top: 1px solid var(--line);
+        .incident-status {
+          min-width: 0;
+        }
+
+        .nav-list {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
-      @media (max-width: 680px) {
-        .shell {
+      @media (max-width: 600px) {
+        .app-header,
+        .workbench {
           padding-inline: 18px;
         }
 
-        h1 {
-          font-size: clamp(3.45rem, 15vw, 5.2rem);
+        .private-banner {
+          display: grid;
+          justify-content: stretch;
+          text-align: left;
         }
 
-        .signal-strip,
+        .nav-list,
         .context-grid,
         .log-grid {
           grid-template-columns: 1fr;
         }
 
-        .signal-strip div + div {
-          padding-left: 0;
-          border-left: 0;
-          border-top: 1px solid rgba(255, 255, 255, 0.2);
+        .workbench-head h2 {
+          font-size: clamp(2.3rem, 12vw, 3.4rem);
         }
 
-        .panel {
-          padding: 17px;
+        .panel-body,
+        .panel-head {
+          padding-inline: 15px;
         }
 
         .draft-actions,
@@ -853,97 +856,93 @@
     </style>
   </head>
   <body>
-    <main class="app" aria-labelledby="page-title">
-      <div class="shell">
-        <section class="intro">
-          <a class="brand" href="index.html" aria-label="CL Global Academy homepage preview">
-            <strong>cl global<br>academy</strong>
-            <span>OxCam Programmes</span>
-          </a>
+    <main class="product" aria-labelledby="page-title">
+      <header class="app-header">
+        <a class="brand" href="index.html" aria-label="CL Global Academy homepage preview">
+          <span class="brand-mark">cl</span>
+          <span>
+            <strong>CL Global Ops</strong>
+            <span>Programme team console</span>
+          </span>
+        </a>
 
-          <div class="intro-copy">
-            <p class="eyebrow">AI Programme Support Copilot</p>
-            <h1 id="page-title">Student support, handled calmly.</h1>
-            <p class="lead">
-              Fellow Advisors get instant, policy-aware steps for student-support situations, with a parent-safe update and Programme Coordinator review already prepared.
-            </p>
-            <div class="signal-strip" aria-label="Copilot outcomes">
-              <div>
-                <strong>Human review</strong>
-                <span>Escalated to coordinator</span>
-              </div>
-              <div>
-                <strong>Advisor steps</strong>
-                <span>Clear action in 60 seconds</span>
-              </div>
-              <div>
-                <strong>Parent update</strong>
-                <span>Calm draft ready</span>
-              </div>
-            </div>
+        <div class="private-banner" aria-label="Private tool notice">
+          <strong>Private staff tool</strong>
+          <span>Not a public website. Built for Programme Coordinators and Fellow Advisors.</span>
+        </div>
+
+        <div class="header-meta" aria-label="Programme status">
+          <span>OxCam Summer</span>
+          <span>87 students</span>
+          <span>40 advisors</span>
+        </div>
+      </header>
+
+      <div class="app-shell">
+        <aside class="sidebar">
+          <div class="tool-title">
+            <span>Internal AI support</span>
+            <h1>Programme Support Copilot</h1>
+            <p>For live student-support, parent communication and incident logging during programme delivery.</p>
           </div>
 
-          <div class="scenario-tabs">
-            <span>Demo scenarios</span>
-            <div class="tab-row" role="tablist" aria-label="Support scenarios">
-              <button class="scenario-button active" type="button" data-scenario="unwell">Unwell student</button>
-              <button class="scenario-button" type="button" data-scenario="lostkey">Lost key</button>
-              <button class="scenario-button" type="button" data-scenario="parent">Parent concern</button>
-              <button class="scenario-button" type="button" data-scenario="weather">Activity disruption</button>
-            </div>
+          <nav class="nav-list" aria-label="Internal product navigation">
+            <a class="nav-item active" href="#incident"><span>Incident support</span><small>Live</small></a>
+            <a class="nav-item" href="#incident"><span>Advisor questions</span><small>12</small></a>
+            <a class="nav-item" href="#incident"><span>Parent drafts</span><small>3</small></a>
+            <a class="nav-item" href="#incident"><span>Incident log</span><small>Ops</small></a>
+          </nav>
+
+          <div class="internal-card">
+            <strong>Staff-only view</strong>
+            <span>Designed for the programme team. Students and parents would never see this operational screen.</span>
           </div>
-        </section>
+        </aside>
 
-        <section class="workspace" aria-label="Programme support copilot demo">
-          <header class="ops-topbar">
-            <div class="ops-title">
-              <span>Today in Cambridge</span>
-              <strong id="day-title">Formal dinner evening / Group B support</strong>
-            </div>
-            <div class="day-stats" aria-label="Programme day stats">
-              <span>87 students</span>
-              <span>40 Fellow Advisors</span>
-              <span id="alert-count">3 active alerts</span>
-            </div>
-          </header>
-
-          <div class="command-center" id="command-center">
-            <div class="timeline" aria-label="Incident timeline">
-              <div class="time-step">
-                <strong id="time-1">18:42</strong>
-                <span>Advisor message received</span>
-              </div>
-              <div class="time-step">
-                <strong id="time-2">18:42</strong>
-                <span>AI triage completed</span>
-              </div>
-              <div class="time-step">
-                <strong id="time-3">18:43</strong>
-                <span>Coordinator review assigned</span>
-              </div>
-              <div class="time-step">
-                <strong id="time-4">18:50</strong>
-                <span>Next check-in scheduled</span>
-              </div>
+        <section class="workbench" id="incident" aria-label="Internal programme support workbench">
+          <div class="workbench-head">
+            <div>
+              <span>Live incident support</span>
+              <h2 id="page-title">Student feels unwell before formal dinner</h2>
+              <p>
+                The copilot gives the Fellow Advisor approved next steps, creates a parent-safe update, and assigns Programme Coordinator review before anything is sent.
+              </p>
             </div>
 
-            <div class="work-grid">
-              <section class="panel" aria-label="Incoming advisor question">
-                <div class="panel-head">
-                  <div>
-                    <span class="panel-kicker">Incoming staff question</span>
-                    <h2 class="panel-title" id="incoming-title">Student feels unwell before formal dinner</h2>
-                  </div>
-                  <span class="pill warning" id="incoming-pill">Wellbeing</span>
+            <aside class="incident-status" aria-label="Incident status">
+              <strong>Current status</strong>
+              <div class="status-row">
+                <span class="pill private">Human review required</span>
+                <span class="pill warning" id="risk-pill">Wellbeing</span>
+              </div>
+              <span class="pill" id="owner-pill">Coordinator assigned</span>
+            </aside>
+          </div>
+
+          <div class="scenario-bar" role="tablist" aria-label="Support scenarios">
+            <button class="scenario-button active" type="button" data-scenario="unwell">Unwell student</button>
+            <button class="scenario-button" type="button" data-scenario="lostkey">Lost key</button>
+            <button class="scenario-button" type="button" data-scenario="parent">Parent concern</button>
+            <button class="scenario-button" type="button" data-scenario="weather">Activity disruption</button>
+          </div>
+
+          <div class="support-grid" id="support-grid">
+            <section class="panel" aria-label="Incoming advisor question">
+              <div class="panel-head">
+                <div>
+                  <span>Incoming staff question</span>
+                  <h3 id="incoming-title">Student feels unwell before formal dinner</h3>
                 </div>
-
+                <span class="pill warning" id="incoming-pill">Wellbeing</span>
+              </div>
+              <div class="panel-body">
                 <article class="message-card">
-                  <div class="sender-row">
+                  <div class="message-top">
                     <div>
                       <strong id="sender-name">Fellow Advisor / Group B</strong>
                       <span id="sender-meta">King's Parade / 18:42</span>
                     </div>
-                    <span class="pill" id="source-pill">Staff app</span>
+                    <span class="pill">Staff app</span>
                   </div>
                   <p class="message" id="incoming-message">
                     A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
@@ -969,33 +968,34 @@
                   <button class="run-button" type="button" id="run-button">Run support copilot</button>
                 </article>
 
-                <div class="queue-card" aria-label="Other live operations messages">
-                  <div class="queue-item">
+                <div class="mini-queue" aria-label="Other operations queue items">
+                  <div class="queue-row">
                     <div>
                       <strong>Parent asks about evening supervision</strong>
                       <span>Trust question / reply draft ready</span>
                     </div>
                     <span class="pill">Low</span>
                   </div>
-                  <div class="queue-item">
+                  <div class="queue-row">
                     <div>
                       <strong>Group C meeting point unclear</strong>
-                      <span>Schedule question / answer sent</span>
+                      <span>Schedule answer sent</span>
                     </div>
                     <span class="pill">Done</span>
                   </div>
                 </div>
-              </section>
+              </div>
+            </section>
 
-              <section class="panel dark" aria-label="AI advisor instructions">
-                <div class="panel-head">
-                  <div>
-                    <span class="panel-kicker">AI advisor instructions</span>
-                    <h2 class="panel-title">Approved next steps</h2>
-                  </div>
-                  <span class="pill review" id="review-pill">Human review required</span>
+            <section class="panel dark" aria-label="AI advisor instructions">
+              <div class="panel-head">
+                <div>
+                  <span>AI advisor instructions</span>
+                  <h3>Approved next steps</h3>
                 </div>
-
+                <span class="pill private" id="review-pill">Human review required</span>
+              </div>
+              <div class="panel-body">
                 <div class="risk-meter">
                   <div class="risk-top">
                     <span id="risk-label">Risk category / wellbeing</span>
@@ -1020,19 +1020,20 @@
                   <span>Escalation rule</span>
                   <ul class="action-list" id="escalation-list"></ul>
                 </div>
-              </section>
+              </div>
+            </section>
 
-              <section class="panel" aria-label="Parent update and incident log">
-                <div class="panel-head">
-                  <div>
-                    <span class="panel-kicker">Coordinator review pack</span>
-                    <h2 class="panel-title">Parent update + log</h2>
-                  </div>
-                  <span class="pill" id="draft-pill">Draft ready</span>
+            <section class="panel" aria-label="Coordinator review pack">
+              <div class="panel-head">
+                <div>
+                  <span>Coordinator review pack</span>
+                  <h3>Parent update + incident log</h3>
                 </div>
-
+                <span class="pill" id="draft-pill">Draft ready</span>
+              </div>
+              <div class="panel-body">
                 <article class="draft-card">
-                  <h3>Parent-safe update draft</h3>
+                  <h4>Parent-safe update draft</h4>
                   <textarea id="parent-draft" aria-label="Parent update draft"></textarea>
                   <div class="draft-actions">
                     <button class="button primary" type="button" id="approve-button">Mark coordinator reviewing</button>
@@ -1042,6 +1043,7 @@
                 </article>
 
                 <article class="log-card">
+                  <h4>Incident log created</h4>
                   <div class="log-grid">
                     <div class="log-item">
                       <span>Incident type</span>
@@ -1062,8 +1064,8 @@
                   </div>
                   <ul class="task-list" id="task-list"></ul>
                 </article>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
         </section>
       </div>
@@ -1072,11 +1074,9 @@
     <script>
       const scenarios = {
         unwell: {
-          dayTitle: "Formal dinner evening / Group B support",
-          alertCount: "3 active alerts",
-          times: ["18:42", "18:42", "18:43", "18:50"],
           title: "Student feels unwell before formal dinner",
           pill: "Wellbeing",
+          ownerPill: "Coordinator assigned",
           sender: "Fellow Advisor / Group B",
           meta: "King's Parade / 18:42",
           message:
@@ -1116,11 +1116,9 @@
           ]
         },
         lostkey: {
-          dayTitle: "Evening return / Accommodation support",
-          alertCount: "2 active alerts",
-          times: ["21:16", "21:16", "21:17", "21:30"],
           title: "Student lost room key after evening activity",
           pill: "Accommodation",
+          ownerPill: "Residential lead assigned",
           sender: "Fellow Advisor / Group D",
           meta: "College entrance / 21:16",
           message:
@@ -1160,11 +1158,9 @@
           ]
         },
         parent: {
-          dayTitle: "Parent communication / Evening supervision",
-          alertCount: "1 active alert",
-          times: ["17:08", "17:08", "17:09", "17:20"],
           title: "Parent asks about supervision after dinner",
           pill: "Parent trust",
+          ownerPill: "Reply review assigned",
           sender: "Admissions inbox / Parent",
           meta: "Email / 17:08",
           message:
@@ -1204,11 +1200,9 @@
           ]
         },
         weather: {
-          dayTitle: "Activity schedule / Weather disruption",
-          alertCount: "4 active alerts",
-          times: ["13:25", "13:25", "13:26", "13:45"],
           title: "Rain may affect afternoon activity",
           pill: "Activity plan",
+          ownerPill: "Activity coordinator assigned",
           sender: "Activity lead / Group A",
           meta: "Market Square / 13:25",
           message:
@@ -1250,15 +1244,15 @@
       };
 
       const buttons = [...document.querySelectorAll(".scenario-button")];
-      const app = document.querySelector(".app");
-      const commandCenter = document.getElementById("command-center");
+      const supportGrid = document.getElementById("support-grid");
       const runButton = document.getElementById("run-button");
       const approveButton = document.getElementById("approve-button");
       const copyButton = document.getElementById("copy-button");
       const statusLine = document.getElementById("status-line");
       const fields = {
-        dayTitle: document.getElementById("day-title"),
-        alertCount: document.getElementById("alert-count"),
+        pageTitle: document.getElementById("page-title"),
+        riskPill: document.getElementById("risk-pill"),
+        ownerPill: document.getElementById("owner-pill"),
         title: document.getElementById("incoming-title"),
         pill: document.getElementById("incoming-pill"),
         sender: document.getElementById("sender-name"),
@@ -1284,7 +1278,6 @@
       const cautionList = document.getElementById("caution-list");
       const escalationList = document.getElementById("escalation-list");
       const taskList = document.getElementById("task-list");
-
       let activeScenario = "unwell";
 
       function fillList(target, items) {
@@ -1314,12 +1307,10 @@
         activeScenario = key;
         buttons.forEach((button) => button.classList.toggle("active", button.dataset.scenario === key));
 
-        fields.dayTitle.textContent = scenario.dayTitle;
-        fields.alertCount.textContent = scenario.alertCount;
-        scenario.times.forEach((time, index) => {
-          document.getElementById(`time-${index + 1}`).textContent = time;
-        });
+        fields.pageTitle.textContent = scenario.title;
         fields.title.textContent = scenario.title;
+        fields.riskPill.textContent = scenario.pill;
+        fields.ownerPill.textContent = scenario.ownerPill;
         fields.pill.textContent = scenario.pill;
         fields.sender.textContent = scenario.sender;
         fields.meta.textContent = scenario.meta;
@@ -1350,10 +1341,10 @@
       });
 
       runButton.addEventListener("click", () => {
-        commandCenter.classList.add("thinking");
+        supportGrid.classList.add("thinking");
         runButton.textContent = "Copilot reviewing";
         window.setTimeout(() => {
-          commandCenter.classList.remove("thinking");
+          supportGrid.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Run support copilot";
           statusLine.textContent = "Support pack refreshed. Coordinator review still required.";
