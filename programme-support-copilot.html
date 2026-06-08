@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CL Global Internal Programme Support Copilot</title>
+    <title>Internal AI Support Desk Demo</title>
     <meta
       name="description"
-      content="A private internal AI support demo for CL Global Academy programme staff."
+      content="A staff-only AI support desk demo for handling student support questions with safe next steps and reviewed parent updates."
     >
-    <meta property="og:title" content="CL Global Internal Programme Support Copilot">
+    <meta property="og:title" content="Internal AI Support Desk Demo">
     <meta
       property="og:description"
-      content="A simple internal AI tool that turns a Fellow Advisor support question into safe next steps and a coordinator-ready parent update."
+      content="A private internal AI tool for programme teams: urgent staff question, safe AI guidance, reviewed parent update."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,26 +22,35 @@
     >
     <style>
       :root {
-        --ink: #16211e;
-        --muted: #64706b;
-        --paper: #f5f2ea;
-        --panel: #fbfaf6;
+        --ink: #14201d;
+        --muted: #66726d;
+        --paper: #f4f0e7;
         --white: #ffffff;
+        --panel: #fbfaf6;
+        --cream: #f8f5ee;
+        --line: rgba(20, 32, 29, 0.13);
+        --line-strong: rgba(20, 32, 29, 0.22);
         --green-950: #082f2b;
         --green-900: #103d38;
-        --green-800: #1d554d;
-        --green-700: #2d6a60;
+        --green-800: #1e5b52;
+        --green-700: #2e7065;
         --green-100: #dfeae4;
-        --gold: #bba66d;
-        --gold-soft: #efe2b7;
-        --red-soft: #f4ddd7;
-        --red-ink: #6e2a20;
-        --line: rgba(22, 33, 30, 0.13);
-        --shadow: 0 24px 70px rgba(22, 33, 30, 0.12);
+        --gold: #b7a468;
+        --gold-soft: #f0e4bd;
+        --rose-soft: #f3ded8;
+        --rose-ink: #703228;
+        --blue-soft: #e1ecf0;
+        --blue-ink: #244754;
+        --shadow: 0 30px 90px rgba(20, 32, 29, 0.14);
+        --shadow-tight: 0 16px 42px rgba(20, 32, 29, 0.1);
       }
 
       * {
         box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
       }
 
       body {
@@ -69,195 +78,139 @@
         margin-top: 0;
       }
 
-      .product {
+      .page {
         min-height: 100vh;
-        padding: clamp(18px, 2vw, 30px);
+        padding: clamp(16px, 2vw, 30px);
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 242, 234, 0.96)),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(244, 240, 231, 0.96)),
           var(--paper);
       }
 
-      .frame {
-        min-height: calc(100vh - clamp(36px, 4vw, 60px));
+      .app {
+        display: grid;
+        grid-template-rows: auto auto minmax(0, 1fr);
+        min-height: calc(100vh - clamp(32px, 4vw, 60px));
         overflow: hidden;
         border: 1px solid var(--line);
-        border-radius: 18px;
+        border-radius: 22px;
         background: var(--white);
         box-shadow: var(--shadow);
       }
 
-      .topbar {
-        display: grid;
-        grid-template-columns: minmax(220px, 0.85fr) minmax(340px, 1.2fr) auto;
-        gap: 16px;
+      .app-header {
+        display: flex;
         align-items: center;
-        min-height: 70px;
-        padding: 14px clamp(18px, 2.4vw, 34px);
+        justify-content: space-between;
+        gap: 22px;
+        min-height: 86px;
+        padding: 18px clamp(20px, 2.3vw, 34px);
         color: var(--white);
         background: var(--green-950);
       }
 
-      .brand {
+      .title-block {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
         min-width: 0;
       }
 
-      .brand-mark {
-        display: grid;
-        place-items: center;
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        color: var(--green-950);
-        background: var(--white);
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.18rem;
+      .status-dot {
+        width: 13px;
+        height: 13px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        box-shadow: 0 0 0 5px rgba(240, 228, 189, 0.17);
+        flex: 0 0 auto;
+      }
+
+      h1 {
+        margin-bottom: 2px;
+        font-size: clamp(1.38rem, 1.8vw, 2rem);
+        font-weight: 800;
+        letter-spacing: 0;
+        line-height: 1.08;
+      }
+
+      .title-block p {
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.9rem;
         font-weight: 700;
       }
 
-      .brand strong,
-      .brand span {
-        display: block;
-      }
-
-      .brand strong {
-        font-size: 0.96rem;
-        line-height: 1.1;
-      }
-
-      .brand span {
-        color: rgba(255, 255, 255, 0.68);
-        font-size: 0.68rem;
-        font-weight: 800;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .private-banner {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        min-height: 42px;
-        padding: 0 18px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        text-align: center;
-      }
-
-      .private-banner strong {
-        color: var(--gold-soft);
-        font-size: 0.76rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .private-banner span {
-        color: rgba(255, 255, 255, 0.78);
-        font-size: 0.78rem;
-        font-weight: 800;
-      }
-
-      .top-pills {
+      .header-tags {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
         gap: 8px;
       }
 
-      .top-pills span {
+      .tag,
+      .pill {
         display: inline-flex;
         align-items: center;
-        min-height: 34px;
-        padding: 0 11px;
+        justify-content: center;
         border-radius: 999px;
-        color: rgba(255, 255, 255, 0.82);
-        background: rgba(255, 255, 255, 0.1);
-        font-size: 0.68rem;
         font-weight: 800;
         letter-spacing: 0.07em;
         text-transform: uppercase;
+        white-space: nowrap;
       }
 
-      .hero {
+      .tag {
+        min-height: 36px;
+        padding: 0 13px;
+        color: var(--gold-soft);
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.7rem;
+      }
+
+      .tag.white {
+        color: var(--green-950);
+        background: var(--white);
+      }
+
+      .owner-strip {
         display: grid;
-        grid-template-columns: minmax(340px, 0.72fr) minmax(720px, 1.28fr);
-        gap: clamp(22px, 3vw, 48px);
-        align-items: center;
-        min-height: calc(100vh - 70px - clamp(36px, 4vw, 60px));
-        padding: clamp(24px, 3.2vw, 46px) clamp(22px, 4vw, 70px);
+        grid-template-columns: minmax(340px, 1fr) repeat(3, minmax(150px, 0.22fr));
+        gap: 1px;
+        border-bottom: 1px solid var(--line);
+        background: var(--line);
       }
 
-      .story {
+      .owner-strip > div {
         min-width: 0;
+        min-height: 78px;
+        padding: 15px clamp(16px, 1.8vw, 26px);
+        background: var(--cream);
       }
 
-      .kicker {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 18px;
-        color: var(--green-700);
-        font-size: 0.78rem;
+      .owner-note strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--green-900);
+        font-size: 0.76rem;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
-      .kicker::before {
-        width: 40px;
-        height: 2px;
-        background: var(--gold);
-        content: "";
-      }
-
-      h1 {
-        max-width: 660px;
-        margin-bottom: 18px;
+      .owner-note p {
+        margin-bottom: 0;
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(3.55rem, 4.8vw, 5.9rem);
+        font-size: clamp(1.18rem, 1.35vw, 1.42rem);
         font-weight: 700;
-        line-height: 0.9;
-        letter-spacing: 0;
+        line-height: 1.22;
       }
 
-      .story p {
-        max-width: 610px;
-        margin-bottom: 22px;
-        color: var(--muted);
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(1.32rem, 1.65vw, 1.64rem);
-        line-height: 1.28;
-      }
-
-      .scan-strip {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        max-width: 660px;
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-      }
-
-      .scan-strip div {
-        min-height: 78px;
-        padding: 14px 14px 12px 0;
-      }
-
-      .scan-strip div + div {
-        padding-left: 16px;
-        border-left: 1px solid var(--line);
-      }
-
-      .scan-strip strong {
+      .signal b {
         display: block;
-        margin-bottom: 5px;
-        font-size: 1.02rem;
+        margin-bottom: 3px;
+        font-size: 1.12rem;
       }
 
-      .scan-strip span {
+      .signal span {
         display: block;
         color: var(--muted);
         font-size: 0.68rem;
@@ -267,133 +220,136 @@
         text-transform: uppercase;
       }
 
-      .demo {
+      .tool {
+        display: grid;
+        grid-template-columns: minmax(250px, 0.24fr) minmax(420px, 0.42fr) minmax(380px, 0.34fr);
+        min-height: 0;
+      }
+
+      .queue,
+      .case-panel,
+      .ai-panel {
         min-width: 0;
+        min-height: 0;
+        padding: clamp(18px, 2vw, 26px);
       }
 
-      .demo-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 14px;
-        margin-bottom: 12px;
+      .queue {
+        border-right: 1px solid var(--line);
+        background: #f7f4ed;
       }
 
-      .demo-title span {
-        color: var(--green-700);
+      .case-panel {
+        border-right: 1px solid var(--line);
+        background: var(--white);
+      }
+
+      .ai-panel {
+        background: var(--cream);
+      }
+
+      .section-label {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--green-800);
         font-size: 0.72rem;
         font-weight: 800;
         letter-spacing: 0.09em;
         text-transform: uppercase;
       }
 
-      .scenario-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 8px;
+      .case-buttons {
+        display: grid;
+        gap: 10px;
       }
 
-      .scenario-button {
-        min-height: 34px;
-        padding: 0 12px;
+      .case-button {
+        width: 100%;
+        padding: 14px;
         border: 1px solid var(--line);
-        border-radius: 999px;
+        border-radius: 14px;
         color: var(--ink);
         background: var(--white);
-        font-size: 0.74rem;
-        font-weight: 800;
+        text-align: left;
+        transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
       }
 
-      .scenario-button.active {
-        color: var(--white);
-        background: var(--green-800);
-        border-color: var(--green-800);
+      .case-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(20, 32, 29, 0.08);
       }
 
-      .flow {
-        display: grid;
-        grid-template-columns: minmax(220px, 0.86fr) minmax(270px, 1fr) minmax(240px, 0.9fr);
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        background: var(--white);
-        box-shadow: var(--shadow);
+      .case-button.active {
+        border-color: rgba(30, 91, 82, 0.55);
+        box-shadow: 0 0 0 3px rgba(30, 91, 82, 0.1);
       }
 
-      .step {
-        min-width: 0;
-        padding: 17px;
-        background: var(--white);
-      }
-
-      .step + .step {
-        border-left: 1px solid var(--line);
-      }
-
-      .step.ai {
-        color: var(--white);
-        background: var(--green-950);
-      }
-
-      .step-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 14px;
-      }
-
-      .step-head span:first-child {
+      .case-button span {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
         color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-      }
-
-      .ai .step-head span:first-child {
-        color: rgba(255, 255, 255, 0.62);
-      }
-
-      .step-head h2 {
-        margin: 0;
-        font-size: 1.02rem;
-        line-height: 1.18;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 28px;
-        padding: 0 10px;
-        border-radius: 999px;
-        color: var(--green-900);
-        background: var(--green-100);
         font-size: 0.66rem;
         font-weight: 800;
         letter-spacing: 0.07em;
-        white-space: nowrap;
         text-transform: uppercase;
       }
 
-      .pill.red {
-        color: var(--red-ink);
-        background: var(--red-soft);
+      .case-button strong {
+        display: block;
+        font-size: 0.98rem;
+        line-height: 1.25;
+      }
+
+      .case-button small {
+        display: block;
+        margin-top: 9px;
+        color: var(--green-800);
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      .case-title-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .case-title {
+        margin: 0;
+        font-size: clamp(1.85rem, 2.55vw, 2.75rem);
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      .pill {
+        min-height: 31px;
+        padding: 0 10px;
+        color: var(--green-900);
+        background: var(--green-100);
+        font-size: 0.66rem;
       }
 
       .pill.gold {
-        color: #553207;
+        color: #5c3909;
         background: var(--gold-soft);
       }
 
-      .message-box {
-        padding: 14px;
+      .pill.red {
+        color: var(--rose-ink);
+        background: var(--rose-soft);
+      }
+
+      .pill.blue {
+        color: var(--blue-ink);
+        background: var(--blue-soft);
+      }
+
+      .incoming-box {
+        padding: 17px;
         border: 1px solid var(--line);
-        border-radius: 12px;
+        border-radius: 15px;
         background: var(--panel);
       }
 
@@ -401,64 +357,108 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 12px;
+        gap: 12px;
+        margin-bottom: 13px;
       }
 
       .sender strong {
         display: block;
         margin-bottom: 4px;
-        font-size: 0.92rem;
+        font-size: 1rem;
       }
 
       .sender span {
+        display: block;
         color: var(--muted);
-        font-size: 0.76rem;
+        font-size: 0.78rem;
       }
 
-      .quote {
+      .message {
         margin: 0;
         color: var(--ink);
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.2rem;
-        line-height: 1.28;
+        font-size: clamp(1.42rem, 1.95vw, 1.82rem);
+        line-height: 1.22;
       }
 
-      .context-line {
+      .case-facts {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-        margin-top: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+        margin-top: 14px;
       }
 
-      .context-line div {
-        min-height: 62px;
-        padding: 9px;
+      .case-facts div {
+        min-height: 64px;
+        padding: 10px;
         border: 1px solid var(--line);
-        border-radius: 9px;
+        border-radius: 10px;
         background: var(--white);
       }
 
-      .context-line span,
+      .case-facts span,
       .log-row span {
         display: block;
         margin-bottom: 4px;
         color: var(--muted);
         font-size: 0.62rem;
         font-weight: 800;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.07em;
         text-transform: uppercase;
       }
 
-      .context-line strong,
+      .case-facts strong,
       .log-row strong {
-        font-size: 0.82rem;
+        font-size: 0.85rem;
+      }
+
+      .log-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+        margin-top: 12px;
+      }
+
+      .log-row div {
+        min-height: 62px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--white);
+      }
+
+      .ai-card {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--white);
+        box-shadow: var(--shadow-tight);
+      }
+
+      .ai-answer {
+        padding: 20px;
+        color: var(--white);
+        background: var(--green-950);
+      }
+
+      .ai-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .ai-head h2 {
+        margin: 0;
+        font-size: clamp(1.34rem, 2vw, 1.75rem);
+        line-height: 1.08;
       }
 
       .action-list {
         display: grid;
-        gap: 10px;
-        margin: 0 0 14px;
+        gap: 12px;
+        margin: 0 0 16px;
         padding: 0;
         list-style: none;
         counter-reset: action;
@@ -466,82 +466,88 @@
 
       .action-list li {
         position: relative;
-        min-height: 24px;
-        padding-left: 30px;
+        min-height: 26px;
+        padding-left: 34px;
         color: rgba(255, 255, 255, 0.92);
-        font-size: 0.94rem;
+        font-size: 0.98rem;
+        font-weight: 700;
+        line-height: 1.42;
       }
 
       .action-list li::before {
         position: absolute;
-        top: 0;
+        top: 1px;
         left: 0;
         display: grid;
         place-items: center;
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         border-radius: 999px;
         color: var(--green-950);
         background: var(--gold-soft);
-        font-size: 0.66rem;
+        font-size: 0.7rem;
         font-weight: 800;
         counter-increment: action;
         content: counter(action);
       }
 
-      .ai-note {
-        padding: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 10px;
-        color: rgba(255, 255, 255, 0.78);
+      .guardrail {
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.17);
+        border-radius: 12px;
+        color: rgba(255, 255, 255, 0.8);
         background: rgba(255, 255, 255, 0.08);
-        font-size: 0.84rem;
+        font-size: 0.88rem;
+        font-weight: 700;
       }
 
-      .ai-note strong {
+      .guardrail strong {
         color: var(--gold-soft);
       }
 
-      .draft-box {
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: var(--panel);
+      .draft-card {
+        padding: 18px;
+        background: var(--white);
       }
 
-      .draft-box h3 {
-        margin: 0 0 10px;
-        font-size: 0.95rem;
+      .draft-card h2 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 0 0 12px;
+        font-size: 1.04rem;
       }
 
       textarea {
+        display: block;
         width: 100%;
-        min-height: 124px;
+        min-height: 156px;
         resize: vertical;
-        padding: 13px;
+        padding: 14px;
         border: 1px solid var(--line);
-        border-radius: 10px;
+        border-radius: 11px;
         color: var(--ink);
-        background: var(--white);
+        background: var(--panel);
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.02rem;
-        line-height: 1.35;
+        font-size: 1.08rem;
+        line-height: 1.36;
         outline: none;
       }
 
-      .approval {
+      .button-row {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin-top: 11px;
+        margin-top: 12px;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 40px;
-        padding: 0 14px;
+        min-height: 42px;
+        padding: 0 15px;
         border: 1px solid var(--line);
         border-radius: 999px;
         color: var(--ink);
@@ -551,109 +557,87 @@
 
       .button.primary {
         color: var(--white);
-        background: var(--green-800);
-        border-color: var(--green-800);
+        background: var(--green-700);
+        border-color: var(--green-700);
+      }
+
+      .button.inverse {
+        color: var(--green-950);
+        background: var(--gold-soft);
+        border-color: var(--gold-soft);
       }
 
       .status {
-        min-height: 38px;
-        margin-top: 10px;
-        padding: 9px 11px;
-        border-radius: 10px;
+        min-height: 42px;
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-radius: 11px;
         color: var(--green-900);
         background: var(--green-100);
-        font-size: 0.82rem;
+        font-size: 0.86rem;
         font-weight: 800;
       }
 
-      .log-row {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-        margin-top: 12px;
-      }
-
-      .log-row div {
-        min-height: 58px;
-        padding: 9px;
-        border: 1px solid var(--line);
-        border-radius: 9px;
-        background: var(--white);
-      }
-
-      .thinking .step.ai {
+      .thinking .ai-answer {
         background: #123f3a;
       }
 
-      @media (max-width: 1160px) {
-        .topbar,
-        .hero {
+      @media (max-width: 1220px) {
+        .owner-strip,
+        .tool {
           grid-template-columns: 1fr;
         }
 
-        .private-banner {
-          justify-content: flex-start;
-          border-radius: 12px;
+        .queue,
+        .case-panel {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
         }
 
-        .top-pills,
-        .scenario-buttons {
-          justify-content: flex-start;
+        .case-buttons {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
         }
       }
 
-      @media (max-width: 860px) {
-        .flow {
-          grid-template-columns: 1fr;
-        }
-
-        .step + .step {
-          border-left: 0;
-          border-top: 1px solid var(--line);
-        }
-
-        .scan-strip {
-          grid-template-columns: 1fr;
-        }
-
-        .scan-strip div + div {
-          padding-left: 0;
-          border-left: 0;
-          border-top: 1px solid var(--line);
-        }
-      }
-
-      @media (max-width: 560px) {
-        .product {
+      @media (max-width: 760px) {
+        .page {
           padding: 0;
         }
 
-        .frame {
+        .app {
           min-height: 100vh;
+          border: 0;
           border-radius: 0;
         }
 
-        .hero,
-        .topbar {
-          padding-inline: 18px;
-        }
-
-        h1 {
-          font-size: clamp(3.1rem, 14vw, 4.6rem);
-        }
-
-        .demo-title,
-        .private-banner {
+        .app-header,
+        .case-title-row,
+        .ai-head,
+        .draft-card h2 {
           display: grid;
-          text-align: left;
         }
 
-        .context-line,
+        .header-tags {
+          justify-content: flex-start;
+        }
+
+        .owner-strip > div,
+        .queue,
+        .case-panel,
+        .ai-panel {
+          padding-inline: 16px;
+        }
+
+        .case-buttons,
+        .case-facts,
         .log-row {
           grid-template-columns: 1fr;
         }
 
-        .approval,
+        .case-title {
+          font-size: clamp(1.78rem, 10vw, 2.55rem);
+        }
+
         .button {
           width: 100%;
         }
@@ -661,143 +645,139 @@
     </style>
   </head>
   <body>
-    <main class="product" aria-labelledby="main-title">
-      <div class="frame">
-        <header class="topbar">
-          <div class="brand">
-            <span class="brand-mark">cl</span>
-            <span>
-              <strong>CL Global Ops</strong>
-              <span>Programme staff console</span>
-            </span>
+    <main class="page" aria-labelledby="main-title">
+      <section class="app">
+        <header class="app-header">
+          <div class="title-block">
+            <span class="status-dot" aria-hidden="true"></span>
+            <div>
+              <h1 id="main-title">Internal AI Support Desk</h1>
+              <p>Staff-only assistant for live student-support questions.</p>
+            </div>
           </div>
-          <div class="private-banner">
-            <strong>Private staff tool</strong>
-            <span>Not a public website. For Programme Coordinators and Fellow Advisors.</span>
-          </div>
-          <div class="top-pills">
-            <span>OxCam Summer</span>
-            <span>Internal demo</span>
+          <div class="header-tags">
+            <span class="tag white">Internal use only</span>
+            <span class="tag">Not student-facing</span>
           </div>
         </header>
 
-        <section class="hero">
-          <div class="story">
-            <span class="kicker">Internal AI support</span>
-            <h1 id="main-title">One student-support question, handled safely.</h1>
-            <p>
-              A Fellow Advisor asks what to do. The copilot returns approved next steps, requires coordinator review, and prepares a parent-safe update.
-            </p>
-            <div class="scan-strip" aria-label="Three-part product summary">
-              <div>
-                <strong>1. Advisor asks</strong>
-                <span>Support question comes from staff</span>
-              </div>
-              <div>
-                <strong>2. AI guides</strong>
-                <span>Safe next steps in seconds</span>
-              </div>
-              <div>
-                <strong>3. Coordinator reviews</strong>
-                <span>Parent update and log ready</span>
-              </div>
-            </div>
+        <section class="owner-strip" aria-label="Owner value summary">
+          <div class="owner-note">
+            <strong>Owner preview</strong>
+            <p>Faster staff decisions, safer parent communication, cleaner incident notes.</p>
           </div>
-
-          <div class="demo">
-            <div class="demo-title">
-              <span>Live demo scenario</span>
-              <div class="scenario-buttons" role="tablist" aria-label="Support scenarios">
-                <button class="scenario-button active" type="button" data-scenario="unwell">Unwell student</button>
-                <button class="scenario-button" type="button" data-scenario="lostkey">Lost key</button>
-                <button class="scenario-button" type="button" data-scenario="parent">Parent concern</button>
-              </div>
-            </div>
-
-            <section class="flow" id="flow" aria-label="Simple support copilot flow">
-              <article class="step">
-                <div class="step-head">
-                  <div>
-                    <span>Incoming staff question</span>
-                    <h2 id="incoming-title">Student feels unwell before formal dinner</h2>
-                  </div>
-                  <span class="pill gold" id="issue-pill">Wellbeing</span>
-                </div>
-
-                <div class="message-box">
-                  <div class="sender">
-                    <div>
-                      <strong id="sender-name">Fellow Advisor / Group B</strong>
-                      <span id="sender-meta">King's Parade / 18:42</span>
-                    </div>
-                    <span class="pill">Staff app</span>
-                  </div>
-                  <p class="quote" id="incoming-message">
-                    A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
-                  </p>
-                  <div class="context-line">
-                    <div>
-                      <span>Student</span>
-                      <strong id="student-context">Age 16</strong>
-                    </div>
-                    <div>
-                      <span>Location</span>
-                      <strong id="location-context">College court</strong>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <article class="step ai">
-                <div class="step-head">
-                  <div>
-                    <span>AI response</span>
-                    <h2>Approved next steps</h2>
-                  </div>
-                  <span class="pill red" id="review-pill">Human review required</span>
-                </div>
-
-                <ol class="action-list" id="action-list"></ol>
-                <div class="ai-note" id="ai-note">
-                  <strong>Do not:</strong> give medical advice, leave the student alone, or send a parent update before coordinator approval.
-                </div>
-                <button class="button primary" type="button" id="run-button">Run support copilot</button>
-              </article>
-
-              <article class="step">
-                <div class="step-head">
-                  <div>
-                    <span>Coordinator pack</span>
-                    <h2>Parent update ready</h2>
-                  </div>
-                  <span class="pill" id="draft-pill">Draft only</span>
-                </div>
-
-                <div class="draft-box">
-                  <h3>Parent-safe update</h3>
-                  <textarea id="parent-draft" aria-label="Parent update draft"></textarea>
-                  <div class="approval">
-                    <button class="button primary" type="button" id="approve-button">Mark reviewing</button>
-                    <button class="button" type="button" id="copy-button">Copy update</button>
-                  </div>
-                  <div class="status" id="status-line">Waiting for coordinator review before sending.</div>
-                </div>
-
-                <div class="log-row">
-                  <div>
-                    <span>Log</span>
-                    <strong id="log-type">Wellbeing / supervision</strong>
-                  </div>
-                  <div>
-                    <span>Next check</span>
-                    <strong id="log-check">18:50</strong>
-                  </div>
-                </div>
-              </article>
-            </section>
+          <div class="signal">
+            <b>60 sec</b>
+            <span>AI draft response</span>
+          </div>
+          <div class="signal">
+            <b>Review</b>
+            <span>Before anything sends</span>
+          </div>
+          <div class="signal">
+            <b>Private</b>
+            <span>For staff, not students</span>
           </div>
         </section>
-      </div>
+
+        <section class="tool" aria-label="Internal AI support desk preview">
+          <aside class="queue" aria-label="Staff support questions">
+            <span class="section-label">Staff questions</span>
+            <div class="case-buttons" role="tablist" aria-label="Support cases">
+              <button class="case-button active" type="button" data-scenario="unwell">
+                <span>Wellbeing</span>
+                <strong>Student feels unwell before dinner</strong>
+                <small>Needs answer now</small>
+              </button>
+              <button class="case-button" type="button" data-scenario="lostkey">
+                <span>Accommodation</span>
+                <strong>Student lost room key after activity</strong>
+                <small>Evening support</small>
+              </button>
+              <button class="case-button" type="button" data-scenario="parent">
+                <span>Parent message</span>
+                <strong>Parent asks about supervision</strong>
+                <small>Reply draft needed</small>
+              </button>
+            </div>
+          </aside>
+
+          <article class="case-panel">
+            <span class="section-label">Incoming internal question</span>
+            <div class="case-title-row">
+              <h2 class="case-title" id="incoming-title">Student feels unwell before formal dinner</h2>
+              <span class="pill gold" id="issue-pill">Wellbeing</span>
+            </div>
+            <div class="incoming-box">
+              <div class="sender">
+                <div>
+                  <strong id="sender-name">Fellow Advisor / Group B</strong>
+                  <span id="sender-meta">King's Parade / 18:42</span>
+                </div>
+                <span class="pill">Staff app</span>
+              </div>
+              <p class="message" id="incoming-message">
+                A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
+              </p>
+              <div class="case-facts">
+                <div>
+                  <span>Student</span>
+                  <strong id="student-context">Age 16</strong>
+                </div>
+                <div>
+                  <span>Location</span>
+                  <strong id="location-context">College court</strong>
+                </div>
+                <div>
+                  <span>Next check</span>
+                  <strong id="check-context">18:50</strong>
+                </div>
+              </div>
+            </div>
+            <div class="log-row">
+              <div>
+                <span>Case note</span>
+                <strong id="log-type">Wellbeing / supervision</strong>
+              </div>
+              <div>
+                <span>Status</span>
+                <strong>Coordinator review pending</strong>
+              </div>
+            </div>
+          </article>
+
+          <aside class="ai-panel">
+            <span class="section-label">AI staff answer</span>
+            <div class="ai-card">
+              <div class="ai-answer">
+                <div class="ai-head">
+                  <h2>Recommended response</h2>
+                  <span class="pill red" id="review-pill">Review required</span>
+                </div>
+                <ol class="action-list" id="action-list"></ol>
+                <div class="guardrail" id="ai-note">
+                  <strong>Safety guardrail:</strong> no medical advice, no unsupervised student, no parent update before coordinator review.
+                </div>
+                <div class="button-row">
+                  <button class="button inverse" type="button" id="run-button">Regenerate AI answer</button>
+                </div>
+              </div>
+              <div class="draft-card">
+                <h2>
+                  Parent update draft
+                  <span class="pill blue" id="draft-pill">Draft only</span>
+                </h2>
+                <textarea id="parent-draft" aria-label="Parent update draft"></textarea>
+                <div class="button-row">
+                  <button class="button primary" type="button" id="approve-button">Mark as reviewed</button>
+                  <button class="button" type="button" id="copy-button">Copy draft</button>
+                </div>
+                <div class="status" id="status-line">Waiting for coordinator review before sending.</div>
+              </div>
+            </div>
+          </aside>
+        </section>
+      </section>
     </main>
 
     <script>
@@ -811,16 +791,16 @@
             "A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?",
           student: "Age 16",
           location: "College court",
-          review: "Human review required",
+          review: "Review required",
           actions: [
             "Stay with the student in a calm, supervised place.",
-            "Notify the Programme Coordinator with time, location and symptoms reported.",
-            "Record what the student said and set the next check-in time."
+            "Tell the Programme Coordinator the time, location and symptoms reported.",
+            "Record the next check-in time before closing the case."
           ],
           note:
-            "Do not: give medical advice, leave the student alone, or send a parent update before coordinator approval.",
+            "Safety guardrail: no medical advice, no unsupervised student, no parent update before coordinator review.",
           draft:
-            "Dear Parent,\n\nA member of our programme team is currently with your child after they reported feeling unwell before this evening's formal dinner. The Programme Coordinator is reviewing the situation and the student is being supported calmly by staff.\n\nWe will provide a further update after the coordinator has completed the next check-in.\n\nKind regards,\nCL Global Academy Programme Team",
+            "Dear Parent,\n\nA member of our programme team is currently with your child after they reported feeling unwell before this evening's formal dinner. The Programme Coordinator is reviewing the situation and the student is being supported calmly by staff.\n\nWe will provide a further update after the next check-in.\n\nKind regards,\nProgramme Team",
           logType: "Wellbeing / supervision",
           check: "18:50"
         },
@@ -836,23 +816,23 @@
           review: "Staff review",
           actions: [
             "Keep the student with the advisor group while access is resolved.",
-            "Notify the residential lead and follow college accommodation procedure.",
+            "Notify the residential lead and follow accommodation procedure.",
             "Confirm safe room access before closing the evening check-in."
           ],
           note:
-            "Do not: send the student alone, share room-access details in chat, or close the issue without access confirmation.",
+            "Safety guardrail: do not send the student alone, share room-access details in chat, or close without access confirmation.",
           draft:
-            "Dear Parent,\n\nA student accommodation access issue was reported after the evening activity. The residential team is handling it directly and the student is being supervised while access is resolved.\n\nNo parent action is needed at this time. We will update you if further support is required.\n\nKind regards,\nCL Global Academy Programme Team",
+            "Dear Parent,\n\nA student accommodation access issue was reported after the evening activity. The residential team is handling it directly and the student is being supervised while access is resolved.\n\nNo parent action is needed at this time. We will update you if further support is required.\n\nKind regards,\nProgramme Team",
           logType: "Accommodation / access",
           check: "21:30"
         },
         parent: {
           title: "Parent asks about evening supervision",
-          pill: "Parent trust",
-          sender: "Admissions inbox / Parent",
+          pill: "Parent message",
+          sender: "Programme inbox / Parent",
           meta: "Email / 17:08",
           message:
-            "Can you confirm whether students are supervised after dinner and how CL Global handles evening activities?",
+            "Can you confirm whether students are supervised after dinner and how the programme handles evening activities?",
           student: "Parent of student",
           location: "Programme inbox",
           review: "Reply approval",
@@ -862,16 +842,16 @@
             "Invite the parent to share any specific support concern."
           ],
           note:
-            "Do not: make guarantees outside approved policy, discuss another student, or send without a clear contact path.",
+            "Safety guardrail: do not make guarantees outside approved policy, discuss another student, or send without a clear contact path.",
           draft:
-            "Dear Parent,\n\nThank you for your question. During evening activities, students are supported by the programme team and Fellow Advisors, with staff coordination in place throughout the schedule.\n\nIf your child has any specific support needs or if there is a particular concern you would like us to note, please share it with the Programme Coordinator.\n\nKind regards,\nCL Global Academy Programme Team",
+            "Dear Parent,\n\nThank you for your question. During evening activities, students are supported by the programme team and staff coordination is in place throughout the schedule.\n\nIf your child has any specific support needs or if there is a particular concern you would like us to note, please share it with the Programme Coordinator.\n\nKind regards,\nProgramme Team",
           logType: "Parent communication",
           check: "17:20"
         }
       };
 
-      const buttons = [...document.querySelectorAll(".scenario-button")];
-      const flow = document.getElementById("flow");
+      const buttons = [...document.querySelectorAll(".case-button")];
+      const tool = document.querySelector(".tool");
       const runButton = document.getElementById("run-button");
       const approveButton = document.getElementById("approve-button");
       const copyButton = document.getElementById("copy-button");
@@ -890,7 +870,7 @@
         draftPill: document.getElementById("draft-pill"),
         status: document.getElementById("status-line"),
         logType: document.getElementById("log-type"),
-        check: document.getElementById("log-check")
+        check: document.getElementById("check-context")
       };
       let activeScenario = "unwell";
 
@@ -916,7 +896,7 @@
         fields.student.textContent = scenario.student;
         fields.location.textContent = scenario.location;
         fields.review.textContent = scenario.review;
-        fields.note.innerHTML = `<strong>Do not:</strong> ${scenario.note.replace("Do not: ", "")}`;
+        fields.note.innerHTML = `<strong>Safety guardrail:</strong> ${scenario.note.replace("Safety guardrail: ", "")}`;
         fields.draft.value = scenario.draft;
         fields.draftPill.textContent = "Draft only";
         fields.status.textContent = "Waiting for coordinator review before sending.";
@@ -930,19 +910,19 @@
       });
 
       runButton.addEventListener("click", () => {
-        flow.classList.add("thinking");
-        runButton.textContent = "Copilot reviewing";
+        tool.classList.add("thinking");
+        runButton.textContent = "AI is reviewing";
         window.setTimeout(() => {
-          flow.classList.remove("thinking");
+          tool.classList.remove("thinking");
           renderScenario(activeScenario);
-          runButton.textContent = "Run support copilot";
-          fields.status.textContent = "Support pack refreshed. Coordinator review still required.";
+          runButton.textContent = "Regenerate AI answer";
+          fields.status.textContent = "AI answer refreshed. Coordinator review still required.";
         }, 420);
       });
 
       approveButton.addEventListener("click", () => {
-        fields.draftPill.textContent = "Review started";
-        fields.status.textContent = "Coordinator review started. Parent update remains draft until approved.";
+        fields.draftPill.textContent = "Reviewed";
+        fields.status.textContent = "Coordinator review marked. Draft is ready for approved sending.";
       });
 
       copyButton.addEventListener("click", async () => {
