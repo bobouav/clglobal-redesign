@@ -1,0 +1,1381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CL Global Programme Support Copilot</title>
+    <meta
+      name="description"
+      content="A focused AI programme operations demo for CL Global Academy Fellow Advisors and Programme Coordinators."
+    >
+    <meta property="og:title" content="CL Global Programme Support Copilot">
+    <meta
+      property="og:description"
+      content="A student-support scenario showing approved next steps, parent-safe updates, and coordinator escalation."
+    >
+    <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #14201d;
+        --muted: #66736e;
+        --paper: #f7f4eb;
+        --white: #ffffff;
+        --green-950: #062b28;
+        --green-900: #0c3833;
+        --green-800: #174d46;
+        --green-700: #245f55;
+        --green-100: #dce9e3;
+        --gold: #bea96e;
+        --gold-soft: #efe2b7;
+        --blue-soft: #dcebf0;
+        --rose-soft: #f2ded8;
+        --line: rgba(20, 32, 29, 0.14);
+        --line-light: rgba(255, 255, 255, 0.2);
+        --shadow: 0 24px 80px rgba(15, 28, 25, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Inter, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 600;
+        letter-spacing: 0;
+      }
+
+      .app {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        background: var(--green-950);
+        color: var(--white);
+        isolation: isolate;
+      }
+
+      .app::before {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background:
+          linear-gradient(90deg, rgba(6, 43, 40, 0.96), rgba(6, 43, 40, 0.86) 33%, rgba(6, 43, 40, 0.5) 68%, rgba(6, 43, 40, 0.25)),
+          url("https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/243274/462987_804064.jpg")
+            center / cover;
+        content: "";
+      }
+
+      .app::after {
+        position: absolute;
+        inset: auto 0 0;
+        z-index: -1;
+        height: 22%;
+        background: linear-gradient(180deg, rgba(6, 43, 40, 0), rgba(6, 43, 40, 0.72));
+        content: "";
+      }
+
+      .shell {
+        display: grid;
+        grid-template-columns: minmax(330px, 0.5fr) minmax(780px, 1.5fr);
+        gap: clamp(26px, 3.4vw, 58px);
+        min-height: 100vh;
+        padding: 28px clamp(22px, 3.8vw, 68px) 34px;
+      }
+
+      .intro {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 4px;
+        width: max-content;
+        margin-bottom: auto;
+      }
+
+      .brand strong {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.88rem;
+        font-weight: 700;
+        line-height: 0.86;
+      }
+
+      .brand span {
+        color: rgba(255, 255, 255, 0.76);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .intro-copy {
+        padding: 70px 0 36px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 44px;
+        height: 2px;
+        background: var(--gold);
+        content: "";
+      }
+
+      h1 {
+        max-width: 560px;
+        margin-bottom: 22px;
+        font-size: clamp(4rem, 5.8vw, 7rem);
+        line-height: 0.9;
+        text-shadow: 0 3px 18px rgba(0, 0, 0, 0.22);
+      }
+
+      .lead {
+        max-width: 570px;
+        margin-bottom: 30px;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(1.36rem, 1.8vw, 1.72rem);
+        line-height: 1.3;
+      }
+
+      .signal-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 610px;
+        border-top: 1px solid rgba(255, 255, 255, 0.24);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+      }
+
+      .signal-strip div {
+        min-height: 92px;
+        padding: 18px 16px 15px 0;
+      }
+
+      .signal-strip div + div {
+        padding-left: 18px;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .signal-strip strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1.08rem;
+        line-height: 1.15;
+      }
+
+      .signal-strip span {
+        display: block;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .scenario-tabs {
+        display: grid;
+        gap: 9px;
+        margin-top: auto;
+      }
+
+      .scenario-tabs span {
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .tab-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+      }
+
+      .scenario-button {
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.86);
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .scenario-button.active {
+        color: var(--green-950);
+        background: var(--white);
+        border-color: var(--white);
+      }
+
+      .workspace {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        color: var(--ink);
+      }
+
+      .ops-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 16px;
+        color: var(--white);
+      }
+
+      .ops-title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .ops-title span {
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .ops-title strong {
+        font-size: 1.02rem;
+      }
+
+      .day-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .day-stats span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 38px;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.82);
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .command-center {
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: var(--shadow);
+      }
+
+      .timeline {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        background: rgba(20, 32, 29, 0.1);
+      }
+
+      .time-step {
+        min-height: 76px;
+        padding: 15px 16px;
+        background: rgba(255, 255, 255, 0.86);
+      }
+
+      .time-step strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--green-800);
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .time-step span {
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 800;
+      }
+
+      .work-grid {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.72fr) minmax(360px, 1fr) minmax(330px, 0.9fr);
+        min-height: 626px;
+      }
+
+      .panel {
+        min-width: 0;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.96);
+      }
+
+      .panel + .panel {
+        border-left: 1px solid var(--line);
+      }
+
+      .panel.dark {
+        color: var(--white);
+        background: rgba(9, 47, 43, 0.96);
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      .panel-kicker {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .dark .panel-kicker {
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      .panel-title {
+        margin-bottom: 0;
+        font-family: Inter, Arial, sans-serif;
+        font-size: 1.08rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        padding: 0 10px;
+        border-radius: 999px;
+        color: var(--green-900);
+        background: var(--green-100);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+        text-transform: uppercase;
+      }
+
+      .pill.warning {
+        color: #553207;
+        background: #f2ddb1;
+      }
+
+      .pill.review {
+        color: #5a241f;
+        background: var(--rose-soft);
+      }
+
+      .message-card {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fbfaf6;
+      }
+
+      .sender-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .sender-row strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 0.94rem;
+      }
+
+      .sender-row span {
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .message {
+        margin-bottom: 14px;
+        color: var(--ink);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.28rem;
+        line-height: 1.32;
+      }
+
+      .context-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .context {
+        min-height: 74px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--white);
+      }
+
+      .context span {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 0.66rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .context strong {
+        font-size: 0.86rem;
+      }
+
+      .run-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 48px;
+        margin-top: 14px;
+        border: 0;
+        border-radius: 999px;
+        color: var(--white);
+        background: var(--green-800);
+        font-weight: 800;
+      }
+
+      .run-button:hover {
+        background: var(--green-700);
+      }
+
+      .queue-card {
+        display: grid;
+        gap: 11px;
+        margin-top: 16px;
+      }
+
+      .queue-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .queue-item strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 0.86rem;
+      }
+
+      .queue-item span {
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .risk-meter {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      .risk-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 10px;
+      }
+
+      .risk-top span {
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .risk-top strong {
+        font-size: 2rem;
+        line-height: 1;
+      }
+
+      .meter {
+        height: 9px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .meter-fill {
+        width: 72%;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--gold-soft);
+        transition: width 260ms ease;
+      }
+
+      .ai-section {
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+      }
+
+      .ai-section:last-child {
+        border-bottom: 0;
+      }
+
+      .ai-section span {
+        display: block;
+        margin-bottom: 8px;
+        color: rgba(255, 255, 255, 0.64);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .action-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .action-list li {
+        position: relative;
+        padding-left: 26px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.94rem;
+      }
+
+      .action-list li::before {
+        position: absolute;
+        top: 0.1em;
+        left: 0;
+        display: grid;
+        place-items: center;
+        width: 17px;
+        height: 17px;
+        border-radius: 999px;
+        color: var(--green-950);
+        background: var(--gold-soft);
+        font-size: 0.66rem;
+        font-weight: 800;
+        content: "";
+      }
+
+      .caution-list {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .caution-list li {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.88rem;
+      }
+
+      .caution-list li::before {
+        color: var(--gold-soft);
+        content: "Do not: ";
+        font-weight: 800;
+      }
+
+      .draft-card {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--white);
+      }
+
+      .draft-card h3 {
+        margin-bottom: 12px;
+        font-family: Inter, Arial, sans-serif;
+        font-size: 0.98rem;
+        font-weight: 800;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 150px;
+        resize: vertical;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--ink);
+        background: #fbfaf6;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.04rem;
+        line-height: 1.35;
+        outline: none;
+      }
+
+      .log-card {
+        margin-top: 14px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fbfaf6;
+      }
+
+      .log-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .log-item {
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--white);
+      }
+
+      .log-item span {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 0.66rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .log-item strong {
+        font-size: 0.86rem;
+      }
+
+      .task-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .task-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-top: 9px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .task-list strong {
+        color: var(--green-900);
+      }
+
+      .draft-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink);
+        background: transparent;
+        font-weight: 800;
+      }
+
+      .button.primary {
+        color: var(--white);
+        background: var(--green-800);
+        border-color: var(--green-800);
+      }
+
+      .status-line {
+        min-height: 40px;
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        color: var(--green-900);
+        background: var(--green-100);
+        font-size: 0.84rem;
+        font-weight: 800;
+      }
+
+      .thinking .meter-fill {
+        width: 38% !important;
+      }
+
+      .thinking .panel.dark {
+        background: rgba(13, 58, 53, 0.96);
+      }
+
+      @media (max-width: 1280px) {
+        .shell {
+          grid-template-columns: 1fr;
+        }
+
+        .brand {
+          margin-bottom: 0;
+        }
+
+        .intro {
+          min-height: auto;
+        }
+
+        .intro-copy {
+          padding-top: 58px;
+        }
+      }
+
+      @media (max-width: 960px) {
+        .ops-topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .day-stats {
+          justify-content: flex-start;
+        }
+
+        .timeline,
+        .work-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .panel + .panel {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          padding-inline: 18px;
+        }
+
+        h1 {
+          font-size: clamp(3.45rem, 15vw, 5.2rem);
+        }
+
+        .signal-strip,
+        .context-grid,
+        .log-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .signal-strip div + div {
+          padding-left: 0;
+          border-left: 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .panel {
+          padding: 17px;
+        }
+
+        .draft-actions,
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app" aria-labelledby="page-title">
+      <div class="shell">
+        <section class="intro">
+          <a class="brand" href="index.html" aria-label="CL Global Academy homepage preview">
+            <strong>cl global<br>academy</strong>
+            <span>OxCam Programmes</span>
+          </a>
+
+          <div class="intro-copy">
+            <p class="eyebrow">AI Programme Support Copilot</p>
+            <h1 id="page-title">Student support, handled calmly.</h1>
+            <p class="lead">
+              Fellow Advisors get instant, policy-aware steps for student-support situations, with a parent-safe update and Programme Coordinator review already prepared.
+            </p>
+            <div class="signal-strip" aria-label="Copilot outcomes">
+              <div>
+                <strong>Human review</strong>
+                <span>Escalated to coordinator</span>
+              </div>
+              <div>
+                <strong>Advisor steps</strong>
+                <span>Clear action in 60 seconds</span>
+              </div>
+              <div>
+                <strong>Parent update</strong>
+                <span>Calm draft ready</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="scenario-tabs">
+            <span>Demo scenarios</span>
+            <div class="tab-row" role="tablist" aria-label="Support scenarios">
+              <button class="scenario-button active" type="button" data-scenario="unwell">Unwell student</button>
+              <button class="scenario-button" type="button" data-scenario="lostkey">Lost key</button>
+              <button class="scenario-button" type="button" data-scenario="parent">Parent concern</button>
+              <button class="scenario-button" type="button" data-scenario="weather">Activity disruption</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace" aria-label="Programme support copilot demo">
+          <header class="ops-topbar">
+            <div class="ops-title">
+              <span>Today in Cambridge</span>
+              <strong id="day-title">Formal dinner evening / Group B support</strong>
+            </div>
+            <div class="day-stats" aria-label="Programme day stats">
+              <span>87 students</span>
+              <span>40 Fellow Advisors</span>
+              <span id="alert-count">3 active alerts</span>
+            </div>
+          </header>
+
+          <div class="command-center" id="command-center">
+            <div class="timeline" aria-label="Incident timeline">
+              <div class="time-step">
+                <strong id="time-1">18:42</strong>
+                <span>Advisor message received</span>
+              </div>
+              <div class="time-step">
+                <strong id="time-2">18:42</strong>
+                <span>AI triage completed</span>
+              </div>
+              <div class="time-step">
+                <strong id="time-3">18:43</strong>
+                <span>Coordinator review assigned</span>
+              </div>
+              <div class="time-step">
+                <strong id="time-4">18:50</strong>
+                <span>Next check-in scheduled</span>
+              </div>
+            </div>
+
+            <div class="work-grid">
+              <section class="panel" aria-label="Incoming advisor question">
+                <div class="panel-head">
+                  <div>
+                    <span class="panel-kicker">Incoming staff question</span>
+                    <h2 class="panel-title" id="incoming-title">Student feels unwell before formal dinner</h2>
+                  </div>
+                  <span class="pill warning" id="incoming-pill">Wellbeing</span>
+                </div>
+
+                <article class="message-card">
+                  <div class="sender-row">
+                    <div>
+                      <strong id="sender-name">Fellow Advisor / Group B</strong>
+                      <span id="sender-meta">King's Parade / 18:42</span>
+                    </div>
+                    <span class="pill" id="source-pill">Staff app</span>
+                  </div>
+                  <p class="message" id="incoming-message">
+                    A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
+                  </p>
+                  <div class="context-grid">
+                    <div class="context">
+                      <span>Student</span>
+                      <strong id="student-context">Student A / age 16</strong>
+                    </div>
+                    <div class="context">
+                      <span>Location</span>
+                      <strong id="location-context">College court</strong>
+                    </div>
+                    <div class="context">
+                      <span>Schedule</span>
+                      <strong id="schedule-context">Formal dinner in 18 min</strong>
+                    </div>
+                    <div class="context">
+                      <span>Owner</span>
+                      <strong id="owner-context">Programme Coordinator</strong>
+                    </div>
+                  </div>
+                  <button class="run-button" type="button" id="run-button">Run support copilot</button>
+                </article>
+
+                <div class="queue-card" aria-label="Other live operations messages">
+                  <div class="queue-item">
+                    <div>
+                      <strong>Parent asks about evening supervision</strong>
+                      <span>Trust question / reply draft ready</span>
+                    </div>
+                    <span class="pill">Low</span>
+                  </div>
+                  <div class="queue-item">
+                    <div>
+                      <strong>Group C meeting point unclear</strong>
+                      <span>Schedule question / answer sent</span>
+                    </div>
+                    <span class="pill">Done</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel dark" aria-label="AI advisor instructions">
+                <div class="panel-head">
+                  <div>
+                    <span class="panel-kicker">AI advisor instructions</span>
+                    <h2 class="panel-title">Approved next steps</h2>
+                  </div>
+                  <span class="pill review" id="review-pill">Human review required</span>
+                </div>
+
+                <div class="risk-meter">
+                  <div class="risk-top">
+                    <span id="risk-label">Risk category / wellbeing</span>
+                    <strong id="risk-score">72%</strong>
+                  </div>
+                  <div class="meter" aria-hidden="true">
+                    <div class="meter-fill" id="risk-fill"></div>
+                  </div>
+                </div>
+
+                <div class="ai-section">
+                  <span>Advisor should do now</span>
+                  <ul class="action-list" id="action-list"></ul>
+                </div>
+
+                <div class="ai-section">
+                  <span>Do not do</span>
+                  <ul class="caution-list" id="caution-list"></ul>
+                </div>
+
+                <div class="ai-section">
+                  <span>Escalation rule</span>
+                  <ul class="action-list" id="escalation-list"></ul>
+                </div>
+              </section>
+
+              <section class="panel" aria-label="Parent update and incident log">
+                <div class="panel-head">
+                  <div>
+                    <span class="panel-kicker">Coordinator review pack</span>
+                    <h2 class="panel-title">Parent update + log</h2>
+                  </div>
+                  <span class="pill" id="draft-pill">Draft ready</span>
+                </div>
+
+                <article class="draft-card">
+                  <h3>Parent-safe update draft</h3>
+                  <textarea id="parent-draft" aria-label="Parent update draft"></textarea>
+                  <div class="draft-actions">
+                    <button class="button primary" type="button" id="approve-button">Mark coordinator reviewing</button>
+                    <button class="button" type="button" id="copy-button">Copy update</button>
+                  </div>
+                  <div class="status-line" id="status-line">Waiting for coordinator review before sending.</div>
+                </article>
+
+                <article class="log-card">
+                  <div class="log-grid">
+                    <div class="log-item">
+                      <span>Incident type</span>
+                      <strong id="log-type">Wellbeing / supervision</strong>
+                    </div>
+                    <div class="log-item">
+                      <span>Status</span>
+                      <strong id="log-status">Review within 10 min</strong>
+                    </div>
+                    <div class="log-item">
+                      <span>Assigned to</span>
+                      <strong id="log-owner">Programme Coordinator</strong>
+                    </div>
+                    <div class="log-item">
+                      <span>Next check</span>
+                      <strong id="log-check">18:50</strong>
+                    </div>
+                  </div>
+                  <ul class="task-list" id="task-list"></ul>
+                </article>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const scenarios = {
+        unwell: {
+          dayTitle: "Formal dinner evening / Group B support",
+          alertCount: "3 active alerts",
+          times: ["18:42", "18:42", "18:43", "18:50"],
+          title: "Student feels unwell before formal dinner",
+          pill: "Wellbeing",
+          sender: "Fellow Advisor / Group B",
+          meta: "King's Parade / 18:42",
+          message:
+            "A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?",
+          student: "Student A / age 16",
+          location: "College court",
+          schedule: "Formal dinner in 18 min",
+          owner: "Programme Coordinator",
+          riskLabel: "Risk category / wellbeing",
+          risk: 72,
+          review: "Human review required",
+          actions: [
+            "Stay with the student in a calm, supervised place.",
+            "Notify the Programme Coordinator immediately with time, location and symptoms reported.",
+            "Ask whether the student wants water, rest, or to step away from dinner while waiting for staff guidance.",
+            "Record what the student said, who is present, and the next check-in time."
+          ],
+          cautions: [
+            "give medical advice or diagnose the issue",
+            "leave the student alone while waiting for review",
+            "send a parent update before coordinator approval"
+          ],
+          escalation: [
+            "If symptoms worsen, follow emergency protocol and contact the coordinator immediately.",
+            "Coordinator review required before parent communication."
+          ],
+          draft:
+            "Dear Parent,\n\nA member of our programme team is currently with your child after they reported feeling unwell before this evening's formal dinner. The Programme Coordinator is reviewing the situation and the student is being supported calmly by staff.\n\nWe will provide a further update after the coordinator has completed the next check-in.\n\nKind regards,\nCL Global Academy Programme Team",
+          logType: "Wellbeing / supervision",
+          logStatus: "Review within 10 min",
+          logOwner: "Programme Coordinator",
+          logCheck: "18:50",
+          tasks: [
+            ["Advisor", "Stay with student until coordinator confirms next step"],
+            ["Coordinator", "Review within 10 minutes"],
+            ["Log", "Record time, location, staff present and follow-up"]
+          ]
+        },
+        lostkey: {
+          dayTitle: "Evening return / Accommodation support",
+          alertCount: "2 active alerts",
+          times: ["21:16", "21:16", "21:17", "21:30"],
+          title: "Student lost room key after evening activity",
+          pill: "Accommodation",
+          sender: "Fellow Advisor / Group D",
+          meta: "College entrance / 21:16",
+          message:
+            "A student cannot find their room key after the evening activity. The group is back at college. What should I do?",
+          student: "Student R / age 17",
+          location: "College entrance",
+          schedule: "Return check-in",
+          owner: "Residential lead",
+          riskLabel: "Risk category / supervision",
+          risk: 46,
+          review: "Staff review",
+          actions: [
+            "Keep the student with the advisor group while the key issue is resolved.",
+            "Notify the residential lead and follow college accommodation procedure.",
+            "Confirm the student can safely access their room before closing the evening check-in.",
+            "Log the missing key, location, time and staff member assigned."
+          ],
+          cautions: [
+            "send the student alone to search late at night",
+            "share room-access details in a group chat",
+            "close the incident without confirming room access"
+          ],
+          escalation: [
+            "Escalate if room access cannot be resolved quickly.",
+            "Residential lead owns final confirmation."
+          ],
+          draft:
+            "Dear Parent,\n\nA student accommodation access issue was reported after the evening activity. The residential team is handling it directly and the student is being supervised while access is resolved.\n\nNo parent action is needed at this time. We will update you if any further support is required.\n\nKind regards,\nCL Global Academy Programme Team",
+          logType: "Accommodation / access",
+          logStatus: "Residential review",
+          logOwner: "Residential lead",
+          logCheck: "21:30",
+          tasks: [
+            ["Advisor", "Keep student with supervised group"],
+            ["Residential lead", "Resolve room access"],
+            ["Log", "Record final access confirmation"]
+          ]
+        },
+        parent: {
+          dayTitle: "Parent communication / Evening supervision",
+          alertCount: "1 active alert",
+          times: ["17:08", "17:08", "17:09", "17:20"],
+          title: "Parent asks about supervision after dinner",
+          pill: "Parent trust",
+          sender: "Admissions inbox / Parent",
+          meta: "Email / 17:08",
+          message:
+            "Can you confirm whether students are supervised after dinner and how CL Global handles evening activities?",
+          student: "Parent of student / age 15",
+          location: "Programme inbox",
+          schedule: "Evening activity",
+          owner: "Programme Coordinator",
+          riskLabel: "Risk category / parent communication",
+          risk: 38,
+          review: "Reply approval",
+          actions: [
+            "Answer the supervision question directly and calmly.",
+            "Use approved programme wording and avoid overpromising.",
+            "Invite the parent to share any specific concern about their child.",
+            "Route to coordinator if the parent asks for a special arrangement."
+          ],
+          cautions: [
+            "make guarantees outside approved policy",
+            "discuss another student's details",
+            "leave the parent without a clear contact path"
+          ],
+          escalation: [
+            "Coordinator approval recommended before sending policy wording.",
+            "Escalate if parent raises safety, health or special-support needs."
+          ],
+          draft:
+            "Dear Parent,\n\nThank you for your question. During evening activities, students are supported by the programme team and Fellow Advisors, with staff coordination in place throughout the schedule.\n\nIf your child has any specific support needs or if there is a particular concern you would like us to note, please feel free to share it with the Programme Coordinator so we can follow up appropriately.\n\nKind regards,\nCL Global Academy Programme Team",
+          logType: "Parent communication",
+          logStatus: "Reply approval",
+          logOwner: "Programme Coordinator",
+          logCheck: "17:20",
+          tasks: [
+            ["Coordinator", "Review wording before sending"],
+            ["Admissions", "Attach correct contact path"],
+            ["Log", "Note any special support need if parent replies"]
+          ]
+        },
+        weather: {
+          dayTitle: "Activity schedule / Weather disruption",
+          alertCount: "4 active alerts",
+          times: ["13:25", "13:25", "13:26", "13:45"],
+          title: "Rain may affect afternoon activity",
+          pill: "Activity plan",
+          sender: "Activity lead / Group A",
+          meta: "Market Square / 13:25",
+          message:
+            "Rain is getting heavier before the outdoor activity. Should we move the group or wait?",
+          student: "Group A / 22 students",
+          location: "Market Square",
+          schedule: "Outdoor activity in 20 min",
+          owner: "Activity Coordinator",
+          riskLabel: "Risk category / activity disruption",
+          risk: 55,
+          review: "Coordinator decision",
+          actions: [
+            "Keep the group together under cover while the coordinator reviews the plan.",
+            "Check the approved indoor fallback option and walking route.",
+            "Update Fellow Advisors with one clear meeting point.",
+            "Prepare a short student-facing message if the activity changes."
+          ],
+          cautions: [
+            "split the group without a confirmed meeting point",
+            "make an independent route change without coordinator approval",
+            "send conflicting updates across group chats"
+          ],
+          escalation: [
+            "Activity Coordinator decides whether to switch to the fallback plan.",
+            "Programme Coordinator notified if timing affects dinner or transport."
+          ],
+          draft:
+            "Dear Parent,\n\nDue to changing weather, the programme team is reviewing the afternoon activity plan and may use the approved indoor fallback option. Students remain with their Fellow Advisors while the coordinator confirms the next step.\n\nWe will continue to follow the scheduled supervision process and update families if there is a material change to the day plan.\n\nKind regards,\nCL Global Academy Programme Team",
+          logType: "Activity disruption",
+          logStatus: "Decision pending",
+          logOwner: "Activity Coordinator",
+          logCheck: "13:45",
+          tasks: [
+            ["Activity lead", "Keep group together under cover"],
+            ["Coordinator", "Confirm fallback plan"],
+            ["Staff chat", "Send one unified meeting point"]
+          ]
+        }
+      };
+
+      const buttons = [...document.querySelectorAll(".scenario-button")];
+      const app = document.querySelector(".app");
+      const commandCenter = document.getElementById("command-center");
+      const runButton = document.getElementById("run-button");
+      const approveButton = document.getElementById("approve-button");
+      const copyButton = document.getElementById("copy-button");
+      const statusLine = document.getElementById("status-line");
+      const fields = {
+        dayTitle: document.getElementById("day-title"),
+        alertCount: document.getElementById("alert-count"),
+        title: document.getElementById("incoming-title"),
+        pill: document.getElementById("incoming-pill"),
+        sender: document.getElementById("sender-name"),
+        meta: document.getElementById("sender-meta"),
+        message: document.getElementById("incoming-message"),
+        student: document.getElementById("student-context"),
+        location: document.getElementById("location-context"),
+        schedule: document.getElementById("schedule-context"),
+        owner: document.getElementById("owner-context"),
+        riskLabel: document.getElementById("risk-label"),
+        riskScore: document.getElementById("risk-score"),
+        riskFill: document.getElementById("risk-fill"),
+        review: document.getElementById("review-pill"),
+        parentDraft: document.getElementById("parent-draft"),
+        draftPill: document.getElementById("draft-pill"),
+        logType: document.getElementById("log-type"),
+        logStatus: document.getElementById("log-status"),
+        logOwner: document.getElementById("log-owner"),
+        logCheck: document.getElementById("log-check")
+      };
+
+      const actionList = document.getElementById("action-list");
+      const cautionList = document.getElementById("caution-list");
+      const escalationList = document.getElementById("escalation-list");
+      const taskList = document.getElementById("task-list");
+
+      let activeScenario = "unwell";
+
+      function fillList(target, items) {
+        target.replaceChildren();
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          target.append(li);
+        });
+      }
+
+      function fillTasks(items) {
+        taskList.replaceChildren();
+        items.forEach(([owner, task]) => {
+          const li = document.createElement("li");
+          const strong = document.createElement("strong");
+          strong.textContent = owner;
+          const span = document.createElement("span");
+          span.textContent = task;
+          li.append(strong, span);
+          taskList.append(li);
+        });
+      }
+
+      function renderScenario(key) {
+        const scenario = scenarios[key];
+        activeScenario = key;
+        buttons.forEach((button) => button.classList.toggle("active", button.dataset.scenario === key));
+
+        fields.dayTitle.textContent = scenario.dayTitle;
+        fields.alertCount.textContent = scenario.alertCount;
+        scenario.times.forEach((time, index) => {
+          document.getElementById(`time-${index + 1}`).textContent = time;
+        });
+        fields.title.textContent = scenario.title;
+        fields.pill.textContent = scenario.pill;
+        fields.sender.textContent = scenario.sender;
+        fields.meta.textContent = scenario.meta;
+        fields.message.textContent = scenario.message;
+        fields.student.textContent = scenario.student;
+        fields.location.textContent = scenario.location;
+        fields.schedule.textContent = scenario.schedule;
+        fields.owner.textContent = scenario.owner;
+        fields.riskLabel.textContent = scenario.riskLabel;
+        fields.riskScore.textContent = `${scenario.risk}%`;
+        fields.riskFill.style.width = `${scenario.risk}%`;
+        fields.review.textContent = scenario.review;
+        fields.parentDraft.value = scenario.draft;
+        fields.draftPill.textContent = "Draft ready";
+        fields.logType.textContent = scenario.logType;
+        fields.logStatus.textContent = scenario.logStatus;
+        fields.logOwner.textContent = scenario.logOwner;
+        fields.logCheck.textContent = scenario.logCheck;
+        fillList(actionList, scenario.actions);
+        fillList(cautionList, scenario.cautions);
+        fillList(escalationList, scenario.escalation);
+        fillTasks(scenario.tasks);
+        statusLine.textContent = "Waiting for coordinator review before sending.";
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => renderScenario(button.dataset.scenario));
+      });
+
+      runButton.addEventListener("click", () => {
+        commandCenter.classList.add("thinking");
+        runButton.textContent = "Copilot reviewing";
+        window.setTimeout(() => {
+          commandCenter.classList.remove("thinking");
+          renderScenario(activeScenario);
+          runButton.textContent = "Run support copilot";
+          statusLine.textContent = "Support pack refreshed. Coordinator review still required.";
+        }, 520);
+      });
+
+      approveButton.addEventListener("click", () => {
+        fields.draftPill.textContent = "Review started";
+        fields.logStatus.textContent = "Coordinator reviewing";
+        statusLine.textContent = "Coordinator review started. Parent update remains draft until approved.";
+      });
+
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(fields.parentDraft.value);
+          statusLine.textContent = "Parent update copied for approved sending.";
+        } catch {
+          statusLine.textContent = "Parent update is ready to copy after review.";
+        }
+      });
+
+      renderScenario(activeScenario);
+    </script>
+  </body>
+</html>
