@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CL Global Internal Admissions Console</title>
+    <meta
+      name="description"
+      content="An internal admissions console demo for reviewing AI-summarized CL Global Academy course enquiries."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --ink: #13211d;
+        --muted: #65736d;
+        --paper: #f7f4eb;
+        --white: #ffffff;
+        --green-950: #082d29;
+        --green-900: #0d3a35;
+        --green-800: #174d46;
+        --green-700: #245f55;
+        --green-100: #dfece5;
+        --gold: #bea96e;
+        --gold-soft: #efe2b7;
+        --line: rgba(19, 33, 29, 0.14);
+        --shadow: 0 24px 70px rgba(17, 28, 25, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Inter, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 600;
+        letter-spacing: 0;
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: 320px minmax(0, 1fr);
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+        color: var(--white);
+        background:
+          linear-gradient(180deg, rgba(8, 45, 41, 0.96), rgba(8, 45, 41, 0.92)),
+          url("https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/243274/462987_804064.jpg")
+            center / cover;
+      }
+
+      .brand {
+        display: grid;
+        gap: 4px;
+        margin-bottom: 42px;
+      }
+
+      .brand strong {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.82rem;
+        font-weight: 700;
+        line-height: 0.86;
+      }
+
+      .brand span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .side-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        color: var(--gold-soft);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .side-label::before {
+        width: 34px;
+        height: 2px;
+        background: var(--gold);
+        content: "";
+      }
+
+      .sidebar h1 {
+        margin-bottom: 18px;
+        font-size: 3.55rem;
+        line-height: 0.92;
+      }
+
+      .sidebar p {
+        margin-bottom: 26px;
+        color: rgba(255, 255, 255, 0.78);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.32rem;
+        line-height: 1.32;
+      }
+
+      .side-actions {
+        display: grid;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .side-link,
+      .side-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 16px;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        border-radius: 999px;
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+        font-weight: 800;
+      }
+
+      .side-button {
+        color: var(--green-950);
+        background: var(--white);
+        border-color: var(--white);
+      }
+
+      .main {
+        padding: 28px clamp(22px, 3vw, 54px) 42px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 30px;
+      }
+
+      .topbar-title span {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--green-700);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .topbar-title strong {
+        font-size: 1.08rem;
+      }
+
+      .staff-note {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.64);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.78fr) minmax(430px, 1.22fr) minmax(330px, 0.92fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      .panel {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.84);
+        box-shadow: var(--shadow);
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 18px 18px 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .panel-head h2 {
+        margin-bottom: 0;
+        font-family: Inter, Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+      }
+
+      .panel-head span {
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .lead-list {
+        display: grid;
+      }
+
+      .lead-button {
+        display: grid;
+        gap: 8px;
+        width: 100%;
+        padding: 16px 18px;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        color: var(--ink);
+        background: transparent;
+        text-align: left;
+      }
+
+      .lead-button.active {
+        background: var(--green-100);
+      }
+
+      .lead-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .lead-name {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: 800;
+      }
+
+      .lead-meta {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 28px;
+        padding: 0 10px;
+        border-radius: 999px;
+        color: var(--green-900);
+        background: var(--green-100);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+        text-transform: uppercase;
+      }
+
+      .pill.hot {
+        color: #4f3008;
+        background: #f1ddb2;
+      }
+
+      .pill.partner {
+        color: #173949;
+        background: #dcebf0;
+      }
+
+      .summary {
+        padding: 20px;
+      }
+
+      .summary-hero {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: start;
+        margin-bottom: 18px;
+      }
+
+      .summary-hero span {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .summary-hero h2 {
+        margin-bottom: 7px;
+        font-size: clamp(2.7rem, 4vw, 4.5rem);
+        line-height: 0.94;
+      }
+
+      .summary-hero p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .score {
+        display: grid;
+        place-items: center;
+        width: 96px;
+        height: 96px;
+        border-radius: 999px;
+        color: var(--green-950);
+        background: var(--gold-soft);
+        font-size: 1.55rem;
+        font-weight: 800;
+      }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .detail {
+        min-height: 84px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--white);
+      }
+
+      .detail span {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .detail strong {
+        font-size: 0.9rem;
+      }
+
+      .ai-block {
+        padding: 16px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .ai-block span {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--green-700);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .ai-block p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .mini-list li {
+        position: relative;
+        padding-left: 17px;
+      }
+
+      .mini-list li::before {
+        position: absolute;
+        top: 0.62em;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--green-700);
+        content: "";
+      }
+
+      .draft {
+        padding: 20px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 410px;
+        resize: vertical;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        color: var(--ink);
+        background: var(--white);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.12rem;
+        line-height: 1.35;
+        outline: none;
+      }
+
+      textarea:focus {
+        border-color: rgba(36, 95, 85, 0.62);
+        box-shadow: 0 0 0 4px rgba(36, 95, 85, 0.1);
+      }
+
+      .draft-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink);
+        background: transparent;
+        font-weight: 800;
+      }
+
+      .button.primary {
+        color: var(--white);
+        background: var(--green-800);
+        border-color: var(--green-800);
+      }
+
+      .button.primary:hover {
+        background: var(--green-700);
+      }
+
+      .status {
+        min-height: 40px;
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        color: var(--green-900);
+        background: var(--green-100);
+        font-size: 0.84rem;
+        font-weight: 800;
+      }
+
+      @media (max-width: 1280px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          min-height: auto;
+        }
+
+        .side-actions {
+          display: flex;
+          flex-wrap: wrap;
+          margin-top: 18px;
+        }
+
+        .dashboard {
+          grid-template-columns: minmax(240px, 0.72fr) minmax(420px, 1.28fr);
+        }
+
+        .draft-panel {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .main {
+          padding-inline: 18px;
+        }
+
+        .topbar,
+        .summary-hero {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+
+        .topbar {
+          flex-direction: column;
+        }
+
+        .dashboard,
+        .detail-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .draft-panel {
+          grid-column: auto;
+        }
+
+        .sidebar h1 {
+          font-size: clamp(3rem, 14vw, 4.5rem);
+        }
+      }
+
+      @media (max-width: 520px) {
+        .sidebar {
+          padding: 22px 18px;
+        }
+
+        .draft-actions,
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <aside class="sidebar">
+        <a class="brand" href="index.html" aria-label="CL Global Academy homepage preview">
+          <strong>cl global<br>academy</strong>
+          <span>Internal admissions</span>
+        </a>
+        <span class="side-label">Staff-facing tool</span>
+        <h1>Admissions Console</h1>
+        <p>
+          New website enquiries are summarized, matched to a programme, and turned into reply drafts for staff review.
+        </p>
+        <div class="side-actions">
+          <button class="side-button" type="button" id="refresh-button">Refresh enquiries</button>
+          <a class="side-link" href="admissions-desk.html">Open public advisor</a>
+        </div>
+      </aside>
+
+      <section class="main" aria-labelledby="console-title">
+        <header class="topbar">
+          <div class="topbar-title">
+            <span>Private staff dashboard</span>
+            <strong id="console-title">Not visible to students or parents</strong>
+          </div>
+          <span class="staff-note" id="sync-status">Website enquiries loaded</span>
+        </header>
+
+        <div class="dashboard">
+          <section class="panel" aria-label="Lead queue">
+            <div class="panel-head">
+              <h2>Lead queue</h2>
+              <span id="lead-count">0 leads</span>
+            </div>
+            <div class="lead-list" id="lead-list"></div>
+          </section>
+
+          <section class="panel" aria-label="AI lead summary">
+            <div class="summary">
+              <div class="summary-hero">
+                <div>
+                  <span id="lead-source">Public AI Course Advisor</span>
+                  <h2 id="summary-course">AI+ Course</h2>
+                  <p id="summary-line">Michelle is asking about machine learning, data science and a Cambridge project-based summer programme.</p>
+                </div>
+                <div class="score" id="confidence-score">94%</div>
+              </div>
+
+              <div class="detail-grid">
+                <div class="detail">
+                  <span>Student</span>
+                  <strong id="student-name">Michelle Zhang</strong>
+                </div>
+                <div class="detail">
+                  <span>Priority</span>
+                  <strong id="priority">Hot lead</strong>
+                </div>
+                <div class="detail">
+                  <span>Timeline</span>
+                  <strong id="timeline">This summer</strong>
+                </div>
+              </div>
+
+              <div class="ai-block">
+                <span>AI summary</span>
+                <p id="ai-summary">The enquiry signals strong fit for AI+ because the student mentions machine learning, data science, Cambridge study and project work.</p>
+              </div>
+
+              <div class="ai-block">
+                <span>Missing information</span>
+                <ul class="mini-list" id="missing-list"></ul>
+              </div>
+
+              <div class="ai-block">
+                <span>Suggested staff action</span>
+                <p id="staff-action">Send the AI+ brochure, ask for current university year, and offer admissions guidance.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel draft-panel" aria-label="AI draft reply">
+            <div class="panel-head">
+              <h2>Reply draft</h2>
+              <span>Human approval</span>
+            </div>
+            <div class="draft">
+              <textarea id="draft-text" aria-label="Reply draft"></textarea>
+              <div class="draft-actions">
+                <button class="button primary" type="button" id="approve-button">Approve draft</button>
+                <button class="button" type="button" id="copy-button">Copy reply</button>
+                <button class="button" type="button" id="follow-button">Ask follow-up</button>
+              </div>
+              <div class="status" id="action-status">Draft is ready for staff review.</div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const fallbackLeads = [
+        {
+          id: "DEMO-AI",
+          createdAt: new Date().toISOString(),
+          source: "Public AI Course Advisor",
+          name: "Michelle Zhang",
+          email: "michelle@example.com",
+          age: "University",
+          timeline: "This summer",
+          interest: "AI, machine learning or data science",
+          goal:
+            "I am a second-year university student interested in machine learning, data science and a Cambridge summer programme with project work.",
+          recommendation: "AI+ Course",
+          confidence: 94,
+          fit: "Strong fit",
+          why:
+            "The enquiry signals strong fit for AI+ because the student mentions machine learning, data science, Cambridge study and project work.",
+          next:
+            "Send the AI+ brochure, ask for current university year, and offer admissions guidance.",
+          prepare: ["Current university year", "Preferred track", "Application timeline"],
+          priority: "Hot lead"
+        },
+        {
+          id: "DEMO-RESEARCH",
+          createdAt: new Date().toISOString(),
+          source: "Public AI Course Advisor",
+          name: "Mrs. Chen",
+          email: "parent@example.com",
+          age: "16-18",
+          timeline: "This summer",
+          interest: "Research, medicine or academic writing",
+          goal:
+            "My daughter is interested in biology and medicine. It would be her first time studying abroad, so I want to understand course fit and student support.",
+          recommendation: "OxCam Research+",
+          confidence: 91,
+          fit: "Strong fit",
+          why:
+            "The enquiry combines age fit, parent reassurance needs, and interest in biology, medicine or research.",
+          next:
+            "Recommend OxCam Research+, answer support questions, and ask for subject preference.",
+          prepare: ["Student age and grade", "Preferred research subject", "English level and travel questions"],
+          priority: "Warm lead"
+        },
+        {
+          id: "DEMO-PARTNER",
+          createdAt: new Date().toISOString(),
+          source: "Contact form",
+          name: "International School Lead",
+          email: "school@example.com",
+          age: "School group",
+          timeline: "Custom dates",
+          interest: "Custom programme for a school or institution",
+          goal:
+            "We represent an international school and want a custom Cambridge academic programme for 25-30 high school students across research, AI and cultural activities.",
+          recommendation: "Custom Course",
+          confidence: 88,
+          fit: "Partner fit",
+          why:
+            "The enquiry is a higher-value institutional request and needs a bespoke programme conversation.",
+          next:
+            "Route to partnership follow-up and request dates, group size, age range and learning goals.",
+          prepare: ["Group size", "Preferred dates", "Academic themes and outcomes"],
+          priority: "Priority partner"
+        }
+      ];
+
+      const leadList = document.getElementById("lead-list");
+      const leadCount = document.getElementById("lead-count");
+      const syncStatus = document.getElementById("sync-status");
+      const leadSource = document.getElementById("lead-source");
+      const summaryCourse = document.getElementById("summary-course");
+      const summaryLine = document.getElementById("summary-line");
+      const confidenceScore = document.getElementById("confidence-score");
+      const studentName = document.getElementById("student-name");
+      const priority = document.getElementById("priority");
+      const timeline = document.getElementById("timeline");
+      const aiSummary = document.getElementById("ai-summary");
+      const missingList = document.getElementById("missing-list");
+      const staffAction = document.getElementById("staff-action");
+      const draftText = document.getElementById("draft-text");
+      const actionStatus = document.getElementById("action-status");
+      const refreshButton = document.getElementById("refresh-button");
+      const approveButton = document.getElementById("approve-button");
+      const copyButton = document.getElementById("copy-button");
+      const followButton = document.getElementById("follow-button");
+
+      let leads = [];
+      let activeLeadId = "";
+
+      function loadLeads() {
+        const stored = JSON.parse(localStorage.getItem("clglobalAdvisorLeads") || "[]");
+        leads = [...stored, ...fallbackLeads].slice(0, 8);
+        activeLeadId = leads[0]?.id || "";
+        syncStatus.textContent = stored.length ? "New website enquiry loaded" : "Demo enquiries loaded";
+        renderQueue();
+        renderActiveLead();
+      }
+
+      function renderQueue() {
+        leadList.replaceChildren();
+        leadCount.textContent = `${leads.length} leads`;
+
+        leads.forEach((lead) => {
+          const button = document.createElement("button");
+          button.className = "lead-button";
+          button.type = "button";
+          button.dataset.id = lead.id;
+          button.classList.toggle("active", lead.id === activeLeadId);
+
+          const row = document.createElement("div");
+          row.className = "lead-row";
+
+          const text = document.createElement("div");
+          const name = document.createElement("span");
+          name.className = "lead-name";
+          name.textContent = lead.name;
+          const meta = document.createElement("span");
+          meta.className = "lead-meta";
+          meta.textContent = `${lead.recommendation} · ${lead.timeline}`;
+          text.append(name, meta);
+
+          const pill = document.createElement("span");
+          pill.className = `pill ${lead.priority.toLowerCase().includes("partner") ? "partner" : "hot"}`;
+          pill.textContent = lead.priority;
+
+          row.append(text, pill);
+          button.append(row);
+          button.addEventListener("click", () => {
+            activeLeadId = lead.id;
+            renderQueue();
+            renderActiveLead();
+          });
+          leadList.append(button);
+        });
+      }
+
+      function renderMissing(items) {
+        missingList.replaceChildren();
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          missingList.append(li);
+        });
+      }
+
+      function draftFor(lead) {
+        const firstName = lead.name.split(" ")[0] || lead.name;
+        if (lead.priority.toLowerCase().includes("partner")) {
+          return `Hello ${lead.name},\n\nThank you for reaching out to CL Global Academy.\n\nYour request sounds like a strong fit for a bespoke Cambridge-based programme. We can shape academic seminars, project work and cultural activities around your school's goals.\n\nCould you share your preferred dates, student age range, expected programme length and the main outcomes you would like students to achieve?\n\nBest,\nCL Global Academy`;
+        }
+
+        return `Hi ${firstName},\n\nThank you for reaching out to CL Global Academy.\n\nBased on your interests, ${lead.recommendation} looks like the strongest fit. ${lead.why}\n\nTo guide you properly, could you share ${lead.prepare.join(", ").toLowerCase()}?\n\nBest,\nCL Global Academy`;
+      }
+
+      function renderActiveLead() {
+        const lead = leads.find((item) => item.id === activeLeadId) || leads[0];
+        if (!lead) return;
+
+        leadSource.textContent = lead.source;
+        summaryCourse.textContent = lead.recommendation;
+        summaryLine.textContent = lead.goal;
+        confidenceScore.textContent = `${lead.confidence}%`;
+        studentName.textContent = lead.name;
+        priority.textContent = lead.priority;
+        timeline.textContent = lead.timeline;
+        aiSummary.textContent = lead.why;
+        staffAction.textContent = lead.next;
+        renderMissing(lead.prepare);
+        draftText.value = draftFor(lead);
+        actionStatus.textContent = "Draft is ready for staff review.";
+      }
+
+      refreshButton.addEventListener("click", () => {
+        loadLeads();
+        actionStatus.textContent = "Website enquiries refreshed.";
+      });
+
+      approveButton.addEventListener("click", () => {
+        actionStatus.textContent = "Draft approved. Staff can now send it through email.";
+      });
+
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(draftText.value);
+          actionStatus.textContent = "Reply copied to clipboard.";
+        } catch {
+          actionStatus.textContent = "Reply is ready to copy.";
+        }
+      });
+
+      followButton.addEventListener("click", () => {
+        const lead = leads.find((item) => item.id === activeLeadId) || leads[0];
+        draftText.value += `\n\nFollow-up note for staff: confirm ${lead.prepare.join(", ").toLowerCase()} before sending final programme details.`;
+        actionStatus.textContent = "Follow-up note added to the draft.";
+      });
+
+      loadLeads();
+    </script>
+  </body>
+</html>
