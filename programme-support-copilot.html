@@ -139,14 +139,14 @@
         font-weight: 700;
       }
 
-      .header-tags {
+      .header-stats {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
         gap: 8px;
       }
 
-      .tag,
+      .header-stat,
       .pill {
         display: inline-flex;
         align-items: center;
@@ -158,17 +158,12 @@
         white-space: nowrap;
       }
 
-      .tag {
+      .header-stat {
         min-height: 36px;
         padding: 0 13px;
         color: var(--gold-soft);
         background: rgba(255, 255, 255, 0.08);
         font-size: 0.7rem;
-      }
-
-      .tag.white {
-        color: var(--green-950);
-        background: var(--white);
       }
 
       .owner-strip {
@@ -617,7 +612,7 @@
           display: grid;
         }
 
-        .header-tags {
+        .header-stats {
           justify-content: flex-start;
         }
 
@@ -655,9 +650,9 @@
               <p>Staff-only assistant for live student-support questions.</p>
             </div>
           </div>
-          <div class="header-tags">
-            <span class="tag white">Internal use only</span>
-            <span class="tag">Not student-facing</span>
+          <div class="header-stats" aria-label="Support desk status">
+            <span class="header-stat">3 open questions</span>
+            <span class="header-stat">1 review pending</span>
           </div>
         </header>
 
@@ -675,8 +670,8 @@
             <span>Before anything sends</span>
           </div>
           <div class="signal">
-            <b>Private</b>
-            <span>For staff, not students</span>
+            <b>Log</b>
+            <span>Case note prepared</span>
           </div>
         </section>
 
