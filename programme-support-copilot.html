@@ -3,46 +3,44 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Internal AI Support Desk Demo</title>
+    <title>AI Support Desk Demo</title>
     <meta
       name="description"
-      content="A staff-only AI support desk demo for handling student support questions with safe next steps and reviewed parent updates."
+      content="A quiet internal AI support desk for handling student support questions, staff guidance, reviewed parent updates and case notes."
     >
-    <meta property="og:title" content="Internal AI Support Desk Demo">
+    <meta property="og:title" content="AI Support Desk Demo">
     <meta
       property="og:description"
-      content="A private internal AI tool for programme teams: urgent staff question, safe AI guidance, reviewed parent update."
+      content="A focused AI support desk for programme operations: staff question, safe AI guidance, parent draft, review status."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     >
     <style>
       :root {
-        --ink: #14201d;
-        --muted: #66726d;
-        --paper: #f4f0e7;
-        --white: #ffffff;
-        --panel: #fbfaf6;
-        --cream: #f8f5ee;
-        --line: rgba(20, 32, 29, 0.13);
-        --line-strong: rgba(20, 32, 29, 0.22);
-        --green-950: #082f2b;
-        --green-900: #103d38;
-        --green-800: #1e5b52;
-        --green-700: #2e7065;
-        --green-100: #dfeae4;
-        --gold: #b7a468;
-        --gold-soft: #f0e4bd;
-        --rose-soft: #f3ded8;
-        --rose-ink: #703228;
-        --blue-soft: #e1ecf0;
-        --blue-ink: #244754;
-        --shadow: 0 30px 90px rgba(20, 32, 29, 0.14);
-        --shadow-tight: 0 16px 42px rgba(20, 32, 29, 0.1);
+        --ink: #17211e;
+        --muted: #65706b;
+        --faint: #8b938e;
+        --bg: #eef0eb;
+        --surface: #ffffff;
+        --panel: #f8f7f2;
+        --line: #dfe2dc;
+        --line-strong: #cdd3ca;
+        --green-950: #0c302c;
+        --green-800: #246257;
+        --green-700: #317365;
+        --green-100: #e2eee8;
+        --amber-100: #f3e7bf;
+        --amber-800: #62450d;
+        --rose-100: #f5ded9;
+        --rose-800: #753329;
+        --blue-100: #dfeaf0;
+        --blue-800: #284b58;
+        --shadow: 0 24px 70px rgba(23, 33, 30, 0.1);
       }
 
       * {
@@ -50,16 +48,16 @@
       }
 
       html {
-        background: var(--paper);
+        background: var(--bg);
       }
 
       body {
         margin: 0;
         color: var(--ink);
-        background: var(--paper);
+        background: var(--bg);
         font-family: Inter, Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
+        font-size: 14px;
+        line-height: 1.45;
       }
 
       button,
@@ -80,271 +78,263 @@
 
       .page {
         min-height: 100vh;
-        padding: clamp(16px, 2vw, 30px);
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(244, 240, 231, 0.96)),
-          var(--paper);
+        padding: 18px;
       }
 
       .app {
         display: grid;
-        grid-template-rows: auto auto minmax(0, 1fr);
-        min-height: calc(100vh - clamp(32px, 4vw, 60px));
+        grid-template-rows: 58px minmax(0, 1fr);
+        min-height: calc(100vh - 36px);
         overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        background: var(--white);
+        border: 1px solid var(--line-strong);
+        border-radius: 16px;
+        background: var(--surface);
         box-shadow: var(--shadow);
       }
 
-      .app-header {
+      .topbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 22px;
-        min-height: 86px;
-        padding: 18px clamp(20px, 2.3vw, 34px);
-        color: var(--white);
+        gap: 18px;
+        padding: 0 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
         background: var(--green-950);
       }
 
-      .title-block {
+      .app-title {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 10px;
         min-width: 0;
       }
 
-      .status-dot {
-        width: 13px;
-        height: 13px;
+      .app-dot {
+        width: 10px;
+        height: 10px;
         border-radius: 999px;
-        background: var(--gold-soft);
-        box-shadow: 0 0 0 5px rgba(240, 228, 189, 0.17);
+        background: var(--amber-100);
+        box-shadow: 0 0 0 4px rgba(243, 231, 191, 0.16);
         flex: 0 0 auto;
       }
 
       h1 {
-        margin-bottom: 2px;
-        font-size: clamp(1.38rem, 1.8vw, 2rem);
+        margin: 0;
+        overflow: hidden;
+        font-size: 1.05rem;
         font-weight: 800;
-        letter-spacing: 0;
-        line-height: 1.08;
+        line-height: 1.1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
-      .title-block p {
-        margin-bottom: 0;
-        color: rgba(255, 255, 255, 0.72);
-        font-size: 0.9rem;
+      .topbar small {
+        display: block;
+        margin-top: 2px;
+        color: rgba(255, 255, 255, 0.64);
+        font-size: 0.74rem;
         font-weight: 700;
       }
 
-      .header-stats {
+      .top-status {
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
         justify-content: flex-end;
-        gap: 8px;
+        gap: 10px;
+        min-width: 0;
       }
 
-      .header-stat,
+      .top-status span {
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.74rem;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: 292px minmax(410px, 1fr) 430px;
+        min-height: 0;
+      }
+
+      .sidebar,
+      .case,
+      .assistant {
+        min-width: 0;
+        min-height: 0;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--line);
+        background: #f5f4ef;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 52px;
+        padding: 0 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .section-head span {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 800;
+      }
+
+      .filters {
+        display: flex;
+        gap: 6px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .filter {
+        min-height: 30px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        background: var(--surface);
+        font-size: 0.74rem;
+        font-weight: 800;
+      }
+
+      .filter.active {
+        color: #fff;
+        border-color: var(--green-800);
+        background: var(--green-800);
+      }
+
+      .queue-list {
+        display: grid;
+        gap: 8px;
+        padding: 14px;
+      }
+
+      .case-button {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--ink);
+        background: var(--surface);
+        text-align: left;
+      }
+
+      .case-button.active {
+        border-color: rgba(36, 98, 87, 0.65);
+        box-shadow: inset 3px 0 0 var(--green-800);
+      }
+
+      .queue-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 6px;
+        color: var(--faint);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .case-button strong {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 0.92rem;
+        line-height: 1.24;
+      }
+
+      .case-button small {
+        display: block;
+        color: var(--green-800);
+        font-size: 0.76rem;
+        font-weight: 800;
+      }
+
+      .case {
+        display: grid;
+        grid-template-rows: 52px minmax(0, 1fr);
+        border-right: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .case-body,
+      .assistant-body {
+        overflow: auto;
+        padding: 18px;
+      }
+
+      .case-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      .case-title {
+        margin: 0;
+        font-size: clamp(1.36rem, 2.2vw, 2.05rem);
+        line-height: 1.1;
+        letter-spacing: 0;
+      }
+
       .pill {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        min-height: 28px;
+        padding: 0 9px;
         border-radius: 999px;
+        color: var(--green-800);
+        background: var(--green-100);
+        font-size: 0.64rem;
         font-weight: 800;
         letter-spacing: 0.07em;
         text-transform: uppercase;
         white-space: nowrap;
       }
 
-      .header-stat {
-        min-height: 36px;
-        padding: 0 13px;
-        color: var(--gold-soft);
-        background: rgba(255, 255, 255, 0.08);
-        font-size: 0.7rem;
-      }
-
-      .owner-strip {
-        display: grid;
-        grid-template-columns: minmax(340px, 1fr) repeat(3, minmax(150px, 0.22fr));
-        gap: 1px;
-        border-bottom: 1px solid var(--line);
-        background: var(--line);
-      }
-
-      .owner-strip > div {
-        min-width: 0;
-        min-height: 78px;
-        padding: 15px clamp(16px, 1.8vw, 26px);
-        background: var(--cream);
-      }
-
-      .owner-note strong {
-        display: block;
-        margin-bottom: 4px;
-        color: var(--green-900);
-        font-size: 0.76rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .owner-note p {
-        margin-bottom: 0;
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(1.18rem, 1.35vw, 1.42rem);
-        font-weight: 700;
-        line-height: 1.22;
-      }
-
-      .signal b {
-        display: block;
-        margin-bottom: 3px;
-        font-size: 1.12rem;
-      }
-
-      .signal span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 800;
-        letter-spacing: 0.07em;
-        line-height: 1.35;
-        text-transform: uppercase;
-      }
-
-      .tool {
-        display: grid;
-        grid-template-columns: minmax(250px, 0.24fr) minmax(420px, 0.42fr) minmax(380px, 0.34fr);
-        min-height: 0;
-      }
-
-      .queue,
-      .case-panel,
-      .ai-panel {
-        min-width: 0;
-        min-height: 0;
-        padding: clamp(18px, 2vw, 26px);
-      }
-
-      .queue {
-        border-right: 1px solid var(--line);
-        background: #f7f4ed;
-      }
-
-      .case-panel {
-        border-right: 1px solid var(--line);
-        background: var(--white);
-      }
-
-      .ai-panel {
-        background: var(--cream);
-      }
-
-      .section-label {
-        display: block;
-        margin-bottom: 14px;
-        color: var(--green-800);
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-      }
-
-      .case-buttons {
-        display: grid;
-        gap: 10px;
-      }
-
-      .case-button {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        color: var(--ink);
-        background: var(--white);
-        text-align: left;
-        transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-      }
-
-      .case-button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 10px 22px rgba(20, 32, 29, 0.08);
-      }
-
-      .case-button.active {
-        border-color: rgba(30, 91, 82, 0.55);
-        box-shadow: 0 0 0 3px rgba(30, 91, 82, 0.1);
-      }
-
-      .case-button span {
-        display: block;
-        margin-bottom: 6px;
-        color: var(--muted);
-        font-size: 0.66rem;
-        font-weight: 800;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-      }
-
-      .case-button strong {
-        display: block;
-        font-size: 0.98rem;
-        line-height: 1.25;
-      }
-
-      .case-button small {
-        display: block;
-        margin-top: 9px;
-        color: var(--green-800);
-        font-size: 0.72rem;
-        font-weight: 800;
-      }
-
-      .case-title-row {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 16px;
-      }
-
-      .case-title {
-        margin: 0;
-        font-size: clamp(1.85rem, 2.55vw, 2.75rem);
-        line-height: 1.04;
-        letter-spacing: 0;
-      }
-
-      .pill {
-        min-height: 31px;
-        padding: 0 10px;
-        color: var(--green-900);
-        background: var(--green-100);
-        font-size: 0.66rem;
-      }
-
       .pill.gold {
-        color: #5c3909;
-        background: var(--gold-soft);
+        color: var(--amber-800);
+        background: var(--amber-100);
       }
 
       .pill.red {
-        color: var(--rose-ink);
-        background: var(--rose-soft);
+        color: var(--rose-800);
+        background: var(--rose-100);
       }
 
       .pill.blue {
-        color: var(--blue-ink);
-        background: var(--blue-soft);
+        color: var(--blue-800);
+        background: var(--blue-100);
       }
 
-      .incoming-box {
-        padding: 17px;
+      .message-card,
+      .detail-card,
+      .ai-card,
+      .draft-card {
         border: 1px solid var(--line);
-        border-radius: 15px;
+        border-radius: 12px;
+        background: var(--surface);
+      }
+
+      .message-card {
+        padding: 16px;
         background: var(--panel);
       }
 
@@ -353,180 +343,188 @@
         align-items: flex-start;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 13px;
+        margin-bottom: 12px;
       }
 
       .sender strong {
         display: block;
-        margin-bottom: 4px;
-        font-size: 1rem;
+        margin-bottom: 3px;
+        font-size: 0.94rem;
       }
 
       .sender span {
-        display: block;
         color: var(--muted);
         font-size: 0.78rem;
       }
 
       .message {
         margin: 0;
-        color: var(--ink);
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(1.42rem, 1.95vw, 1.82rem);
-        line-height: 1.22;
+        font-size: 1.08rem;
+        font-weight: 600;
+        line-height: 1.48;
       }
 
-      .case-facts {
+      .facts {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 9px;
-        margin-top: 14px;
+        gap: 8px;
+        margin-top: 12px;
       }
 
-      .case-facts div {
-        min-height: 64px;
+      .facts div,
+      .detail-card {
         padding: 10px;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        background: var(--white);
+        background: var(--surface);
       }
 
-      .case-facts span,
-      .log-row span {
+      .facts div {
+        min-height: 58px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+      }
+
+      .facts span,
+      .detail-card span,
+      .note-row span {
         display: block;
         margin-bottom: 4px;
-        color: var(--muted);
+        color: var(--faint);
         font-size: 0.62rem;
         font-weight: 800;
         letter-spacing: 0.07em;
         text-transform: uppercase;
       }
 
-      .case-facts strong,
-      .log-row strong {
-        font-size: 0.85rem;
+      .facts strong,
+      .detail-card strong,
+      .note-row strong {
+        font-size: 0.84rem;
       }
 
-      .log-row {
+      .detail-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
+        gap: 10px;
         margin-top: 12px;
       }
 
-      .log-row div {
-        min-height: 62px;
-        padding: 10px;
+      .case-note {
+        display: grid;
+        gap: 8px;
+        margin-top: 14px;
+        padding: 12px;
         border: 1px solid var(--line);
-        border-radius: 10px;
-        background: var(--white);
+        border-radius: 12px;
+        background: #fbfbf8;
+      }
+
+      .note-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .note-row:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .assistant {
+        display: grid;
+        grid-template-rows: 52px minmax(0, 1fr);
+        background: #f6f7f2;
+      }
+
+      .assistant-body {
+        display: grid;
+        align-content: start;
+        gap: 12px;
       }
 
       .ai-card {
         overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        background: var(--white);
-        box-shadow: var(--shadow-tight);
       }
 
-      .ai-answer {
-        padding: 20px;
-        color: var(--white);
-        background: var(--green-950);
-      }
-
-      .ai-head {
+      .ai-card-head,
+      .draft-head {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 14px;
+        padding: 14px 14px 0;
       }
 
-      .ai-head h2 {
+      .ai-card-head h3,
+      .draft-head h3 {
         margin: 0;
-        font-size: clamp(1.34rem, 2vw, 1.75rem);
-        line-height: 1.08;
+        font-size: 1rem;
       }
 
       .action-list {
         display: grid;
-        gap: 12px;
-        margin: 0 0 16px;
-        padding: 0;
+        gap: 8px;
+        margin: 12px 0 0;
+        padding: 0 14px 14px;
         list-style: none;
         counter-reset: action;
       }
 
       .action-list li {
         position: relative;
-        min-height: 26px;
-        padding-left: 34px;
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 0.98rem;
+        min-height: 24px;
+        padding-left: 30px;
+        color: var(--ink);
+        font-size: 0.9rem;
         font-weight: 700;
-        line-height: 1.42;
       }
 
       .action-list li::before {
         position: absolute;
-        top: 1px;
+        top: 0;
         left: 0;
         display: grid;
         place-items: center;
-        width: 22px;
-        height: 22px;
+        width: 21px;
+        height: 21px;
         border-radius: 999px;
         color: var(--green-950);
-        background: var(--gold-soft);
-        font-size: 0.7rem;
+        background: var(--amber-100);
+        font-size: 0.68rem;
         font-weight: 800;
         counter-increment: action;
         content: counter(action);
       }
 
       .guardrail {
-        padding: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.17);
-        border-radius: 12px;
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(255, 255, 255, 0.08);
-        font-size: 0.88rem;
+        margin: 0 14px 14px;
+        padding: 11px;
+        border-radius: 10px;
+        color: var(--green-950);
+        background: var(--green-100);
+        font-size: 0.82rem;
         font-weight: 700;
       }
 
-      .guardrail strong {
-        color: var(--gold-soft);
-      }
-
       .draft-card {
-        padding: 18px;
-        background: var(--white);
-      }
-
-      .draft-card h2 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        margin: 0 0 12px;
-        font-size: 1.04rem;
+        padding-bottom: 14px;
       }
 
       textarea {
         display: block;
-        width: 100%;
-        min-height: 156px;
+        width: calc(100% - 28px);
+        min-height: 158px;
+        margin: 12px 14px 0;
         resize: vertical;
-        padding: 14px;
+        padding: 12px;
         border: 1px solid var(--line);
-        border-radius: 11px;
+        border-radius: 10px;
         color: var(--ink);
         background: var(--panel);
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.08rem;
-        line-height: 1.36;
+        font-size: 0.9rem;
+        line-height: 1.48;
         outline: none;
       }
 
@@ -534,63 +532,56 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin-top: 12px;
+        padding: 12px 14px 0;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 42px;
-        padding: 0 15px;
+        min-height: 36px;
+        padding: 0 12px;
         border: 1px solid var(--line);
-        border-radius: 999px;
+        border-radius: 8px;
         color: var(--ink);
-        background: var(--white);
+        background: var(--surface);
         font-weight: 800;
       }
 
       .button.primary {
-        color: var(--white);
-        background: var(--green-700);
-        border-color: var(--green-700);
-      }
-
-      .button.inverse {
-        color: var(--green-950);
-        background: var(--gold-soft);
-        border-color: var(--gold-soft);
+        color: #fff;
+        border-color: var(--green-800);
+        background: var(--green-800);
       }
 
       .status {
-        min-height: 42px;
-        margin-top: 12px;
-        padding: 10px 12px;
-        border-radius: 11px;
-        color: var(--green-900);
+        min-height: 38px;
+        margin: 12px 14px 0;
+        padding: 9px 10px;
+        border-radius: 9px;
+        color: var(--green-950);
         background: var(--green-100);
-        font-size: 0.86rem;
+        font-size: 0.82rem;
         font-weight: 800;
       }
 
-      .thinking .ai-answer {
-        background: #123f3a;
+      .thinking .ai-card {
+        border-color: rgba(36, 98, 87, 0.45);
+        box-shadow: inset 3px 0 0 var(--green-800);
       }
 
-      @media (max-width: 1220px) {
-        .owner-strip,
-        .tool {
-          grid-template-columns: 1fr;
+      @media (max-width: 1180px) {
+        .workspace {
+          grid-template-columns: 260px minmax(0, 1fr);
         }
 
-        .queue,
-        .case-panel {
-          border-right: 0;
-          border-bottom: 1px solid var(--line);
+        .assistant {
+          grid-column: 1 / -1;
+          border-top: 1px solid var(--line);
         }
 
-        .case-buttons {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
+        .assistant-body {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
@@ -605,32 +596,38 @@
           border-radius: 0;
         }
 
-        .app-header,
-        .case-title-row,
-        .ai-head,
-        .draft-card h2 {
+        .topbar {
           display: grid;
+          min-height: 74px;
+          padding-block: 12px;
         }
 
-        .header-stats {
+        .top-status {
           justify-content: flex-start;
         }
 
-        .owner-strip > div,
-        .queue,
-        .case-panel,
-        .ai-panel {
-          padding-inline: 16px;
-        }
-
-        .case-buttons,
-        .case-facts,
-        .log-row {
+        .workspace,
+        .assistant-body,
+        .facts,
+        .detail-grid {
           grid-template-columns: 1fr;
         }
 
+        .sidebar,
+        .case {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .case-header,
+        .sender,
+        .ai-card-head,
+        .draft-head {
+          display: grid;
+        }
+
         .case-title {
-          font-size: clamp(1.78rem, 10vw, 2.55rem);
+          font-size: clamp(1.45rem, 9vw, 2rem);
         }
 
         .button {
@@ -642,133 +639,148 @@
   <body>
     <main class="page" aria-labelledby="main-title">
       <section class="app">
-        <header class="app-header">
-          <div class="title-block">
-            <span class="status-dot" aria-hidden="true"></span>
+        <header class="topbar">
+          <div class="app-title">
+            <span class="app-dot" aria-hidden="true"></span>
             <div>
-              <h1 id="main-title">Internal AI Support Desk</h1>
-              <p>Staff-only assistant for live student-support questions.</p>
+              <h1 id="main-title">AI Support Desk</h1>
+              <small>Programme operations</small>
             </div>
           </div>
-          <div class="header-stats" aria-label="Support desk status">
-            <span class="header-stat">3 open questions</span>
-            <span class="header-stat">1 review pending</span>
+          <div class="top-status" aria-label="Support desk status">
+            <span>Open 3</span>
+            <span>Review 1</span>
+            <span>Updated 18:42</span>
           </div>
         </header>
 
-        <section class="owner-strip" aria-label="Owner value summary">
-          <div class="owner-note">
-            <strong>Owner preview</strong>
-            <p>Faster staff decisions, safer parent communication, cleaner incident notes.</p>
-          </div>
-          <div class="signal">
-            <b>60 sec</b>
-            <span>AI draft response</span>
-          </div>
-          <div class="signal">
-            <b>Review</b>
-            <span>Before anything sends</span>
-          </div>
-          <div class="signal">
-            <b>Log</b>
-            <span>Case note prepared</span>
-          </div>
-        </section>
-
-        <section class="tool" aria-label="Internal AI support desk preview">
-          <aside class="queue" aria-label="Staff support questions">
-            <span class="section-label">Staff questions</span>
-            <div class="case-buttons" role="tablist" aria-label="Support cases">
+        <section class="workspace" aria-label="AI support desk preview">
+          <aside class="sidebar" aria-label="Support inbox">
+            <div class="section-head">
+              <h2>Support inbox</h2>
+              <span>Today</span>
+            </div>
+            <div class="filters" aria-label="Inbox filters">
+              <button class="filter active" type="button">Open</button>
+              <button class="filter" type="button">Review</button>
+              <button class="filter" type="button">Logged</button>
+            </div>
+            <div class="queue-list" role="tablist" aria-label="Support cases">
               <button class="case-button active" type="button" data-scenario="unwell">
-                <span>Wellbeing</span>
+                <span class="queue-meta"><span>Wellbeing</span><span>18:42</span></span>
                 <strong>Student feels unwell before dinner</strong>
-                <small>Needs answer now</small>
+                <small>Needs staff guidance</small>
               </button>
               <button class="case-button" type="button" data-scenario="lostkey">
-                <span>Accommodation</span>
+                <span class="queue-meta"><span>Accommodation</span><span>21:16</span></span>
                 <strong>Student lost room key after activity</strong>
                 <small>Evening support</small>
               </button>
               <button class="case-button" type="button" data-scenario="parent">
-                <span>Parent message</span>
+                <span class="queue-meta"><span>Parent message</span><span>17:08</span></span>
                 <strong>Parent asks about supervision</strong>
                 <small>Reply draft needed</small>
               </button>
             </div>
           </aside>
 
-          <article class="case-panel">
-            <span class="section-label">Incoming internal question</span>
-            <div class="case-title-row">
-              <h2 class="case-title" id="incoming-title">Student feels unwell before formal dinner</h2>
-              <span class="pill gold" id="issue-pill">Wellbeing</span>
+          <article class="case">
+            <div class="section-head">
+              <h2>Active case</h2>
+              <span id="case-time">18:42</span>
             </div>
-            <div class="incoming-box">
-              <div class="sender">
-                <div>
-                  <strong id="sender-name">Fellow Advisor / Group B</strong>
-                  <span id="sender-meta">King's Parade / 18:42</span>
-                </div>
-                <span class="pill">Staff app</span>
+            <div class="case-body">
+              <div class="case-header">
+                <h2 class="case-title" id="incoming-title">Student feels unwell before formal dinner</h2>
+                <span class="pill gold" id="issue-pill">Wellbeing</span>
               </div>
-              <p class="message" id="incoming-message">
-                A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
-              </p>
-              <div class="case-facts">
-                <div>
-                  <span>Student</span>
-                  <strong id="student-context">Age 16</strong>
+              <div class="message-card">
+                <div class="sender">
+                  <div>
+                    <strong id="sender-name">Fellow Advisor / Group B</strong>
+                    <span id="sender-meta">King's Parade</span>
+                  </div>
+                  <span class="pill">Staff app</span>
                 </div>
-                <div>
-                  <span>Location</span>
-                  <strong id="location-context">College court</strong>
-                </div>
-                <div>
-                  <span>Next check</span>
-                  <strong id="check-context">18:50</strong>
+                <p class="message" id="incoming-message">
+                  A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
+                </p>
+                <div class="facts">
+                  <div>
+                    <span>Student</span>
+                    <strong id="student-context">Age 16</strong>
+                  </div>
+                  <div>
+                    <span>Location</span>
+                    <strong id="location-context">College court</strong>
+                  </div>
+                  <div>
+                    <span>Next check</span>
+                    <strong id="check-context">18:50</strong>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="log-row">
-              <div>
-                <span>Case note</span>
-                <strong id="log-type">Wellbeing / supervision</strong>
+
+              <div class="detail-grid">
+                <div class="detail-card">
+                  <span>Case note</span>
+                  <strong id="log-type">Wellbeing / supervision</strong>
+                </div>
+                <div class="detail-card">
+                  <span>Status</span>
+                  <strong id="case-status">Coordinator review pending</strong>
+                </div>
               </div>
-              <div>
-                <span>Status</span>
-                <strong>Coordinator review pending</strong>
+
+              <div class="case-note" aria-label="Case history">
+                <div class="note-row">
+                  <span>18:42</span>
+                  <strong>Question received from staff app</strong>
+                </div>
+                <div class="note-row">
+                  <span>18:43</span>
+                  <strong>AI response drafted with safety guardrail</strong>
+                </div>
+                <div class="note-row">
+                  <span>18:50</span>
+                  <strong>Next check-in time prepared</strong>
+                </div>
               </div>
             </div>
           </article>
 
-          <aside class="ai-panel">
-            <span class="section-label">AI staff answer</span>
-            <div class="ai-card">
-              <div class="ai-answer">
-                <div class="ai-head">
-                  <h2>Recommended response</h2>
-                  <span class="pill red" id="review-pill">Review required</span>
+          <aside class="assistant">
+            <div class="section-head">
+              <h2>AI assistant</h2>
+              <span id="review-pill">Review required</span>
+            </div>
+            <div class="assistant-body">
+              <section class="ai-card">
+                <div class="ai-card-head">
+                  <h3>Staff guidance</h3>
+                  <span class="pill red">Not sent</span>
                 </div>
                 <ol class="action-list" id="action-list"></ol>
                 <div class="guardrail" id="ai-note">
-                  <strong>Safety guardrail:</strong> no medical advice, no unsupervised student, no parent update before coordinator review.
+                  Safety guardrail: no medical advice, no unsupervised student, no parent update before coordinator review.
                 </div>
                 <div class="button-row">
-                  <button class="button inverse" type="button" id="run-button">Regenerate AI answer</button>
+                  <button class="button" type="button" id="run-button">Regenerate</button>
                 </div>
-              </div>
-              <div class="draft-card">
-                <h2>
-                  Parent update draft
+              </section>
+
+              <section class="draft-card">
+                <div class="draft-head">
+                  <h3>Parent draft</h3>
                   <span class="pill blue" id="draft-pill">Draft only</span>
-                </h2>
+                </div>
                 <textarea id="parent-draft" aria-label="Parent update draft"></textarea>
                 <div class="button-row">
-                  <button class="button primary" type="button" id="approve-button">Mark as reviewed</button>
-                  <button class="button" type="button" id="copy-button">Copy draft</button>
+                  <button class="button primary" type="button" id="approve-button">Mark reviewed</button>
+                  <button class="button" type="button" id="copy-button">Copy</button>
                 </div>
                 <div class="status" id="status-line">Waiting for coordinator review before sending.</div>
-              </div>
+              </section>
             </div>
           </aside>
         </section>
@@ -780,17 +792,18 @@
         unwell: {
           title: "Student feels unwell before formal dinner",
           pill: "Wellbeing",
+          time: "18:42",
           sender: "Fellow Advisor / Group B",
-          meta: "King's Parade / 18:42",
+          meta: "King's Parade",
           message:
             "A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?",
           student: "Age 16",
           location: "College court",
           review: "Review required",
           actions: [
-            "Stay with the student in a calm, supervised place.",
+            "Keep the student in a calm, supervised place.",
             "Tell the Programme Coordinator the time, location and symptoms reported.",
-            "Record the next check-in time before closing the case."
+            "Set the next check-in time before closing the case."
           ],
           note:
             "Safety guardrail: no medical advice, no unsupervised student, no parent update before coordinator review.",
@@ -802,8 +815,9 @@
         lostkey: {
           title: "Student lost room key after evening activity",
           pill: "Accommodation",
+          time: "21:16",
           sender: "Fellow Advisor / Group D",
-          meta: "College entrance / 21:16",
+          meta: "College entrance",
           message:
             "A student cannot find their room key after the evening activity. The group is back at college. What should I do?",
           student: "Age 17",
@@ -824,8 +838,9 @@
         parent: {
           title: "Parent asks about evening supervision",
           pill: "Parent message",
+          time: "17:08",
           sender: "Programme inbox / Parent",
-          meta: "Email / 17:08",
+          meta: "Email",
           message:
             "Can you confirm whether students are supervised after dinner and how the programme handles evening activities?",
           student: "Parent of student",
@@ -846,7 +861,7 @@
       };
 
       const buttons = [...document.querySelectorAll(".case-button")];
-      const tool = document.querySelector(".tool");
+      const workspace = document.querySelector(".workspace");
       const runButton = document.getElementById("run-button");
       const approveButton = document.getElementById("approve-button");
       const copyButton = document.getElementById("copy-button");
@@ -865,7 +880,8 @@
         draftPill: document.getElementById("draft-pill"),
         status: document.getElementById("status-line"),
         logType: document.getElementById("log-type"),
-        check: document.getElementById("check-context")
+        check: document.getElementById("check-context"),
+        time: document.getElementById("case-time")
       };
       let activeScenario = "unwell";
 
@@ -891,12 +907,13 @@
         fields.student.textContent = scenario.student;
         fields.location.textContent = scenario.location;
         fields.review.textContent = scenario.review;
-        fields.note.innerHTML = `<strong>Safety guardrail:</strong> ${scenario.note.replace("Safety guardrail: ", "")}`;
+        fields.note.textContent = scenario.note;
         fields.draft.value = scenario.draft;
         fields.draftPill.textContent = "Draft only";
         fields.status.textContent = "Waiting for coordinator review before sending.";
         fields.logType.textContent = scenario.logType;
         fields.check.textContent = scenario.check;
+        fields.time.textContent = scenario.time;
         renderActions(scenario.actions);
       }
 
@@ -905,12 +922,12 @@
       });
 
       runButton.addEventListener("click", () => {
-        tool.classList.add("thinking");
-        runButton.textContent = "AI is reviewing";
+        workspace.classList.add("thinking");
+        runButton.textContent = "Reviewing";
         window.setTimeout(() => {
-          tool.classList.remove("thinking");
+          workspace.classList.remove("thinking");
           renderScenario(activeScenario);
-          runButton.textContent = "Regenerate AI answer";
+          runButton.textContent = "Regenerate";
           fields.status.textContent = "AI answer refreshed. Coordinator review still required.";
         }, 420);
       });
