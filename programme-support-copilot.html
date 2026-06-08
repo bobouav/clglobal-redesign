@@ -6,12 +6,12 @@
     <title>CL Global Internal Programme Support Copilot</title>
     <meta
       name="description"
-      content="A private internal AI support tool demo for CL Global Academy programme staff and Fellow Advisors."
+      content="A private internal AI support demo for CL Global Academy programme staff."
     >
     <meta property="og:title" content="CL Global Internal Programme Support Copilot">
     <meta
       property="og:description"
-      content="A private staff tool for handling student-support incidents, coordinator review, parent-safe updates and incident logs."
+      content="A simple internal AI tool that turns a Fellow Advisor support question into safe next steps and a coordinator-ready parent update."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,23 +22,22 @@
     >
     <style>
       :root {
-        --ink: #17211e;
-        --muted: #64716c;
-        --paper: #f3f1e9;
+        --ink: #16211e;
+        --muted: #64706b;
+        --paper: #f5f2ea;
         --panel: #fbfaf6;
         --white: #ffffff;
         --green-950: #082f2b;
-        --green-900: #103c37;
+        --green-900: #103d38;
         --green-800: #1d554d;
         --green-700: #2d6a60;
         --green-100: #dfeae4;
         --gold: #bba66d;
-        --gold-soft: #eee1b7;
-        --blue-soft: #dce9ee;
+        --gold-soft: #efe2b7;
         --red-soft: #f4ddd7;
         --red-ink: #6e2a20;
-        --line: rgba(23, 33, 30, 0.13);
-        --shadow: 0 24px 70px rgba(23, 33, 30, 0.12);
+        --line: rgba(22, 33, 30, 0.13);
+        --shadow: 0 24px 70px rgba(22, 33, 30, 0.12);
       }
 
       * {
@@ -52,11 +51,6 @@
         font-family: Inter, Arial, sans-serif;
         font-size: 16px;
         line-height: 1.5;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
       }
 
       button,
@@ -77,18 +71,28 @@
 
       .product {
         min-height: 100vh;
+        padding: clamp(18px, 2vw, 30px);
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(243, 241, 233, 0.92)),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 242, 234, 0.96)),
           var(--paper);
       }
 
-      .app-header {
+      .frame {
+        min-height: calc(100vh - clamp(36px, 4vw, 60px));
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--white);
+        box-shadow: var(--shadow);
+      }
+
+      .topbar {
         display: grid;
-        grid-template-columns: minmax(220px, 0.8fr) minmax(420px, 1.4fr) minmax(240px, 0.8fr);
-        gap: 18px;
+        grid-template-columns: minmax(220px, 0.85fr) minmax(340px, 1.2fr) auto;
+        gap: 16px;
         align-items: center;
-        min-height: 74px;
-        padding: 14px clamp(20px, 3vw, 46px);
+        min-height: 70px;
+        padding: 14px clamp(18px, 2.4vw, 34px);
         color: var(--white);
         background: var(--green-950);
       }
@@ -105,24 +109,25 @@
         place-items: center;
         width: 38px;
         height: 38px;
-        border: 1px solid rgba(255, 255, 255, 0.28);
         border-radius: 10px;
         color: var(--green-950);
         background: var(--white);
         font-family: "Cormorant Garamond", Georgia, serif;
         font-size: 1.18rem;
         font-weight: 700;
-        line-height: 1;
+      }
+
+      .brand strong,
+      .brand span {
+        display: block;
       }
 
       .brand strong {
-        display: block;
         font-size: 0.96rem;
         line-height: 1.1;
       }
 
       .brand span {
-        display: block;
         color: rgba(255, 255, 255, 0.68);
         font-size: 0.68rem;
         font-weight: 800;
@@ -130,20 +135,12 @@
         text-transform: uppercase;
       }
 
-      .brand .brand-mark {
-        display: grid;
-        color: var(--green-950);
-        font-size: 1.18rem;
-        letter-spacing: 0;
-        text-transform: none;
-      }
-
       .private-banner {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 12px;
-        min-height: 44px;
+        min-height: 42px;
         padding: 0 18px;
         border: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: 999px;
@@ -164,14 +161,14 @@
         font-weight: 800;
       }
 
-      .header-meta {
+      .top-pills {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
         gap: 8px;
       }
 
-      .header-meta span {
+      .top-pills span {
         display: inline-flex;
         align-items: center;
         min-height: 34px;
@@ -185,117 +182,104 @@
         text-transform: uppercase;
       }
 
-      .app-shell {
+      .hero {
         display: grid;
-        grid-template-columns: 268px minmax(0, 1fr);
-        gap: 0;
-        min-height: calc(100vh - 74px);
-      }
-
-      .sidebar {
-        display: flex;
-        flex-direction: column;
-        padding: 24px 18px;
-        color: var(--white);
-        background: var(--green-900);
-      }
-
-      .tool-title {
-        margin-bottom: 28px;
-        padding: 0 6px;
-      }
-
-      .tool-title span {
-        display: block;
-        margin-bottom: 8px;
-        color: var(--gold-soft);
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .tool-title h1 {
-        margin-bottom: 10px;
-        font-size: 1.44rem;
-        line-height: 1.1;
-      }
-
-      .tool-title p {
-        margin-bottom: 0;
-        color: rgba(255, 255, 255, 0.72);
-        font-size: 0.88rem;
-      }
-
-      .nav-list {
-        display: grid;
-        gap: 8px;
-        margin-bottom: 24px;
-      }
-
-      .nav-item {
-        display: flex;
+        grid-template-columns: minmax(340px, 0.72fr) minmax(720px, 1.28fr);
+        gap: clamp(22px, 3vw, 48px);
         align-items: center;
-        justify-content: space-between;
+        min-height: calc(100vh - 70px - clamp(36px, 4vw, 60px));
+        padding: clamp(24px, 3.2vw, 46px) clamp(22px, 4vw, 70px);
+      }
+
+      .story {
+        min-width: 0;
+      }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
         gap: 12px;
-        min-height: 44px;
-        padding: 0 12px;
-        border-radius: 10px;
-        color: rgba(255, 255, 255, 0.78);
-        font-size: 0.88rem;
+        margin-bottom: 18px;
+        color: var(--green-700);
+        font-size: 0.78rem;
         font-weight: 800;
-      }
-
-      .nav-item.active {
-        color: var(--green-950);
-        background: var(--white);
-      }
-
-      .nav-item small {
-        font-size: 0.66rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
-      .internal-card {
-        margin-top: auto;
-        padding: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.08);
+      .kicker::before {
+        width: 40px;
+        height: 2px;
+        background: var(--gold);
+        content: "";
       }
 
-      .internal-card strong {
-        display: block;
-        margin-bottom: 6px;
-        color: var(--gold-soft);
-        font-size: 0.86rem;
-      }
-
-      .internal-card span {
-        display: block;
-        color: rgba(255, 255, 255, 0.74);
-        font-size: 0.78rem;
-      }
-
-      .workbench {
-        min-width: 0;
-        padding: 22px clamp(20px, 2.5vw, 40px) 34px;
-      }
-
-      .workbench-head {
-        display: grid;
-        grid-template-columns: minmax(360px, 1fr) auto;
-        gap: 22px;
-        align-items: start;
+      h1 {
+        max-width: 660px;
         margin-bottom: 18px;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(3.55rem, 4.8vw, 5.9rem);
+        font-weight: 700;
+        line-height: 0.9;
+        letter-spacing: 0;
       }
 
-      .workbench-head span {
-        display: inline-flex;
+      .story p {
+        max-width: 610px;
+        margin-bottom: 22px;
+        color: var(--muted);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(1.32rem, 1.65vw, 1.64rem);
+        line-height: 1.28;
+      }
+
+      .scan-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 660px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .scan-strip div {
+        min-height: 78px;
+        padding: 14px 14px 12px 0;
+      }
+
+      .scan-strip div + div {
+        padding-left: 16px;
+        border-left: 1px solid var(--line);
+      }
+
+      .scan-strip strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1.02rem;
+      }
+
+      .scan-strip span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .demo {
+        min-width: 0;
+      }
+
+      .demo-title {
+        display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 12px;
+      }
+
+      .demo-title span {
         color: var(--green-700);
         font-size: 0.72rem;
         font-weight: 800;
@@ -303,44 +287,81 @@
         text-transform: uppercase;
       }
 
-      .workbench-head h2 {
-        margin-bottom: 8px;
-        font-size: clamp(2rem, 3.2vw, 4rem);
-        line-height: 0.94;
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-weight: 700;
-      }
-
-      .workbench-head p {
-        max-width: 760px;
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 1rem;
-      }
-
-      .incident-status {
-        display: grid;
+      .scenario-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
         gap: 8px;
-        min-width: 260px;
-        padding: 14px;
+      }
+
+      .scenario-button {
+        min-height: 34px;
+        padding: 0 12px;
         border: 1px solid var(--line);
-        border-radius: 14px;
+        border-radius: 999px;
+        color: var(--ink);
+        background: var(--white);
+        font-size: 0.74rem;
+        font-weight: 800;
+      }
+
+      .scenario-button.active {
+        color: var(--white);
+        background: var(--green-800);
+        border-color: var(--green-800);
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.86fr) minmax(270px, 1fr) minmax(240px, 0.9fr);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 16px;
         background: var(--white);
         box-shadow: var(--shadow);
       }
 
-      .incident-status strong {
-        font-size: 0.94rem;
+      .step {
+        min-width: 0;
+        padding: 17px;
+        background: var(--white);
       }
 
-      .incident-status span {
-        margin: 0;
+      .step + .step {
+        border-left: 1px solid var(--line);
       }
 
-      .status-row {
+      .step.ai {
+        color: var(--white);
+        background: var(--green-950);
+      }
+
+      .step-head {
         display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .step-head span:first-child {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .ai .step-head span:first-child {
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      .step-head h2 {
+        margin: 0;
+        font-size: 1.02rem;
+        line-height: 1.18;
       }
 
       .pill {
@@ -359,305 +380,96 @@
         text-transform: uppercase;
       }
 
-      .pill.private {
+      .pill.red {
         color: var(--red-ink);
         background: var(--red-soft);
       }
 
-      .pill.warning {
+      .pill.gold {
         color: #553207;
         background: var(--gold-soft);
       }
 
-      .scenario-bar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 9px;
-        margin-bottom: 16px;
-      }
-
-      .scenario-button {
-        min-height: 38px;
-        padding: 0 13px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--ink);
-        background: var(--white);
-        font-size: 0.8rem;
-        font-weight: 800;
-      }
-
-      .scenario-button.active {
-        color: var(--white);
-        background: var(--green-800);
-        border-color: var(--green-800);
-      }
-
-      .support-grid {
-        display: grid;
-        grid-template-columns: minmax(270px, 0.78fr) minmax(390px, 1.05fr) minmax(340px, 0.94fr);
-        gap: 14px;
-        align-items: stretch;
-      }
-
-      .panel {
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.88);
-        box-shadow: var(--shadow);
-      }
-
-      .panel.dark {
-        color: var(--white);
-        background: var(--green-950);
-      }
-
-      .panel-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 16px 18px;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .dark .panel-head {
-        border-bottom-color: rgba(255, 255, 255, 0.15);
-      }
-
-      .panel-head span:first-child {
-        display: block;
-        margin-bottom: 6px;
-        color: var(--muted);
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-      }
-
-      .dark .panel-head span:first-child {
-        color: rgba(255, 255, 255, 0.62);
-      }
-
-      .panel-head h3 {
-        margin-bottom: 0;
-        font-family: Inter, Arial, sans-serif;
-        font-size: 1.02rem;
-        font-weight: 800;
-        line-height: 1.2;
-      }
-
-      .panel-body {
-        padding: 18px;
-      }
-
-      .message-card {
-        padding: 15px;
+      .message-box {
+        padding: 14px;
         border: 1px solid var(--line);
         border-radius: 12px;
         background: var(--panel);
       }
 
-      .message-top {
+      .sender {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        gap: 12px;
+        gap: 10px;
         margin-bottom: 12px;
       }
 
-      .message-top strong {
+      .sender strong {
         display: block;
         margin-bottom: 4px;
+        font-size: 0.92rem;
       }
 
-      .message-top span {
+      .sender span {
         color: var(--muted);
-        font-size: 0.78rem;
+        font-size: 0.76rem;
       }
 
-      .message {
-        margin-bottom: 14px;
+      .quote {
+        margin: 0;
         color: var(--ink);
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.24rem;
-        line-height: 1.3;
+        font-size: 1.2rem;
+        line-height: 1.28;
       }
 
-      .context-grid,
-      .log-grid {
+      .context-line {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
+        gap: 8px;
+        margin-top: 12px;
       }
 
-      .context,
-      .log-item {
-        min-height: 72px;
-        padding: 10px;
+      .context-line div {
+        min-height: 62px;
+        padding: 9px;
         border: 1px solid var(--line);
         border-radius: 9px;
         background: var(--white);
       }
 
-      .context span,
-      .log-item span {
+      .context-line span,
+      .log-row span {
         display: block;
         margin-bottom: 4px;
         color: var(--muted);
-        font-size: 0.64rem;
+        font-size: 0.62rem;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
-      .context strong,
-      .log-item strong {
-        font-size: 0.84rem;
-      }
-
-      .run-button,
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 42px;
-        padding: 0 15px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--ink);
-        background: transparent;
-        font-weight: 800;
-      }
-
-      .run-button,
-      .button.primary {
-        color: var(--white);
-        background: var(--green-800);
-        border-color: var(--green-800);
-      }
-
-      .run-button {
-        width: 100%;
-        min-height: 48px;
-        margin-top: 13px;
-      }
-
-      .run-button:hover,
-      .button.primary:hover {
-        background: var(--green-700);
-      }
-
-      .mini-queue {
-        display: grid;
-        gap: 0;
-        margin-top: 14px;
-        border-top: 1px solid var(--line);
-      }
-
-      .queue-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        min-height: 56px;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .queue-row strong {
-        display: block;
-        margin-bottom: 2px;
-        font-size: 0.84rem;
-      }
-
-      .queue-row span {
-        color: var(--muted);
-        font-size: 0.74rem;
-      }
-
-      .risk-meter {
-        margin-bottom: 16px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      }
-
-      .risk-top {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 14px;
-        margin-bottom: 9px;
-      }
-
-      .risk-top span {
-        color: rgba(255, 255, 255, 0.66);
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .risk-top strong {
-        color: var(--white);
-        font-size: 2rem;
-        line-height: 1;
-      }
-
-      .meter {
-        height: 9px;
-        overflow: hidden;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.14);
-      }
-
-      .meter-fill {
-        width: 72%;
-        height: 100%;
-        border-radius: inherit;
-        background: var(--gold-soft);
-        transition: width 260ms ease;
-      }
-
-      .ai-section {
-        padding: 14px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.13);
-      }
-
-      .ai-section:last-child {
-        border-bottom: 0;
-      }
-
-      .ai-section span {
-        display: block;
-        margin-bottom: 8px;
-        color: rgba(255, 255, 255, 0.64);
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .action-list,
-      .caution-list,
-      .task-list {
-        display: grid;
-        gap: 8px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
+      .context-line strong,
+      .log-row strong {
+        font-size: 0.82rem;
       }
 
       .action-list {
+        display: grid;
+        gap: 10px;
+        margin: 0 0 14px;
+        padding: 0;
+        list-style: none;
         counter-reset: action;
       }
 
       .action-list li {
         position: relative;
         min-height: 24px;
-        padding-left: 28px;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 0.92rem;
+        padding-left: 30px;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.94rem;
       }
 
       .action-list li::before {
@@ -666,67 +478,87 @@
         left: 0;
         display: grid;
         place-items: center;
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         border-radius: 999px;
         color: var(--green-950);
         background: var(--gold-soft);
-        font-size: 0.64rem;
+        font-size: 0.66rem;
         font-weight: 800;
         counter-increment: action;
         content: counter(action);
       }
 
-      .caution-list li {
-        color: rgba(255, 255, 255, 0.82);
-        font-size: 0.88rem;
+      .ai-note {
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.84rem;
       }
 
-      .caution-list li::before {
+      .ai-note strong {
         color: var(--gold-soft);
-        content: "Do not: ";
-        font-weight: 800;
       }
 
-      .draft-card {
-        padding: 15px;
+      .draft-box {
+        padding: 14px;
         border: 1px solid var(--line);
         border-radius: 12px;
-        background: var(--white);
+        background: var(--panel);
       }
 
-      .draft-card h4,
-      .log-card h4 {
+      .draft-box h3 {
         margin: 0 0 10px;
-        font-size: 0.94rem;
+        font-size: 0.95rem;
       }
 
       textarea {
         width: 100%;
-        min-height: 136px;
+        min-height: 124px;
         resize: vertical;
         padding: 13px;
         border: 1px solid var(--line);
         border-radius: 10px;
         color: var(--ink);
-        background: var(--panel);
+        background: var(--white);
         font-family: "Cormorant Garamond", Georgia, serif;
         font-size: 1.02rem;
         line-height: 1.35;
         outline: none;
       }
 
-      .draft-actions {
+      .approval {
         display: flex;
         flex-wrap: wrap;
-        gap: 9px;
-        margin-top: 12px;
+        gap: 8px;
+        margin-top: 11px;
       }
 
-      .status-line {
-        min-height: 39px;
-        margin-top: 11px;
-        padding: 10px 12px;
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink);
+        background: var(--white);
+        font-weight: 800;
+      }
+
+      .button.primary {
+        color: var(--white);
+        background: var(--green-800);
+        border-color: var(--green-800);
+      }
+
+      .status {
+        min-height: 38px;
+        margin-top: 10px;
+        padding: 9px 11px;
         border-radius: 10px;
         color: var(--green-900);
         background: var(--green-100);
@@ -734,45 +566,29 @@
         font-weight: 800;
       }
 
-      .log-card {
-        margin-top: 13px;
-        padding: 15px;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: var(--panel);
-      }
-
-      .task-list {
+      .log-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
         margin-top: 12px;
       }
 
-      .task-list li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding-top: 8px;
-        border-top: 1px solid var(--line);
-        color: var(--muted);
-        font-size: 0.84rem;
+      .log-row div {
+        min-height: 58px;
+        padding: 9px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--white);
       }
 
-      .task-list strong {
-        color: var(--green-900);
-      }
-
-      .thinking .meter-fill {
-        width: 38% !important;
-      }
-
-      .thinking .panel.dark {
+      .thinking .step.ai {
         background: #123f3a;
       }
 
-      @media (max-width: 1220px) {
-        .app-header {
+      @media (max-width: 1160px) {
+        .topbar,
+        .hero {
           grid-template-columns: 1fr;
-          align-items: start;
         }
 
         .private-banner {
@@ -780,75 +596,64 @@
           border-radius: 12px;
         }
 
-        .header-meta {
+        .top-pills,
+        .scenario-buttons {
           justify-content: flex-start;
         }
+      }
 
-        .app-shell {
+      @media (max-width: 860px) {
+        .flow {
           grid-template-columns: 1fr;
         }
 
-        .sidebar {
-          display: block;
+        .step + .step {
+          border-left: 0;
+          border-top: 1px solid var(--line);
         }
 
-        .tool-title,
-        .nav-list {
-          margin-bottom: 16px;
-        }
-
-        .nav-list {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-
-        .internal-card {
-          margin-top: 0;
-        }
-      }
-
-      @media (max-width: 960px) {
-        .workbench-head,
-        .support-grid {
+        .scan-strip {
           grid-template-columns: 1fr;
         }
 
-        .incident-status {
-          min-width: 0;
-        }
-
-        .nav-list {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        .scan-strip div + div {
+          padding-left: 0;
+          border-left: 0;
+          border-top: 1px solid var(--line);
         }
       }
 
-      @media (max-width: 600px) {
-        .app-header,
-        .workbench {
+      @media (max-width: 560px) {
+        .product {
+          padding: 0;
+        }
+
+        .frame {
+          min-height: 100vh;
+          border-radius: 0;
+        }
+
+        .hero,
+        .topbar {
           padding-inline: 18px;
         }
 
+        h1 {
+          font-size: clamp(3.1rem, 14vw, 4.6rem);
+        }
+
+        .demo-title,
         .private-banner {
           display: grid;
-          justify-content: stretch;
           text-align: left;
         }
 
-        .nav-list,
-        .context-grid,
-        .log-grid {
+        .context-line,
+        .log-row {
           grid-template-columns: 1fr;
         }
 
-        .workbench-head h2 {
-          font-size: clamp(2.3rem, 12vw, 3.4rem);
-        }
-
-        .panel-body,
-        .panel-head {
-          padding-inline: 15px;
-        }
-
-        .draft-actions,
+        .approval,
         .button {
           width: 100%;
         }
@@ -856,215 +661,139 @@
     </style>
   </head>
   <body>
-    <main class="product" aria-labelledby="page-title">
-      <header class="app-header">
-        <a class="brand" href="index.html" aria-label="CL Global Academy homepage preview">
-          <span class="brand-mark">cl</span>
-          <span>
-            <strong>CL Global Ops</strong>
-            <span>Programme team console</span>
-          </span>
-        </a>
+    <main class="product" aria-labelledby="main-title">
+      <div class="frame">
+        <header class="topbar">
+          <div class="brand">
+            <span class="brand-mark">cl</span>
+            <span>
+              <strong>CL Global Ops</strong>
+              <span>Programme staff console</span>
+            </span>
+          </div>
+          <div class="private-banner">
+            <strong>Private staff tool</strong>
+            <span>Not a public website. For Programme Coordinators and Fellow Advisors.</span>
+          </div>
+          <div class="top-pills">
+            <span>OxCam Summer</span>
+            <span>Internal demo</span>
+          </div>
+        </header>
 
-        <div class="private-banner" aria-label="Private tool notice">
-          <strong>Private staff tool</strong>
-          <span>Not a public website. Built for Programme Coordinators and Fellow Advisors.</span>
-        </div>
-
-        <div class="header-meta" aria-label="Programme status">
-          <span>OxCam Summer</span>
-          <span>87 students</span>
-          <span>40 advisors</span>
-        </div>
-      </header>
-
-      <div class="app-shell">
-        <aside class="sidebar">
-          <div class="tool-title">
-            <span>Internal AI support</span>
-            <h1>Programme Support Copilot</h1>
-            <p>For live student-support, parent communication and incident logging during programme delivery.</p>
+        <section class="hero">
+          <div class="story">
+            <span class="kicker">Internal AI support</span>
+            <h1 id="main-title">One student-support question, handled safely.</h1>
+            <p>
+              A Fellow Advisor asks what to do. The copilot returns approved next steps, requires coordinator review, and prepares a parent-safe update.
+            </p>
+            <div class="scan-strip" aria-label="Three-part product summary">
+              <div>
+                <strong>1. Advisor asks</strong>
+                <span>Support question comes from staff</span>
+              </div>
+              <div>
+                <strong>2. AI guides</strong>
+                <span>Safe next steps in seconds</span>
+              </div>
+              <div>
+                <strong>3. Coordinator reviews</strong>
+                <span>Parent update and log ready</span>
+              </div>
+            </div>
           </div>
 
-          <nav class="nav-list" aria-label="Internal product navigation">
-            <a class="nav-item active" href="#incident"><span>Incident support</span><small>Live</small></a>
-            <a class="nav-item" href="#incident"><span>Advisor questions</span><small>12</small></a>
-            <a class="nav-item" href="#incident"><span>Parent drafts</span><small>3</small></a>
-            <a class="nav-item" href="#incident"><span>Incident log</span><small>Ops</small></a>
-          </nav>
-
-          <div class="internal-card">
-            <strong>Staff-only view</strong>
-            <span>Designed for the programme team. Students and parents would never see this operational screen.</span>
-          </div>
-        </aside>
-
-        <section class="workbench" id="incident" aria-label="Internal programme support workbench">
-          <div class="workbench-head">
-            <div>
-              <span>Live incident support</span>
-              <h2 id="page-title">Student feels unwell before formal dinner</h2>
-              <p>
-                The copilot gives the Fellow Advisor approved next steps, creates a parent-safe update, and assigns Programme Coordinator review before anything is sent.
-              </p>
+          <div class="demo">
+            <div class="demo-title">
+              <span>Live demo scenario</span>
+              <div class="scenario-buttons" role="tablist" aria-label="Support scenarios">
+                <button class="scenario-button active" type="button" data-scenario="unwell">Unwell student</button>
+                <button class="scenario-button" type="button" data-scenario="lostkey">Lost key</button>
+                <button class="scenario-button" type="button" data-scenario="parent">Parent concern</button>
+              </div>
             </div>
 
-            <aside class="incident-status" aria-label="Incident status">
-              <strong>Current status</strong>
-              <div class="status-row">
-                <span class="pill private">Human review required</span>
-                <span class="pill warning" id="risk-pill">Wellbeing</span>
-              </div>
-              <span class="pill" id="owner-pill">Coordinator assigned</span>
-            </aside>
-          </div>
-
-          <div class="scenario-bar" role="tablist" aria-label="Support scenarios">
-            <button class="scenario-button active" type="button" data-scenario="unwell">Unwell student</button>
-            <button class="scenario-button" type="button" data-scenario="lostkey">Lost key</button>
-            <button class="scenario-button" type="button" data-scenario="parent">Parent concern</button>
-            <button class="scenario-button" type="button" data-scenario="weather">Activity disruption</button>
-          </div>
-
-          <div class="support-grid" id="support-grid">
-            <section class="panel" aria-label="Incoming advisor question">
-              <div class="panel-head">
-                <div>
-                  <span>Incoming staff question</span>
-                  <h3 id="incoming-title">Student feels unwell before formal dinner</h3>
+            <section class="flow" id="flow" aria-label="Simple support copilot flow">
+              <article class="step">
+                <div class="step-head">
+                  <div>
+                    <span>Incoming staff question</span>
+                    <h2 id="incoming-title">Student feels unwell before formal dinner</h2>
+                  </div>
+                  <span class="pill gold" id="issue-pill">Wellbeing</span>
                 </div>
-                <span class="pill warning" id="incoming-pill">Wellbeing</span>
-              </div>
-              <div class="panel-body">
-                <article class="message-card">
-                  <div class="message-top">
+
+                <div class="message-box">
+                  <div class="sender">
                     <div>
                       <strong id="sender-name">Fellow Advisor / Group B</strong>
                       <span id="sender-meta">King's Parade / 18:42</span>
                     </div>
                     <span class="pill">Staff app</span>
                   </div>
-                  <p class="message" id="incoming-message">
+                  <p class="quote" id="incoming-message">
                     A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
                   </p>
-                  <div class="context-grid">
-                    <div class="context">
+                  <div class="context-line">
+                    <div>
                       <span>Student</span>
-                      <strong id="student-context">Student A / age 16</strong>
+                      <strong id="student-context">Age 16</strong>
                     </div>
-                    <div class="context">
+                    <div>
                       <span>Location</span>
                       <strong id="location-context">College court</strong>
                     </div>
-                    <div class="context">
-                      <span>Schedule</span>
-                      <strong id="schedule-context">Formal dinner in 18 min</strong>
-                    </div>
-                    <div class="context">
-                      <span>Owner</span>
-                      <strong id="owner-context">Programme Coordinator</strong>
-                    </div>
-                  </div>
-                  <button class="run-button" type="button" id="run-button">Run support copilot</button>
-                </article>
-
-                <div class="mini-queue" aria-label="Other operations queue items">
-                  <div class="queue-row">
-                    <div>
-                      <strong>Parent asks about evening supervision</strong>
-                      <span>Trust question / reply draft ready</span>
-                    </div>
-                    <span class="pill">Low</span>
-                  </div>
-                  <div class="queue-row">
-                    <div>
-                      <strong>Group C meeting point unclear</strong>
-                      <span>Schedule answer sent</span>
-                    </div>
-                    <span class="pill">Done</span>
                   </div>
                 </div>
-              </div>
-            </section>
+              </article>
 
-            <section class="panel dark" aria-label="AI advisor instructions">
-              <div class="panel-head">
-                <div>
-                  <span>AI advisor instructions</span>
-                  <h3>Approved next steps</h3>
-                </div>
-                <span class="pill private" id="review-pill">Human review required</span>
-              </div>
-              <div class="panel-body">
-                <div class="risk-meter">
-                  <div class="risk-top">
-                    <span id="risk-label">Risk category / wellbeing</span>
-                    <strong id="risk-score">72%</strong>
+              <article class="step ai">
+                <div class="step-head">
+                  <div>
+                    <span>AI response</span>
+                    <h2>Approved next steps</h2>
                   </div>
-                  <div class="meter" aria-hidden="true">
-                    <div class="meter-fill" id="risk-fill"></div>
+                  <span class="pill red" id="review-pill">Human review required</span>
+                </div>
+
+                <ol class="action-list" id="action-list"></ol>
+                <div class="ai-note" id="ai-note">
+                  <strong>Do not:</strong> give medical advice, leave the student alone, or send a parent update before coordinator approval.
+                </div>
+                <button class="button primary" type="button" id="run-button">Run support copilot</button>
+              </article>
+
+              <article class="step">
+                <div class="step-head">
+                  <div>
+                    <span>Coordinator pack</span>
+                    <h2>Parent update ready</h2>
                   </div>
+                  <span class="pill" id="draft-pill">Draft only</span>
                 </div>
 
-                <div class="ai-section">
-                  <span>Advisor should do now</span>
-                  <ul class="action-list" id="action-list"></ul>
-                </div>
-
-                <div class="ai-section">
-                  <span>Do not do</span>
-                  <ul class="caution-list" id="caution-list"></ul>
-                </div>
-
-                <div class="ai-section">
-                  <span>Escalation rule</span>
-                  <ul class="action-list" id="escalation-list"></ul>
-                </div>
-              </div>
-            </section>
-
-            <section class="panel" aria-label="Coordinator review pack">
-              <div class="panel-head">
-                <div>
-                  <span>Coordinator review pack</span>
-                  <h3>Parent update + incident log</h3>
-                </div>
-                <span class="pill" id="draft-pill">Draft ready</span>
-              </div>
-              <div class="panel-body">
-                <article class="draft-card">
-                  <h4>Parent-safe update draft</h4>
+                <div class="draft-box">
+                  <h3>Parent-safe update</h3>
                   <textarea id="parent-draft" aria-label="Parent update draft"></textarea>
-                  <div class="draft-actions">
-                    <button class="button primary" type="button" id="approve-button">Mark coordinator reviewing</button>
+                  <div class="approval">
+                    <button class="button primary" type="button" id="approve-button">Mark reviewing</button>
                     <button class="button" type="button" id="copy-button">Copy update</button>
                   </div>
-                  <div class="status-line" id="status-line">Waiting for coordinator review before sending.</div>
-                </article>
+                  <div class="status" id="status-line">Waiting for coordinator review before sending.</div>
+                </div>
 
-                <article class="log-card">
-                  <h4>Incident log created</h4>
-                  <div class="log-grid">
-                    <div class="log-item">
-                      <span>Incident type</span>
-                      <strong id="log-type">Wellbeing / supervision</strong>
-                    </div>
-                    <div class="log-item">
-                      <span>Status</span>
-                      <strong id="log-status">Review within 10 min</strong>
-                    </div>
-                    <div class="log-item">
-                      <span>Assigned to</span>
-                      <strong id="log-owner">Programme Coordinator</strong>
-                    </div>
-                    <div class="log-item">
-                      <span>Next check</span>
-                      <strong id="log-check">18:50</strong>
-                    </div>
+                <div class="log-row">
+                  <div>
+                    <span>Log</span>
+                    <strong id="log-type">Wellbeing / supervision</strong>
                   </div>
-                  <ul class="task-list" id="task-list"></ul>
-                </article>
-              </div>
+                  <div>
+                    <span>Next check</span>
+                    <strong id="log-check">18:50</strong>
+                  </div>
+                </div>
+              </article>
             </section>
           </div>
         </section>
@@ -1076,229 +805,101 @@
         unwell: {
           title: "Student feels unwell before formal dinner",
           pill: "Wellbeing",
-          ownerPill: "Coordinator assigned",
           sender: "Fellow Advisor / Group B",
           meta: "King's Parade / 18:42",
           message:
             "A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?",
-          student: "Student A / age 16",
+          student: "Age 16",
           location: "College court",
-          schedule: "Formal dinner in 18 min",
-          owner: "Programme Coordinator",
-          riskLabel: "Risk category / wellbeing",
-          risk: 72,
           review: "Human review required",
           actions: [
             "Stay with the student in a calm, supervised place.",
-            "Notify the Programme Coordinator immediately with time, location and symptoms reported.",
-            "Ask whether the student wants water, rest, or to step away from dinner while waiting for staff guidance.",
-            "Record what the student said, who is present, and the next check-in time."
+            "Notify the Programme Coordinator with time, location and symptoms reported.",
+            "Record what the student said and set the next check-in time."
           ],
-          cautions: [
-            "give medical advice or diagnose the issue",
-            "leave the student alone while waiting for review",
-            "send a parent update before coordinator approval"
-          ],
-          escalation: [
-            "If symptoms worsen, follow emergency protocol and contact the coordinator immediately.",
-            "Coordinator review required before parent communication."
-          ],
+          note:
+            "Do not: give medical advice, leave the student alone, or send a parent update before coordinator approval.",
           draft:
             "Dear Parent,\n\nA member of our programme team is currently with your child after they reported feeling unwell before this evening's formal dinner. The Programme Coordinator is reviewing the situation and the student is being supported calmly by staff.\n\nWe will provide a further update after the coordinator has completed the next check-in.\n\nKind regards,\nCL Global Academy Programme Team",
           logType: "Wellbeing / supervision",
-          logStatus: "Review within 10 min",
-          logOwner: "Programme Coordinator",
-          logCheck: "18:50",
-          tasks: [
-            ["Advisor", "Stay with student until coordinator confirms next step"],
-            ["Coordinator", "Review within 10 minutes"],
-            ["Log", "Record time, location, staff present and follow-up"]
-          ]
+          check: "18:50"
         },
         lostkey: {
           title: "Student lost room key after evening activity",
           pill: "Accommodation",
-          ownerPill: "Residential lead assigned",
           sender: "Fellow Advisor / Group D",
           meta: "College entrance / 21:16",
           message:
             "A student cannot find their room key after the evening activity. The group is back at college. What should I do?",
-          student: "Student R / age 17",
+          student: "Age 17",
           location: "College entrance",
-          schedule: "Return check-in",
-          owner: "Residential lead",
-          riskLabel: "Risk category / supervision",
-          risk: 46,
           review: "Staff review",
           actions: [
-            "Keep the student with the advisor group while the key issue is resolved.",
+            "Keep the student with the advisor group while access is resolved.",
             "Notify the residential lead and follow college accommodation procedure.",
-            "Confirm the student can safely access their room before closing the evening check-in.",
-            "Log the missing key, location, time and staff member assigned."
+            "Confirm safe room access before closing the evening check-in."
           ],
-          cautions: [
-            "send the student alone to search late at night",
-            "share room-access details in a group chat",
-            "close the incident without confirming room access"
-          ],
-          escalation: [
-            "Escalate if room access cannot be resolved quickly.",
-            "Residential lead owns final confirmation."
-          ],
+          note:
+            "Do not: send the student alone, share room-access details in chat, or close the issue without access confirmation.",
           draft:
-            "Dear Parent,\n\nA student accommodation access issue was reported after the evening activity. The residential team is handling it directly and the student is being supervised while access is resolved.\n\nNo parent action is needed at this time. We will update you if any further support is required.\n\nKind regards,\nCL Global Academy Programme Team",
+            "Dear Parent,\n\nA student accommodation access issue was reported after the evening activity. The residential team is handling it directly and the student is being supervised while access is resolved.\n\nNo parent action is needed at this time. We will update you if further support is required.\n\nKind regards,\nCL Global Academy Programme Team",
           logType: "Accommodation / access",
-          logStatus: "Residential review",
-          logOwner: "Residential lead",
-          logCheck: "21:30",
-          tasks: [
-            ["Advisor", "Keep student with supervised group"],
-            ["Residential lead", "Resolve room access"],
-            ["Log", "Record final access confirmation"]
-          ]
+          check: "21:30"
         },
         parent: {
-          title: "Parent asks about supervision after dinner",
+          title: "Parent asks about evening supervision",
           pill: "Parent trust",
-          ownerPill: "Reply review assigned",
           sender: "Admissions inbox / Parent",
           meta: "Email / 17:08",
           message:
             "Can you confirm whether students are supervised after dinner and how CL Global handles evening activities?",
-          student: "Parent of student / age 15",
+          student: "Parent of student",
           location: "Programme inbox",
-          schedule: "Evening activity",
-          owner: "Programme Coordinator",
-          riskLabel: "Risk category / parent communication",
-          risk: 38,
           review: "Reply approval",
           actions: [
             "Answer the supervision question directly and calmly.",
             "Use approved programme wording and avoid overpromising.",
-            "Invite the parent to share any specific concern about their child.",
-            "Route to coordinator if the parent asks for a special arrangement."
+            "Invite the parent to share any specific support concern."
           ],
-          cautions: [
-            "make guarantees outside approved policy",
-            "discuss another student's details",
-            "leave the parent without a clear contact path"
-          ],
-          escalation: [
-            "Coordinator approval recommended before sending policy wording.",
-            "Escalate if parent raises safety, health or special-support needs."
-          ],
+          note:
+            "Do not: make guarantees outside approved policy, discuss another student, or send without a clear contact path.",
           draft:
-            "Dear Parent,\n\nThank you for your question. During evening activities, students are supported by the programme team and Fellow Advisors, with staff coordination in place throughout the schedule.\n\nIf your child has any specific support needs or if there is a particular concern you would like us to note, please feel free to share it with the Programme Coordinator so we can follow up appropriately.\n\nKind regards,\nCL Global Academy Programme Team",
+            "Dear Parent,\n\nThank you for your question. During evening activities, students are supported by the programme team and Fellow Advisors, with staff coordination in place throughout the schedule.\n\nIf your child has any specific support needs or if there is a particular concern you would like us to note, please share it with the Programme Coordinator.\n\nKind regards,\nCL Global Academy Programme Team",
           logType: "Parent communication",
-          logStatus: "Reply approval",
-          logOwner: "Programme Coordinator",
-          logCheck: "17:20",
-          tasks: [
-            ["Coordinator", "Review wording before sending"],
-            ["Admissions", "Attach correct contact path"],
-            ["Log", "Note any special support need if parent replies"]
-          ]
-        },
-        weather: {
-          title: "Rain may affect afternoon activity",
-          pill: "Activity plan",
-          ownerPill: "Activity coordinator assigned",
-          sender: "Activity lead / Group A",
-          meta: "Market Square / 13:25",
-          message:
-            "Rain is getting heavier before the outdoor activity. Should we move the group or wait?",
-          student: "Group A / 22 students",
-          location: "Market Square",
-          schedule: "Outdoor activity in 20 min",
-          owner: "Activity Coordinator",
-          riskLabel: "Risk category / activity disruption",
-          risk: 55,
-          review: "Coordinator decision",
-          actions: [
-            "Keep the group together under cover while the coordinator reviews the plan.",
-            "Check the approved indoor fallback option and walking route.",
-            "Update Fellow Advisors with one clear meeting point.",
-            "Prepare a short student-facing message if the activity changes."
-          ],
-          cautions: [
-            "split the group without a confirmed meeting point",
-            "make an independent route change without coordinator approval",
-            "send conflicting updates across group chats"
-          ],
-          escalation: [
-            "Activity Coordinator decides whether to switch to the fallback plan.",
-            "Programme Coordinator notified if timing affects dinner or transport."
-          ],
-          draft:
-            "Dear Parent,\n\nDue to changing weather, the programme team is reviewing the afternoon activity plan and may use the approved indoor fallback option. Students remain with their Fellow Advisors while the coordinator confirms the next step.\n\nWe will continue to follow the scheduled supervision process and update families if there is a material change to the day plan.\n\nKind regards,\nCL Global Academy Programme Team",
-          logType: "Activity disruption",
-          logStatus: "Decision pending",
-          logOwner: "Activity Coordinator",
-          logCheck: "13:45",
-          tasks: [
-            ["Activity lead", "Keep group together under cover"],
-            ["Coordinator", "Confirm fallback plan"],
-            ["Staff chat", "Send one unified meeting point"]
-          ]
+          check: "17:20"
         }
       };
 
       const buttons = [...document.querySelectorAll(".scenario-button")];
-      const supportGrid = document.getElementById("support-grid");
+      const flow = document.getElementById("flow");
       const runButton = document.getElementById("run-button");
       const approveButton = document.getElementById("approve-button");
       const copyButton = document.getElementById("copy-button");
-      const statusLine = document.getElementById("status-line");
       const fields = {
-        pageTitle: document.getElementById("page-title"),
-        riskPill: document.getElementById("risk-pill"),
-        ownerPill: document.getElementById("owner-pill"),
-        title: document.getElementById("incoming-title"),
-        pill: document.getElementById("incoming-pill"),
-        sender: document.getElementById("sender-name"),
-        meta: document.getElementById("sender-meta"),
+        incomingTitle: document.getElementById("incoming-title"),
+        issuePill: document.getElementById("issue-pill"),
+        senderName: document.getElementById("sender-name"),
+        senderMeta: document.getElementById("sender-meta"),
         message: document.getElementById("incoming-message"),
         student: document.getElementById("student-context"),
         location: document.getElementById("location-context"),
-        schedule: document.getElementById("schedule-context"),
-        owner: document.getElementById("owner-context"),
-        riskLabel: document.getElementById("risk-label"),
-        riskScore: document.getElementById("risk-score"),
-        riskFill: document.getElementById("risk-fill"),
         review: document.getElementById("review-pill"),
-        parentDraft: document.getElementById("parent-draft"),
+        actionList: document.getElementById("action-list"),
+        note: document.getElementById("ai-note"),
+        draft: document.getElementById("parent-draft"),
         draftPill: document.getElementById("draft-pill"),
+        status: document.getElementById("status-line"),
         logType: document.getElementById("log-type"),
-        logStatus: document.getElementById("log-status"),
-        logOwner: document.getElementById("log-owner"),
-        logCheck: document.getElementById("log-check")
+        check: document.getElementById("log-check")
       };
-
-      const actionList = document.getElementById("action-list");
-      const cautionList = document.getElementById("caution-list");
-      const escalationList = document.getElementById("escalation-list");
-      const taskList = document.getElementById("task-list");
       let activeScenario = "unwell";
 
-      function fillList(target, items) {
-        target.replaceChildren();
+      function renderActions(items) {
+        fields.actionList.replaceChildren();
         items.forEach((item) => {
           const li = document.createElement("li");
           li.textContent = item;
-          target.append(li);
-        });
-      }
-
-      function fillTasks(items) {
-        taskList.replaceChildren();
-        items.forEach(([owner, task]) => {
-          const li = document.createElement("li");
-          const strong = document.createElement("strong");
-          strong.textContent = owner;
-          const span = document.createElement("span");
-          span.textContent = task;
-          li.append(strong, span);
-          taskList.append(li);
+          fields.actionList.append(li);
         });
       }
 
@@ -1307,33 +908,21 @@
         activeScenario = key;
         buttons.forEach((button) => button.classList.toggle("active", button.dataset.scenario === key));
 
-        fields.pageTitle.textContent = scenario.title;
-        fields.title.textContent = scenario.title;
-        fields.riskPill.textContent = scenario.pill;
-        fields.ownerPill.textContent = scenario.ownerPill;
-        fields.pill.textContent = scenario.pill;
-        fields.sender.textContent = scenario.sender;
-        fields.meta.textContent = scenario.meta;
+        fields.incomingTitle.textContent = scenario.title;
+        fields.issuePill.textContent = scenario.pill;
+        fields.senderName.textContent = scenario.sender;
+        fields.senderMeta.textContent = scenario.meta;
         fields.message.textContent = scenario.message;
         fields.student.textContent = scenario.student;
         fields.location.textContent = scenario.location;
-        fields.schedule.textContent = scenario.schedule;
-        fields.owner.textContent = scenario.owner;
-        fields.riskLabel.textContent = scenario.riskLabel;
-        fields.riskScore.textContent = `${scenario.risk}%`;
-        fields.riskFill.style.width = `${scenario.risk}%`;
         fields.review.textContent = scenario.review;
-        fields.parentDraft.value = scenario.draft;
-        fields.draftPill.textContent = "Draft ready";
+        fields.note.innerHTML = `<strong>Do not:</strong> ${scenario.note.replace("Do not: ", "")}`;
+        fields.draft.value = scenario.draft;
+        fields.draftPill.textContent = "Draft only";
+        fields.status.textContent = "Waiting for coordinator review before sending.";
         fields.logType.textContent = scenario.logType;
-        fields.logStatus.textContent = scenario.logStatus;
-        fields.logOwner.textContent = scenario.logOwner;
-        fields.logCheck.textContent = scenario.logCheck;
-        fillList(actionList, scenario.actions);
-        fillList(cautionList, scenario.cautions);
-        fillList(escalationList, scenario.escalation);
-        fillTasks(scenario.tasks);
-        statusLine.textContent = "Waiting for coordinator review before sending.";
+        fields.check.textContent = scenario.check;
+        renderActions(scenario.actions);
       }
 
       buttons.forEach((button) => {
@@ -1341,28 +930,27 @@
       });
 
       runButton.addEventListener("click", () => {
-        supportGrid.classList.add("thinking");
+        flow.classList.add("thinking");
         runButton.textContent = "Copilot reviewing";
         window.setTimeout(() => {
-          supportGrid.classList.remove("thinking");
+          flow.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Run support copilot";
-          statusLine.textContent = "Support pack refreshed. Coordinator review still required.";
-        }, 520);
+          fields.status.textContent = "Support pack refreshed. Coordinator review still required.";
+        }, 420);
       });
 
       approveButton.addEventListener("click", () => {
         fields.draftPill.textContent = "Review started";
-        fields.logStatus.textContent = "Coordinator reviewing";
-        statusLine.textContent = "Coordinator review started. Parent update remains draft until approved.";
+        fields.status.textContent = "Coordinator review started. Parent update remains draft until approved.";
       });
 
       copyButton.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(fields.parentDraft.value);
-          statusLine.textContent = "Parent update copied for approved sending.";
+          await navigator.clipboard.writeText(fields.draft.value);
+          fields.status.textContent = "Parent update copied for approved sending.";
         } catch {
-          statusLine.textContent = "Parent update is ready to copy after review.";
+          fields.status.textContent = "Parent update is ready to copy after review.";
         }
       });
 
