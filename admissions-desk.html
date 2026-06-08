@@ -3,11 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI Admissions Desk Preview - CL Global Academy</title>
+    <title>AI Course-Fit Flow Preview - CL Global Academy</title>
     <meta
       name="description"
-      content="A sample AI admissions desk for CL Global Academy that recommends courses, ranks leads, and prepares reply drafts."
+      content="An interactive AI course-fit and admissions follow-up preview for CL Global Academy."
     >
+    <meta property="og:title" content="AI Course-Fit Flow Preview - CL Global Academy">
+    <meta
+      property="og:description"
+      content="A student-facing advisor connected to an internal admissions follow-up workflow."
+    >
+    <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/ai-admissions-desk-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,19 +22,23 @@
     >
     <style>
       :root {
-        --ink: #14201d;
-        --muted: #66756f;
-        --paper: #f7f5ee;
-        --paper-2: #eeefe8;
+        --ink: #15201d;
+        --ink-soft: #46534f;
+        --muted: #6b7671;
+        --paper: #f7f4eb;
+        --paper-deep: #ebe6d9;
         --white: #ffffff;
-        --green-900: #092f2c;
-        --green-800: #123f3b;
-        --green-700: #1f5a50;
-        --green-100: #dce9e3;
-        --blue: #315f74;
+        --green-950: #062b28;
+        --green-900: #0c3733;
+        --green-800: #154943;
+        --green-700: #225d54;
+        --green-100: #dfece5;
+        --blue-700: #2c5868;
         --gold: #bea96e;
-        --line: rgba(20, 32, 29, 0.14);
-        --shadow: 0 28px 80px rgba(16, 28, 25, 0.18);
+        --gold-soft: #e6d8ad;
+        --line: rgba(21, 32, 29, 0.14);
+        --line-light: rgba(255, 255, 255, 0.22);
+        --shadow: 0 28px 80px rgba(17, 28, 25, 0.18);
       }
 
       * {
@@ -53,24 +63,29 @@
         text-decoration: none;
       }
 
-      button {
+      button,
+      textarea {
         font: inherit;
+      }
+
+      button {
+        cursor: pointer;
       }
 
       .page {
         min-height: 100vh;
         overflow: hidden;
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(247, 245, 238, 0.74)),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(247, 244, 235, 0.9)),
           var(--paper);
       }
 
       .hero {
         position: relative;
         min-height: 100svh;
-        padding: 28px clamp(22px, 4vw, 72px) 54px;
+        padding: 26px clamp(22px, 3vw, 58px) 42px;
         color: var(--white);
-        background: var(--green-900);
+        background: var(--green-950);
         isolation: isolate;
       }
 
@@ -79,7 +94,7 @@
         inset: 0;
         z-index: -2;
         background:
-          linear-gradient(90deg, rgba(9, 47, 44, 0.92), rgba(9, 47, 44, 0.62) 38%, rgba(9, 47, 44, 0.14) 70%),
+          linear-gradient(90deg, rgba(6, 43, 40, 0.96), rgba(6, 43, 40, 0.78) 38%, rgba(6, 43, 40, 0.38) 70%),
           url("https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/243274/462987_804064.jpg")
             center / cover;
         content: "";
@@ -89,8 +104,8 @@
         position: absolute;
         inset: auto 0 0;
         z-index: -1;
-        height: 46%;
-        background: linear-gradient(180deg, rgba(247, 245, 238, 0), var(--paper) 86%);
+        height: 16%;
+        background: linear-gradient(180deg, rgba(6, 43, 40, 0), rgba(6, 43, 40, 0.38));
         content: "";
       }
 
@@ -98,7 +113,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 22px;
+        gap: 24px;
+        min-height: 54px;
         color: rgba(255, 255, 255, 0.94);
       }
 
@@ -109,25 +125,35 @@
 
       .brand-lockup strong {
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 1.82rem;
+        font-size: 1.86rem;
         font-weight: 700;
-        line-height: 0.88;
+        line-height: 0.86;
         letter-spacing: 0;
       }
 
       .brand-lockup span {
-        font-size: 0.68rem;
+        font-size: 0.67rem;
         font-weight: 800;
         letter-spacing: 0.12em;
         text-transform: uppercase;
       }
 
-      .topbar-meta {
+      .topbar-actions {
         display: flex;
         align-items: center;
         gap: 12px;
+      }
+
+      .topbar-note {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 999px;
         color: rgba(255, 255, 255, 0.86);
-        font-size: 0.78rem;
+        font-size: 0.74rem;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -137,33 +163,32 @@
         width: 8px;
         height: 8px;
         border-radius: 999px;
-        background: #77d9a8;
-        box-shadow: 0 0 0 6px rgba(119, 217, 168, 0.18);
+        background: #84d5a2;
+        box-shadow: 0 0 0 6px rgba(132, 213, 162, 0.16);
       }
 
-      .hero-grid {
+      .intro-grid {
         display: grid;
-        grid-template-columns: minmax(330px, 0.74fr) minmax(720px, 1.26fr);
-        gap: clamp(34px, 4vw, 68px);
+        grid-template-columns: minmax(300px, 0.52fr) minmax(820px, 1.48fr);
+        gap: clamp(24px, 3vw, 42px);
         align-items: center;
-        min-height: calc(100svh - 94px);
-        padding-top: 34px;
+        min-height: calc(100svh - 92px);
+        padding-top: 30px;
       }
 
       .hero-copy {
-        max-width: 670px;
-        color: var(--white);
+        max-width: 620px;
       }
 
       .eyebrow {
         display: inline-flex;
         align-items: center;
         gap: 14px;
-        margin: 0 0 24px;
+        margin: 0 0 22px;
         color: rgba(255, 255, 255, 0.88);
-        font-size: 0.8rem;
+        font-size: 0.76rem;
         font-weight: 800;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.09em;
         text-transform: uppercase;
       }
 
@@ -190,678 +215,919 @@
       }
 
       h1 {
-        max-width: 620px;
+        max-width: 560px;
         margin-bottom: 22px;
-        font-size: clamp(4rem, 6.2vw, 7.15rem);
-        line-height: 0.92;
-        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.23);
+        font-size: clamp(3.85rem, 5.55vw, 6.75rem);
+        line-height: 0.9;
+        text-shadow: 0 3px 18px rgba(0, 0, 0, 0.25);
       }
 
       .hero-copy .lead {
-        max-width: 560px;
+        max-width: 575px;
         margin-bottom: 28px;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(255, 255, 255, 0.91);
         font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(1.32rem, 1.72vw, 1.68rem);
-        line-height: 1.3;
+        font-size: clamp(1.28rem, 1.58vw, 1.58rem);
+        line-height: 1.32;
         text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
       }
 
-      .promise-strip {
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0 24px;
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        border-radius: 999px;
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+        font-weight: 800;
+        box-shadow: none;
+        transition:
+          background 180ms ease,
+          transform 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.54);
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .button.primary {
+        min-width: 174px;
+        color: var(--green-950);
+        background: var(--white);
+        border-color: var(--white);
+      }
+
+      .button.small {
+        min-height: 42px;
+        padding: 0 16px;
+        font-size: 0.86rem;
+      }
+
+      .proof-row {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        max-width: 640px;
-        border-top: 1px solid rgba(255, 255, 255, 0.26);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+        max-width: 620px;
+        border-top: 1px solid rgba(255, 255, 255, 0.28);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
       }
 
-      .promise-strip div {
-        min-height: 84px;
+      .proof-row div {
+        min-height: 82px;
         padding: 15px 16px 14px 0;
-        border-right: 1px solid rgba(255, 255, 255, 0.22);
       }
 
-      .promise-strip div:last-child {
-        border-right: 0;
+      .proof-row div + div {
+        padding-left: 18px;
+        border-left: 1px solid rgba(255, 255, 255, 0.22);
       }
 
-      .promise-strip strong {
+      .proof-row strong {
         display: block;
-        color: var(--white);
-        font-size: 1.22rem;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+
+      .proof-row span {
+        display: block;
+        color: rgba(255, 255, 255, 0.73);
+        font-size: 0.72rem;
         font-weight: 800;
+        letter-spacing: 0.06em;
+        line-height: 1.35;
+        text-transform: uppercase;
       }
 
-      .promise-strip span {
+      .demo-stage {
+        color: var(--ink);
+      }
+
+      .flow-map {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 10px 10px 0 0;
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .flow-step {
+        min-height: 70px;
+        padding: 14px 16px;
+        color: rgba(255, 255, 255, 0.76);
+        background: rgba(6, 43, 40, 0.64);
+        transition:
+          color 180ms ease,
+          background 180ms ease;
+      }
+
+      .flow-step.active {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .flow-step span {
         display: block;
-        max-width: 170px;
-        margin-top: 3px;
+        margin-bottom: 5px;
+        color: var(--gold-soft);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .flow-step strong {
+        display: block;
+        font-size: 0.9rem;
+        line-height: 1.2;
+      }
+
+      .workflow-board {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.95fr) minmax(260px, 0.88fr) minmax(300px, 1.12fr);
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-top: 0;
+        border-radius: 0 0 14px 14px;
+        background: rgba(255, 255, 255, 0.26);
+        box-shadow: var(--shadow);
+      }
+
+      .flow-panel {
+        display: flex;
+        flex-direction: column;
+        min-height: 520px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.94);
+      }
+
+      .flow-panel.dark {
+        color: var(--white);
+        background: rgba(10, 48, 44, 0.94);
+      }
+
+      .panel-kicker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .dark .panel-kicker {
+        color: rgba(255, 255, 255, 0.68);
+      }
+
+      .panel-title {
+        margin-bottom: 10px;
+        font-family: Inter, Arial, sans-serif;
+        font-size: 1.08rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .panel-copy {
+        margin-bottom: 13px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.45;
+      }
+
+      .dark .panel-copy {
         color: rgba(255, 255, 255, 0.74);
-        font-size: 0.75rem;
+      }
+
+      .scenario-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
+      .tab-button {
+        min-height: 40px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink-soft);
+        background: #fbfaf6;
+        font-size: 0.78rem;
+        font-weight: 800;
+        transition:
+          background 180ms ease,
+          color 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .tab-button.active {
+        color: var(--white);
+        background: var(--green-800);
+        border-color: var(--green-800);
+      }
+
+      .enquiry-box {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .enquiry-box label {
+        color: var(--ink-soft);
+        font-size: 0.78rem;
         font-weight: 800;
         letter-spacing: 0.05em;
         text-transform: uppercase;
       }
 
-      .desk-shell {
-        position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.96);
-        box-shadow: var(--shadow);
-        overflow: hidden;
+      textarea {
+        width: 100%;
+        min-height: 136px;
+        resize: none;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--ink);
+        background: #fbfaf6;
+        line-height: 1.45;
+        outline: none;
       }
 
-      .desk-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        padding: 16px 20px;
-        border-bottom: 1px solid var(--line);
-        background: rgba(255, 253, 248, 0.82);
+      textarea:focus {
+        border-color: rgba(34, 93, 84, 0.62);
+        box-shadow: 0 0 0 4px rgba(34, 93, 84, 0.1);
       }
 
-      .desk-title {
-        display: grid;
-        gap: 2px;
-      }
-
-      .desk-title strong {
-        color: var(--green-900);
-        font-size: 1rem;
-        font-weight: 900;
-      }
-
-      .desk-title span {
-        color: var(--muted);
-        font-size: 0.78rem;
-        font-weight: 800;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .mode-switch {
-        display: flex;
-        gap: 8px;
-      }
-
-      .mode-pill {
+      .run-button {
         display: inline-flex;
         align-items: center;
-        min-height: 34px;
-        padding: 0 12px;
-        border: 1px solid rgba(18, 63, 59, 0.16);
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border: 0;
         border-radius: 999px;
-        color: var(--green-800);
-        background: var(--white);
-        font-size: 0.73rem;
-        font-weight: 900;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .mode-pill.active {
         color: var(--white);
         background: var(--green-800);
+        font-weight: 800;
+        transition:
+          background 180ms ease,
+          transform 180ms ease;
       }
 
-      .desk-content {
-        display: grid;
-        grid-template-columns: minmax(210px, 0.29fr) minmax(0, 0.71fr);
-        height: clamp(620px, calc(100svh - 255px), 680px);
-        min-height: 0;
+      .run-button:hover {
+        transform: translateY(-1px);
+        background: var(--green-700);
       }
 
-      .lead-queue {
-        border-right: 1px solid var(--line);
-        background: #f3f4ee;
+      .run-button:disabled {
+        cursor: default;
+        opacity: 0.72;
+        transform: none;
       }
 
-      .queue-summary {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        border-bottom: 1px solid var(--line);
+      .student-result {
+        margin-top: auto;
+        padding-top: 15px;
+        border-top: 1px solid var(--line);
       }
 
-      .queue-summary div {
-        min-height: 72px;
-        padding: 13px 15px;
-        border-right: 1px solid var(--line);
+      .answer-line {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 8px;
       }
 
-      .queue-summary div:nth-child(2n) {
-        border-right: 0;
-      }
-
-      .queue-summary strong {
+      .answer-line strong {
         display: block;
-        color: var(--green-900);
-        font-size: 1.28rem;
-        font-weight: 900;
-        line-height: 1;
+        font-size: 1.12rem;
+        line-height: 1.2;
       }
 
-      .queue-summary span {
-        display: block;
-        margin-top: 6px;
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.06em;
-        line-height: 1.25;
-        text-transform: uppercase;
-      }
-
-      .lead-list {
-        display: grid;
-        gap: 0;
-      }
-
-      .lead-item {
-        width: 100%;
-        padding: 14px 15px;
-        border: 0;
-        border-bottom: 1px solid var(--line);
-        color: var(--ink);
-        background: transparent;
-        text-align: left;
-        cursor: pointer;
-      }
-
-      .lead-item:hover,
-      .lead-item.active {
-        background: var(--white);
-      }
-
-      .lead-item.active {
-        box-shadow: inset 4px 0 0 var(--gold);
-      }
-
-      .lead-item strong {
-        display: block;
-        font-size: 0.86rem;
-        font-weight: 900;
-      }
-
-      .lead-item span {
-        display: block;
-        margin-top: 3px;
-        color: var(--muted);
-        font-size: 0.72rem;
-        font-weight: 700;
-      }
-
-      .lead-item small {
+      .pill {
         display: inline-flex;
-        margin-top: 12px;
-        padding: 5px 8px;
+        align-items: center;
+        justify-content: center;
+        min-height: 28px;
+        padding: 0 10px;
         border-radius: 999px;
         color: var(--green-900);
         background: var(--green-100);
-        font-size: 0.66rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
         text-transform: uppercase;
       }
 
-      .workbench {
-        display: grid;
-        grid-template-rows: 0.54fr 0.46fr;
-        min-height: 0;
-        background: var(--white);
+      .pill.hot {
+        color: #4c2e09;
+        background: #f2ddb1;
       }
 
-      .workbench-top {
-        display: grid;
-        grid-template-columns: minmax(0, 0.62fr) minmax(260px, 0.38fr);
-        border-bottom: 1px solid var(--line);
+      .pill.blue {
+        color: #163849;
+        background: #d9e8ed;
       }
 
-      .incoming {
-        padding: 20px 22px 18px;
-        border-right: 1px solid var(--line);
-      }
-
-      .panel-label {
-        margin-bottom: 10px;
-        color: var(--green-700);
-        font-size: 0.72rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .incoming h2 {
-        margin-bottom: 10px;
-        color: var(--green-900);
-        font-size: 1.94rem;
-        line-height: 1.02;
-      }
-
-      .incoming p {
-        max-width: 620px;
-        margin-bottom: 14px;
-        color: var(--muted);
-        font-size: 0.86rem;
-        font-weight: 600;
-      }
-
-      .detail-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .detail {
-        min-height: 58px;
-        padding: 10px 11px;
-        border: 1px solid var(--line);
-        border-radius: 7px;
-        background: #fbfaf6;
-      }
-
-      .detail span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.66rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .detail strong {
-        display: block;
-        margin-top: 5px;
-        color: var(--ink);
-        font-size: 0.78rem;
-        font-weight: 900;
-        line-height: 1.3;
-      }
-
-      .lead-status {
-        display: grid;
-        gap: 13px;
-        align-content: start;
-        padding: 20px;
-        background: #f7f8f3;
-      }
-
-      .priority {
-        display: grid;
-        gap: 8px;
-        padding: 16px;
-        border-radius: 8px;
+      .pill.inverse {
         color: var(--white);
-        background: linear-gradient(135deg, var(--green-900), #1a6559);
+        background: rgba(255, 255, 255, 0.16);
       }
 
-      .priority span {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.68rem;
-        font-weight: 900;
+      .student-answer {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .ai-meter {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .meter-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 10px;
+      }
+
+      .meter-head span {
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 0.76rem;
+        font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
-      .priority strong {
-        font-size: 1.84rem;
-        font-weight: 900;
+      .meter-head strong {
+        font-size: 2.15rem;
         line-height: 1;
       }
 
-      .next-step {
-        display: grid;
-        gap: 9px;
+      .meter-track {
+        height: 9px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
       }
 
-      .next-step strong {
-        color: var(--green-900);
+      .meter-fill {
+        width: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--gold-soft);
+        transition: width 420ms ease;
+      }
+
+      .ai-list {
+        display: grid;
+        gap: 10px;
+        margin: 0 0 18px;
+      }
+
+      .ai-block {
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      .ai-block:last-child {
+        border-bottom: 0;
+      }
+
+      .ai-block span {
+        display: block;
+        margin-bottom: 6px;
+        color: rgba(255, 255, 255, 0.64);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .ai-block p,
+      .ai-block li {
+        color: rgba(255, 255, 255, 0.88);
         font-size: 0.92rem;
-        font-weight: 900;
       }
 
-      .next-step p {
+      .ai-block p {
         margin-bottom: 0;
-        color: var(--muted);
-        font-size: 0.78rem;
-        font-weight: 650;
       }
 
-      .workbench-bottom {
+      .mini-list {
         display: grid;
-        grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
-      }
-
-      .recommendation,
-      .reply-draft {
-        padding: 20px 22px;
-      }
-
-      .recommendation {
-        border-right: 1px solid var(--line);
-      }
-
-      .course-card {
-        display: grid;
-        gap: 12px;
-        padding: 16px;
-        border: 1px solid rgba(18, 63, 59, 0.18);
-        border-radius: 8px;
-        background: #f7fbf8;
-      }
-
-      .course-card h3 {
-        margin-bottom: 0;
-        color: var(--green-900);
-        font-size: 1.7rem;
-        line-height: 1;
-      }
-
-      .reason-list {
-        display: grid;
-        gap: 8px;
+        gap: 7px;
         margin: 0;
         padding: 0;
         list-style: none;
       }
 
-      .reason-list li {
+      .mini-list li {
         position: relative;
-        padding-left: 20px;
-        color: var(--muted);
-        font-size: 0.78rem;
-        font-weight: 700;
+        padding-left: 15px;
       }
 
-      .reason-list li::before {
+      .mini-list li::before {
         position: absolute;
-        top: 0.52em;
+        top: 0.56em;
         left: 0;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
+        width: 5px;
+        height: 5px;
+        border-radius: 999px;
+        background: currentColor;
+        content: "";
+        opacity: 0.7;
+      }
+
+      .capture-note {
+        margin-top: auto;
+        padding: 11px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .capture-note strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--gold-soft);
+        font-size: 0.86rem;
+      }
+
+      .capture-note span {
+        display: block;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.82rem;
+      }
+
+      .lead-card {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fbfaf6;
+      }
+
+      .lead-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .lead-name {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .lead-detail {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .lead-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .lead-grid div {
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--white);
+      }
+
+      .lead-grid span {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 0.66rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .lead-grid strong {
+        font-size: 0.88rem;
+      }
+
+      .draft-box {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 14px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--white);
+      }
+
+      .draft-box p {
+        margin-bottom: 0;
+        color: var(--ink-soft);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 0.98rem;
+        line-height: 1.35;
+      }
+
+      .staff-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .staff-actions .run-button {
+        min-height: 42px;
+      }
+
+      .ghost-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink-soft);
+        background: transparent;
+        font-weight: 800;
+      }
+
+      .section {
+        padding: clamp(70px, 8vw, 118px) clamp(24px, 4vw, 72px);
+      }
+
+      .section-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.72fr) minmax(320px, 1fr);
+        gap: clamp(28px, 4vw, 68px);
+        align-items: end;
+        margin-bottom: 34px;
+      }
+
+      .section-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+        margin-bottom: 18px;
+        color: var(--green-700);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .section-kicker::before {
+        width: 38px;
+        height: 2px;
         background: var(--gold);
         content: "";
       }
 
-      .reply-box {
-        padding: 16px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: #fbfaf6;
-      }
-
-      .reply-box p {
-        margin-bottom: 10px;
-        color: #2f3d38;
-        font-size: 0.8rem;
-        font-weight: 650;
-        line-height: 1.58;
-      }
-
-      .reply-box p:last-child {
+      h2 {
         margin-bottom: 0;
+        font-size: clamp(3rem, 4.5vw, 5.4rem);
+        line-height: 0.96;
       }
 
-      .approval-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 16px;
+      .section-head p {
+        margin-bottom: 0;
+        color: var(--ink-soft);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(1.32rem, 1.7vw, 1.68rem);
+        line-height: 1.34;
       }
 
-      .action {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 38px;
-        padding: 0 14px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--green-900);
-        background: var(--white);
-        font-size: 0.76rem;
-        font-weight: 900;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .action.primary {
-        color: var(--white);
-        background: var(--green-800);
-      }
-
-      .section {
-        padding: 86px clamp(22px, 4vw, 72px);
-      }
-
-      .section-inner {
-        width: min(1220px, 100%);
-        margin: 0 auto;
-      }
-
-      .section-heading {
+      .ops-grid {
         display: grid;
-        grid-template-columns: minmax(0, 0.72fr) minmax(280px, 0.28fr);
-        gap: 40px;
-        align-items: end;
-        margin-bottom: 36px;
-      }
-
-      .section-heading h2 {
-        margin-bottom: 0;
-        color: var(--green-900);
-        font-size: clamp(3rem, 5vw, 5.5rem);
-        line-height: 0.95;
-      }
-
-      .section-heading p {
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 1.05rem;
-        font-weight: 650;
-      }
-
-      .workflow {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
       }
 
-      .workflow-step {
-        min-height: 230px;
-        padding: 28px 26px;
-        border-right: 1px solid var(--line);
+      .ops-item {
+        min-height: 238px;
+        padding: 24px 22px 26px;
       }
 
-      .workflow-step:last-child {
-        border-right: 0;
+      .ops-item + .ops-item {
+        border-left: 1px solid var(--line);
       }
 
-      .workflow-step span {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 38px;
-        height: 38px;
-        margin-bottom: 42px;
-        border-radius: 50%;
-        color: var(--white);
-        background: var(--green-800);
-        font-weight: 900;
+      .ops-item span {
+        display: block;
+        margin-bottom: 36px;
+        color: var(--green-700);
+        font-weight: 800;
       }
 
-      .workflow-step h3 {
+      .ops-item h3 {
         margin-bottom: 12px;
-        color: var(--green-900);
-        font-size: 2rem;
+        font-family: Inter, Arial, sans-serif;
+        font-size: 1.12rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .ops-item p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .scenario-section {
+        background: var(--green-950);
+        color: var(--white);
+      }
+
+      .scenario-section .section-kicker {
+        color: var(--gold-soft);
+      }
+
+      .scenario-section .section-head p {
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .scenario-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .scenario-card {
+        display: grid;
+        align-content: start;
+        min-height: 340px;
+        padding: 26px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .scenario-card h3 {
+        margin-bottom: 14px;
+        font-size: 2.15rem;
         line-height: 1;
       }
 
-      .workflow-step p {
-        margin-bottom: 0;
-        color: var(--muted);
-        font-weight: 650;
+      .scenario-card p {
+        margin-bottom: 24px;
+        color: rgba(255, 255, 255, 0.76);
       }
 
-      .demo-footer {
-        padding: 34px clamp(22px, 4vw, 72px);
-        color: rgba(255, 255, 255, 0.84);
-        background: var(--green-900);
+      .scenario-card ul {
+        display: grid;
+        gap: 10px;
+        margin: auto 0 0;
+        padding: 0;
+        list-style: none;
       }
 
-      .demo-footer-inner {
-        display: flex;
+      .scenario-card li {
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 0.9rem;
+      }
+
+      .close-section {
+        position: relative;
+        padding-bottom: clamp(76px, 8vw, 126px);
+      }
+
+      .close-panel {
+        display: grid;
+        grid-template-columns: minmax(320px, 0.9fr) minmax(300px, 1.1fr);
+        gap: clamp(32px, 5vw, 86px);
         align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        width: min(1220px, 100%);
-        margin: 0 auto;
+        padding-top: 10px;
       }
 
-      .demo-footer strong {
-        color: var(--white);
+      .close-copy h2 {
+        margin-bottom: 22px;
       }
 
-      .demo-footer a {
-        display: inline-flex;
-        align-items: center;
-        min-height: 42px;
-        padding: 0 18px;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        border-radius: 999px;
-        font-size: 0.8rem;
-        font-weight: 900;
-        letter-spacing: 0.04em;
+      .close-copy p {
+        max-width: 620px;
+        color: var(--ink-soft);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(1.36rem, 1.75vw, 1.72rem);
+        line-height: 1.34;
+      }
+
+      .handoff-list {
+        display: grid;
+        gap: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .handoff-row {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 24px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .handoff-row span {
+        color: var(--green-700);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
-      @media (max-width: 1180px) {
-        .hero-grid {
+      .handoff-row p {
+        margin-bottom: 0;
+        color: var(--ink-soft);
+      }
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 26px clamp(24px, 4vw, 72px);
+        color: rgba(255, 255, 255, 0.72);
+        background: var(--green-950);
+        font-size: 0.82rem;
+      }
+
+      .footer a {
+        color: var(--white);
+        font-weight: 800;
+      }
+
+      .thinking .meter-fill {
+        width: 42% !important;
+      }
+
+      @media (max-width: 1260px) {
+        .intro-grid {
           grid-template-columns: 1fr;
-          padding-top: 72px;
+          align-items: start;
         }
 
         .hero-copy {
           max-width: 760px;
         }
 
-        .desk-content,
-        .workbench-top,
-        .workbench-bottom {
-          grid-template-columns: 1fr;
+        .workflow-board {
+          grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
         }
 
-        .lead-queue,
-        .incoming,
-        .recommendation {
-          border-right: 0;
-          border-bottom: 1px solid var(--line);
-        }
-
-        .lead-list {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .lead-item {
-          border-right: 1px solid var(--line);
-        }
-
-        .lead-item:last-child {
-          border-right: 0;
+        .flow-panel.staff-panel {
+          grid-column: 1 / -1;
+          min-height: auto;
         }
       }
 
-      @media (max-width: 760px) {
+      @media (max-width: 880px) {
         .hero {
-          padding: 22px 18px 42px;
+          min-height: auto;
+          padding-bottom: 34px;
+        }
+
+        .topbar,
+        .topbar-actions {
+          align-items: flex-start;
         }
 
         .topbar {
-          align-items: flex-start;
-        }
-
-        .topbar-meta {
-          justify-content: flex-end;
-          max-width: 190px;
-          text-align: right;
-        }
-
-        .brand-lockup strong {
-          font-size: 1.5rem;
-        }
-
-        .hero-grid {
-          min-height: 0;
-          padding-top: 54px;
-        }
-
-        h1 {
-          font-size: clamp(3.35rem, 17vw, 4.8rem);
-        }
-
-        .hero-copy .lead {
-          font-size: 1.35rem;
-        }
-
-        .promise-strip,
-        .queue-summary,
-        .detail-grid,
-        .section-heading,
-        .workflow {
-          grid-template-columns: 1fr;
-        }
-
-        .promise-strip div,
-        .workflow-step {
-          border-right: 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.22);
-        }
-
-        .workflow-step {
-          min-height: 0;
-          border-bottom-color: var(--line);
-        }
-
-        .workflow-step:last-child,
-        .promise-strip div:last-child {
-          border-bottom: 0;
-        }
-
-        .desk-header,
-        .mode-switch,
-        .demo-footer-inner {
-          align-items: flex-start;
           flex-direction: column;
         }
 
-        .desk-content {
-          min-height: 0;
+        .intro-grid {
+          min-height: auto;
+          padding-top: 52px;
         }
 
-        .lead-list {
+        .topbar-note {
+          min-height: 36px;
+          padding: 0 12px;
+          font-size: 0.66rem;
+        }
+
+        h1 {
+          font-size: clamp(3.55rem, 16vw, 5.2rem);
+        }
+
+        .proof-row,
+        .flow-map,
+        .workflow-board,
+        .section-head,
+        .ops-grid,
+        .scenario-grid,
+        .close-panel {
           grid-template-columns: 1fr;
         }
 
-        .lead-item {
-          border-right: 0;
+        .proof-row div + div,
+        .ops-item + .ops-item {
+          padding-left: 0;
+          border-left: 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.22);
         }
 
-        .incoming,
-        .lead-status,
-        .recommendation,
-        .reply-draft {
-          padding: 20px;
+        .ops-item + .ops-item {
+          border-top-color: var(--line);
         }
 
-        .incoming h2 {
-          font-size: 2rem;
+        .flow-panel {
+          min-height: auto;
+        }
+
+        .flow-panel.staff-panel {
+          grid-column: auto;
         }
 
         .section {
-          padding: 68px 18px;
+          padding-top: 72px;
+          padding-bottom: 72px;
+        }
+
+        h2 {
+          font-size: clamp(2.8rem, 12vw, 4rem);
+        }
+
+        .handoff-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .hero {
+          padding-inline: 18px;
+        }
+
+        .brand-lockup strong {
+          font-size: 1.58rem;
+        }
+
+        .hero-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .button,
+        .button.primary {
+          width: 100%;
+        }
+
+        .scenario-tabs,
+        .lead-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .flow-panel {
+          padding: 17px;
+        }
+
+        textarea {
+          min-height: 180px;
+        }
+
+        .section,
+        .footer {
+          padding-inline: 18px;
         }
       }
     </style>
@@ -869,331 +1135,496 @@
   <body>
     <main class="page">
       <section class="hero" aria-labelledby="page-title">
-        <header class="topbar">
+        <header class="topbar" aria-label="Preview header">
           <a class="brand-lockup" href="index.html" aria-label="CL Global Academy homepage preview">
             <strong>cl global<br>academy</strong>
-            <span>AI admissions preview</span>
+            <span>OxCam programmes</span>
           </a>
-          <div class="topbar-meta">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span>Live guidance + 30-minute lead review</span>
+          <div class="topbar-actions">
+            <span class="topbar-note"><span class="status-dot" aria-hidden="true"></span>AI flow preview</span>
+            <a class="button small" href="https://bobouav.github.io/america-ai-deploy/" target="_blank" rel="noreferrer">Company intro</a>
           </div>
         </header>
 
-        <div class="hero-grid">
+        <div class="intro-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Built for CL Global Academy</p>
-            <h1 id="page-title">AI Admissions Desk</h1>
+            <p class="eyebrow">For course enquiries and admissions follow-up</p>
+            <h1 id="page-title">AI Course Fit Flow</h1>
             <p class="lead">
-              A practical assistant that helps students choose the right OxCam programme, ranks serious enquiries, and prepares reply drafts for the admissions team.
+              A student asks one question. The assistant recommends the right OxCam programme, captures the lead, and prepares a polished follow-up for the admissions team.
             </p>
-            <div class="promise-strip" aria-label="Demo outcomes">
+            <div class="hero-actions">
+              <a class="button primary" href="#live-demo">Run the flow</a>
+              <a class="button" href="#workflow">See what connects</a>
+            </div>
+            <div class="proof-row" aria-label="Flow highlights">
               <div>
-                <strong>Instant</strong>
-                <span>course-fit guidance</span>
+                <strong>Real-time</strong>
+                <span>Public advisor answer</span>
               </div>
               <div>
                 <strong>30 min</strong>
-                <span>new lead review</span>
+                <span>Inbox and form sweep</span>
               </div>
               <div>
-                <strong>Ready</strong>
-                <span>reply draft for approval</span>
+                <strong>Human</strong>
+                <span>Approve before sending</span>
               </div>
             </div>
           </div>
 
-          <section class="desk-shell" aria-label="AI Admissions Desk demo">
-            <div class="desk-header">
-              <div class="desk-title">
-                <strong>Admissions Desk Preview</strong>
-                <span>Sample queue based on CL Global programmes</span>
+          <div class="demo-stage" id="live-demo">
+            <div class="flow-map" aria-label="End-to-end demo steps">
+              <div class="flow-step active" data-step="student">
+                <span>Step 01</span>
+                <strong>Student asks</strong>
               </div>
-              <div class="mode-switch" aria-label="Operating modes">
-                <span class="mode-pill active">Student live</span>
-                <span class="mode-pill">Team review</span>
+              <div class="flow-step active" data-step="ai">
+                <span>Step 02</span>
+                <strong>AI matches course</strong>
               </div>
-            </div>
-
-            <div class="desk-content">
-              <aside class="lead-queue" aria-label="New enquiries">
-                <div class="queue-summary">
-                  <div>
-                    <strong>3</strong>
-                    <span>enquiries reviewed</span>
-                  </div>
-                  <div>
-                    <strong>2</strong>
-                    <span>hot leads found</span>
-                  </div>
-                  <div>
-                    <strong>3</strong>
-                    <span>reply drafts ready</span>
-                  </div>
-                  <div>
-                    <strong>1</strong>
-                    <span>partner lead flagged</span>
-                  </div>
-                </div>
-
-                <div class="lead-list">
-                  <button class="lead-item active" type="button" data-lead="ai">
-                    <strong>University student</strong>
-                    <span>AI, data science, Cambridge project work</span>
-                    <small>Hot applicant</small>
-                  </button>
-                  <button class="lead-item" type="button" data-lead="research">
-                    <strong>Parent enquiry</strong>
-                    <span>Age 16, research prep, supervised programme</span>
-                    <small>Needs reassurance</small>
-                  </button>
-                  <button class="lead-item" type="button" data-lead="partner">
-                    <strong>School director</strong>
-                    <span>Custom Cambridge summer cohort</span>
-                    <small>High value</small>
-                  </button>
-                </div>
-              </aside>
-
-              <div class="workbench">
-                <div class="workbench-top">
-                  <section class="incoming" aria-labelledby="incoming-title">
-                    <p class="panel-label">New enquiry</p>
-                    <h2 id="incoming-title">Student wants AI plus Cambridge research</h2>
-                    <p id="lead-summary">
-                      A university student is comparing AI and data-focused summer options and wants a project that strengthens graduate-school applications.
-                    </p>
-                    <div class="detail-grid">
-                      <div class="detail">
-                        <span>Profile</span>
-                        <strong id="detail-profile">University student, computer science background</strong>
-                      </div>
-                      <div class="detail">
-                        <span>Goal</span>
-                        <strong id="detail-goal">Build a stronger academic project portfolio</strong>
-                      </div>
-                      <div class="detail">
-                        <span>Interest</span>
-                        <strong id="detail-interest">Machine learning, data science, Cambridge experience</strong>
-                      </div>
-                      <div class="detail">
-                        <span>Missing</span>
-                        <strong id="detail-missing">English level and exact summer availability</strong>
-                      </div>
-                    </div>
-                  </section>
-
-                  <aside class="lead-status" aria-label="Lead status">
-                    <div class="priority">
-                      <span>Priority</span>
-                      <strong id="lead-priority">Hot</strong>
-                    </div>
-                    <div class="next-step">
-                      <strong>Recommended next step</strong>
-                      <p id="next-step">Send AI+ course guidance, ask for preferred track, and include application link.</p>
-                    </div>
-                    <div class="next-step">
-                      <strong>Why it matters</strong>
-                      <p id="business-impact">Course-fit questions are converted into an admissions-ready follow-up instead of sitting in the inbox.</p>
-                    </div>
-                  </aside>
-                </div>
-
-                <div class="workbench-bottom">
-                  <section class="recommendation" aria-labelledby="recommendation-title">
-                    <p class="panel-label">AI recommendation</p>
-                    <div class="course-card">
-                      <h3 id="recommendation-title">AI+ Course</h3>
-                      <ul class="reason-list" id="reason-list">
-                        <li>Matches the student's AI and data-science interest.</li>
-                        <li>University-level project work supports application storytelling.</li>
-                        <li>Cambridge setting reinforces the academic positioning.</li>
-                      </ul>
-                    </div>
-                  </section>
-
-                  <section class="reply-draft" aria-labelledby="reply-title">
-                    <p class="panel-label">Draft reply for approval</p>
-                    <div class="reply-box" id="reply-box">
-                      <p>Hi [Name], based on your interest in AI, data science, and Cambridge-based project work, the AI+ Course looks like the strongest fit.</p>
-                      <p>The programme is designed for university-level students who want rigorous academic content and a project they can discuss in future applications.</p>
-                      <p>Could you share your preferred track and summer availability? We can then send the most relevant application guidance.</p>
-                    </div>
-                    <div class="approval-row" aria-label="Approval actions">
-                      <span class="action primary">Approve draft</span>
-                      <span class="action">Edit tone</span>
-                      <span class="action">Ask follow-up</span>
-                    </div>
-                  </section>
-                </div>
+              <div class="flow-step active" data-step="capture">
+                <span>Step 03</span>
+                <strong>Lead is captured</strong>
+              </div>
+              <div class="flow-step active" data-step="staff">
+                <span>Step 04</span>
+                <strong>Staff approves reply</strong>
               </div>
             </div>
-          </section>
+
+            <section class="workflow-board" aria-label="Interactive AI course-fit workflow">
+              <div class="flow-panel student-panel">
+                <div class="panel-kicker">
+                  <span>Public website</span>
+                  <span class="pill blue">Student view</span>
+                </div>
+                <h2 class="panel-title">Find your OxCam programme</h2>
+                <p class="panel-copy">Students use the same course-fit helper on the public site.</p>
+
+                <div class="scenario-tabs" role="tablist" aria-label="Sample enquiries">
+                  <button class="tab-button active" type="button" data-scenario="ai">AI+</button>
+                  <button class="tab-button" type="button" data-scenario="research">Research+</button>
+                  <button class="tab-button" type="button" data-scenario="partner">Partner</button>
+                </div>
+
+                <div class="enquiry-box">
+                  <label for="student-enquiry">Student or parent enquiry</label>
+                  <textarea id="student-enquiry"></textarea>
+                </div>
+                <button class="run-button" type="button" id="run-analysis">Run AI analysis</button>
+
+                <div class="student-result" aria-live="polite">
+                  <div class="answer-line">
+                    <strong id="public-course">AI+ Course</strong>
+                    <span class="pill" id="public-timing">Real-time</span>
+                  </div>
+                  <p class="student-answer" id="public-answer">
+                    Recommended for a university student who wants machine learning or data science project work in Cambridge.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flow-panel dark ai-panel">
+                <div class="panel-kicker">
+                  <span>AI reasoning layer</span>
+                  <span class="pill inverse" id="analysis-state">Ready</span>
+                </div>
+                <h2 class="panel-title">Course-fit analysis</h2>
+                <p class="panel-copy">Reads the enquiry against CL Global's courses and decides the next step.</p>
+
+                <div class="ai-meter">
+                  <div class="meter-head">
+                    <span>Fit confidence</span>
+                    <strong id="confidence-value">94%</strong>
+                  </div>
+                  <div class="meter-track" aria-hidden="true">
+                    <div class="meter-fill" id="confidence-meter"></div>
+                  </div>
+                </div>
+
+                <div class="ai-list">
+                  <div class="ai-block">
+                    <span>Why this fits</span>
+                    <p id="why-fit">The enquiry mentions AI, data projects, Cambridge summer study, and graduate preparation.</p>
+                  </div>
+                  <div class="ai-block">
+                    <span>Information still needed</span>
+                    <ul class="mini-list" id="missing-list"></ul>
+                  </div>
+                  <div class="ai-block">
+                    <span>Suggested next step</span>
+                    <p id="next-step">Send the AI+ brochure, ask for current university year, and offer admissions guidance.</p>
+                  </div>
+                </div>
+
+                <div class="capture-note">
+                  <strong id="capture-title">Lead captured for admissions</strong>
+                  <span id="capture-copy">The team receives the context with the lead, not a blank inbox message.</span>
+                </div>
+              </div>
+
+              <div class="flow-panel staff-panel">
+                <div class="panel-kicker">
+                  <span>Admissions team</span>
+                  <span class="pill hot" id="priority-pill">Hot lead</span>
+                </div>
+                <h2 class="panel-title">Review and send the follow-up</h2>
+                <p class="panel-copy">Staff see the lead summary, missing details, and a reply draft.</p>
+
+                <div class="lead-card">
+                  <div class="lead-top">
+                    <div>
+                      <span class="lead-name" id="lead-name">Michelle Zhang</span>
+                      <span class="lead-detail" id="lead-summary">University applicant asking about AI+ and Cambridge summer projects.</span>
+                    </div>
+                    <span class="pill" id="lead-source">Website</span>
+                  </div>
+                  <div class="lead-grid">
+                    <div>
+                      <span>Recommended</span>
+                      <strong id="recommended-programme">AI+ Course</strong>
+                    </div>
+                    <div>
+                      <span>Owner action</span>
+                      <strong id="owner-action">Approve reply</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="draft-box" aria-live="polite">
+                  <p id="draft-line-1">Hi Michelle, thank you for reaching out to CL Global Academy.</p>
+                  <p id="draft-line-2">Based on your interest in machine learning and project-based study, AI+ looks like the strongest fit. I have attached the course details and would be happy to guide you through the next step.</p>
+                  <p id="draft-line-3">Could you share your current university year and preferred track: Machine Learning+ or Data Science+?</p>
+                </div>
+
+                <div class="staff-actions">
+                  <button class="run-button" type="button" id="approve-draft">Approve draft</button>
+                  <button class="ghost-button" type="button" id="edit-draft">Edit in Gmail</button>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="workflow-title">
+      <section class="section" id="workflow" aria-labelledby="workflow-title">
         <div class="section-inner">
-          <div class="section-heading">
-            <h2 id="workflow-title">Small enough to start. Useful enough to keep.</h2>
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">What the demo includes</span>
+              <h2 id="workflow-title">One workflow, two audiences.</h2>
+            </div>
             <p>
-              The demo avoids a heavy software pitch. It shows a practical AI assistant that can sit beside CL Global's current enquiry flow and help the team respond faster.
+              The public page helps students and parents get clear guidance immediately. The internal side helps CL Global respond faster without losing the human admissions voice.
             </p>
           </div>
-          <div class="workflow">
-            <article class="workflow-step">
-              <span>1</span>
-              <h3>Guide students instantly</h3>
-              <p>Prospects get course-fit guidance for AI+, System Design, or OxCam Research before they apply.</p>
+
+          <div class="ops-grid">
+            <article class="ops-item">
+              <span>01</span>
+              <h3>Website advisor</h3>
+              <p>Embedded beside the course pages so students can ask which OxCam programme fits their background, age, interests, and dates.</p>
             </article>
-            <article class="workflow-step">
-              <span>2</span>
-              <h3>Review new leads</h3>
-              <p>Every 30 minutes, new enquiries can be organized by course fit, urgency, and missing information.</p>
+            <article class="ops-item">
+              <span>02</span>
+              <h3>AI matching</h3>
+              <p>Compares each enquiry with AI+, System Design & Engineering Thinking+, OxCam Research+, and custom course pathways.</p>
             </article>
-            <article class="workflow-step">
-              <span>3</span>
-              <h3>Prepare replies</h3>
-              <p>The team receives polished drafts to approve, edit, or send through the existing admissions workflow.</p>
+            <article class="ops-item">
+              <span>03</span>
+              <h3>Lead queue</h3>
+              <p>Captures name, intent, urgency, missing details, and recommended next step for admissions or partnership follow-up.</p>
             </article>
+            <article class="ops-item">
+              <span>04</span>
+              <h3>Reply approval</h3>
+              <p>Drafts a warm response in CL Global's tone while keeping staff in control before anything is sent.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section scenario-section" aria-labelledby="scenario-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">High-value use cases</span>
+              <h2 id="scenario-title">Built around real enquiries.</h2>
+            </div>
+            <p>
+              The strongest hook is not "we made a website." It is "we made the admissions conversation easier to win."
+            </p>
+          </div>
+
+          <div class="scenario-grid">
+            <article class="scenario-card">
+              <h3>Course-fit questions</h3>
+              <p>Parents and students can ask which course to choose and receive a confident, catalogue-aware answer.</p>
+              <ul>
+                <li>Best for AI+, engineering, research, and age-band questions.</li>
+                <li>Works as a public website widget.</li>
+                <li>Passes hot leads to staff immediately.</li>
+              </ul>
+            </article>
+            <article class="scenario-card">
+              <h3>Parent trust questions</h3>
+              <p>The assistant can answer safety, college life, supervision, English level, and Cambridge experience questions.</p>
+              <ul>
+                <li>Uses public programme information and approved answers.</li>
+                <li>Escalates sensitive questions to the team.</li>
+                <li>Reduces repetitive back-and-forth.</li>
+              </ul>
+            </article>
+            <article class="scenario-card">
+              <h3>Partner proposals</h3>
+              <p>School and institution enquiries can become structured partnership follow-ups instead of generic contact replies.</p>
+              <ul>
+                <li>Identifies bespoke course opportunities.</li>
+                <li>Drafts proposal questions for the owner.</li>
+                <li>Prioritizes higher-ticket conversations.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section close-section" aria-labelledby="handoff-title">
+        <div class="section-inner close-panel">
+          <div class="close-copy">
+            <span class="section-kicker">How it would run</span>
+            <h2 id="handoff-title">AI where customers ask. Codex where the business works.</h2>
+            <p>
+              The public advisor can answer in real time. Codex can support the owner behind the scenes by reviewing new enquiries, improving drafts, and keeping the workflow healthy.
+            </p>
+          </div>
+          <div class="handoff-list">
+            <div class="handoff-row">
+              <span>Real time</span>
+              <p>Website visitors get course-fit guidance while they are still interested.</p>
+            </div>
+            <div class="handoff-row">
+              <span>Every 30 min</span>
+              <p>New Gmail and form enquiries can be grouped, ranked, and turned into approval-ready drafts.</p>
+            </div>
+            <div class="handoff-row">
+              <span>Owner control</span>
+              <p>Staff approve, edit, or request a stronger reply before messages go out.</p>
+            </div>
+            <div class="handoff-row">
+              <span>Ongoing</span>
+              <p>The system learns from approved replies, new brochures, programme dates, and updated admissions policies.</p>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="demo-footer">
-      <div class="demo-footer-inner">
-        <p><strong>Prepared by America AI Deploy Co.</strong> A practical AI deployment preview for CL Global Academy.</p>
-        <a href="https://bobouav.github.io/america-ai-deploy/">Company intro</a>
-      </div>
+    <footer class="footer">
+      <span>Interactive preview for CL Global Academy.</span>
+      <span>Prepared by <a href="https://bobouav.github.io/america-ai-deploy/" target="_blank" rel="noreferrer">America AI Deploy Co.</a></span>
     </footer>
 
     <script>
-      const leads = {
+      const scenarios = {
         ai: {
-          title: "Student wants AI plus Cambridge research",
-          summary:
-            "A university student is comparing AI and data-focused summer options and wants a project that strengthens graduate-school applications.",
-          profile: "University student, computer science background",
-          goal: "Build a stronger academic project portfolio",
-          interest: "Machine learning, data science, Cambridge experience",
-          missing: "English level and exact summer availability",
-          priority: "Hot",
-          next: "Send AI+ course guidance, ask for preferred track, and include application link.",
-          impact:
-            "Course-fit questions are converted into an admissions-ready follow-up instead of sitting in the inbox.",
-          recommendation: "AI+ Course",
-          reasons: [
-            "Matches the student's AI and data-science interest.",
-            "University-level project work supports application storytelling.",
-            "Cambridge setting reinforces the academic positioning."
-          ],
-          reply: [
-            "Hi [Name], based on your interest in AI, data science, and Cambridge-based project work, the AI+ Course looks like the strongest fit.",
-            "The programme is designed for university-level students who want rigorous academic content and a project they can discuss in future applications.",
-            "Could you share your preferred track and summer availability? We can then send the most relevant application guidance."
+          input:
+            "Hi CL Global Academy, I am a second-year university student interested in machine learning, data science, and a summer programme in Cambridge. I want something project-based that could help with graduate school applications. Which OxCam course should I choose?",
+          publicCourse: "AI+ Course",
+          timing: "Real-time",
+          answer:
+            "Recommended for a university student who wants machine learning or data science project work in Cambridge.",
+          confidence: 94,
+          why:
+            "The enquiry mentions AI, data projects, Cambridge summer study, and graduate preparation.",
+          missing: ["Current university year", "Preferred track", "Application timeline"],
+          next:
+            "Send the AI+ brochure, ask for university year, and offer admissions guidance.",
+          captureTitle: "Lead captured for admissions",
+          captureCopy:
+            "The team receives the context with the lead, not a blank inbox message.",
+          priority: "Hot lead",
+          leadName: "Michelle Zhang",
+          leadSummary: "University applicant asking about AI+ and Cambridge summer projects.",
+          source: "Website",
+          recommended: "AI+ Course",
+          ownerAction: "Approve reply",
+          draft: [
+            "Hi Michelle, thank you for reaching out to CL Global Academy.",
+            "Based on your interest in machine learning and project-based study, AI+ looks like the strongest fit. I have attached the course details and would be happy to guide you through the next step.",
+            "Could you share your current university year and preferred track: Machine Learning+ or Data Science+?"
           ]
         },
         research: {
-          title: "Parent asks which route fits a 16-year-old",
-          summary:
-            "A parent wants a rigorous Cambridge experience for a 16-year-old student, but needs reassurance about supervision, academic level, and outcomes.",
-          profile: "Age 16, strong academic interest, parent-led enquiry",
-          goal: "Explore research preparation before university applications",
-          interest: "Academic research, Cambridge culture, safe student experience",
-          missing: "Subject preference, English level, parent contact details",
-          priority: "Warm",
-          next: "Recommend OxCam Research+, answer parent trust questions, and offer a short admissions reply.",
-          impact:
-            "Parent concerns are answered quickly, while the team gets the exact missing details needed to move the lead forward.",
-          recommendation: "OxCam Research+",
-          reasons: [
-            "Designed for students aged 13-18.",
-            "Matches research preparation and early university exploration.",
-            "Parent-facing reply can address supervision, schedule, and Cambridge experience."
-          ],
-          reply: [
-            "Hi [Name], for a 16-year-old student interested in research preparation, OxCam Research+ appears to be the most relevant route.",
-            "It is positioned for younger students who want an academically challenging Cambridge experience before university applications.",
-            "To guide you properly, could you share the student's subject interests and current school year?"
+          input:
+            "My daughter is 15 and interested in biology and medicine. This would be her first time studying abroad, so I want to understand whether the programme is suitable for her age and how much support students receive in Cambridge.",
+          publicCourse: "OxCam Research+",
+          timing: "Parent-ready",
+          answer:
+            "Recommended for a 13-18 student who wants an academically challenging but supported research experience.",
+          confidence: 91,
+          why:
+            "The enquiry includes age, biology and medicine interests, first-time travel concerns, and parent reassurance needs.",
+          missing: ["Student's English level", "Preferred subject track", "Parent contact details"],
+          next:
+            "Recommend OxCam Research+, answer support questions, and invite the parent to share the student's academic background.",
+          captureTitle: "Parent trust question identified",
+          captureCopy:
+            "Support and college-life concerns are routed with the course-fit summary.",
+          priority: "Warm lead",
+          leadName: "Mrs. Chen",
+          leadSummary: "Parent asking about OxCam Research+ suitability and student support.",
+          source: "Website",
+          recommended: "OxCam Research+",
+          ownerAction: "Send reassurance reply",
+          draft: [
+            "Hi Mrs. Chen, thank you for considering CL Global Academy for your daughter.",
+            "For a 15-year-old interested in biology and medicine, OxCam Research+ is likely the strongest fit. The programme is designed for students aged 13 to 18 and combines subject tracks with project-based academic inquiry.",
+            "I would be happy to share more about student support in Cambridge. Could you tell me her current grade, English level, and whether Biology & Disease Research or Chemistry & Medicine sounds closer to her interests?"
           ]
         },
         partner: {
-          title: "School asks about a custom Cambridge cohort",
-          summary:
-            "A school director is exploring a Cambridge-based summer cohort and wants a tailored academic programme for a group of students.",
-          profile: "Institutional enquiry from school leadership",
-          goal: "Create a bespoke summer academic programme",
-          interest: "Cambridge faculty network, cultural immersion, custom timetable",
-          missing: "Group size, dates, student age range, preferred subjects",
-          priority: "High value",
-          next: "Flag as partnership opportunity and prepare a custom programme proposal outline.",
-          impact:
-            "Institutional enquiries are separated from regular student questions so high-value opportunities get faster attention.",
-          recommendation: "Bespoke OxCam Programme",
-          reasons: [
-            "Matches CL Global's partnership and custom course model.",
-            "Requires programme-design follow-up rather than a standard admissions reply.",
-            "Can become a higher-value institutional relationship."
-          ],
-          reply: [
-            "Hi [Name], thank you for exploring a custom Cambridge programme for your students.",
-            "Based on your enquiry, this looks like a bespoke OxCam programme discussion rather than a standard individual application.",
-            "Could you share your expected group size, preferred dates, student age range, and academic subjects? We can then prepare a first programme outline."
+          input:
+            "We represent an international school and are looking for a custom Cambridge-based academic programme for 25-30 high school students. We are interested in research, AI, and cultural activities. Can CL Global design something for our group?",
+          publicCourse: "Custom Course",
+          timing: "High value",
+          answer:
+            "Recommended for a school partner seeking a bespoke Cambridge programme across research, AI, and cultural immersion.",
+          confidence: 88,
+          why:
+            "The enquiry signals an institutional buyer, a group size, custom requirements, and a higher-value partnership path.",
+          missing: ["Preferred dates", "Student age range", "Budget or programme length"],
+          next:
+            "Route to partnership follow-up, request programme goals, and draft a discovery-call agenda.",
+          captureTitle: "Partnership opportunity created",
+          captureCopy:
+            "Institutional enquiries are separated from standard admissions messages.",
+          priority: "Priority partner",
+          leadName: "International School Lead",
+          leadSummary: "School representative asking for a bespoke Cambridge programme.",
+          source: "Contact form",
+          recommended: "Custom Course",
+          ownerAction: "Prepare proposal",
+          draft: [
+            "Hello, thank you for reaching out to CL Global Academy.",
+            "Your request sounds like a strong fit for a bespoke Cambridge-based programme. We can shape academic seminars, research projects, AI-related themes, and cultural activities around your school's goals.",
+            "Could you share your preferred dates, student age range, expected programme length, and the main outcomes you would like the students to achieve?"
           ]
         }
       };
 
-      const fields = {
-        title: document.getElementById("incoming-title"),
-        summary: document.getElementById("lead-summary"),
-        profile: document.getElementById("detail-profile"),
-        goal: document.getElementById("detail-goal"),
-        interest: document.getElementById("detail-interest"),
-        missing: document.getElementById("detail-missing"),
-        priority: document.getElementById("lead-priority"),
-        next: document.getElementById("next-step"),
-        impact: document.getElementById("business-impact"),
-        recommendation: document.getElementById("recommendation-title"),
-        reasons: document.getElementById("reason-list"),
-        reply: document.getElementById("reply-box")
-      };
+      const enquiry = document.getElementById("student-enquiry");
+      const runButton = document.getElementById("run-analysis");
+      const approveButton = document.getElementById("approve-draft");
+      const editButton = document.getElementById("edit-draft");
+      const tabButtons = [...document.querySelectorAll(".tab-button")];
+      const demoStage = document.querySelector(".demo-stage");
+      const analysisState = document.getElementById("analysis-state");
+      const publicCourse = document.getElementById("public-course");
+      const publicTiming = document.getElementById("public-timing");
+      const publicAnswer = document.getElementById("public-answer");
+      const confidenceValue = document.getElementById("confidence-value");
+      const confidenceMeter = document.getElementById("confidence-meter");
+      const whyFit = document.getElementById("why-fit");
+      const missingList = document.getElementById("missing-list");
+      const nextStep = document.getElementById("next-step");
+      const captureTitle = document.getElementById("capture-title");
+      const captureCopy = document.getElementById("capture-copy");
+      const priorityPill = document.getElementById("priority-pill");
+      const leadName = document.getElementById("lead-name");
+      const leadSummary = document.getElementById("lead-summary");
+      const leadSource = document.getElementById("lead-source");
+      const recommendedProgramme = document.getElementById("recommended-programme");
+      const ownerAction = document.getElementById("owner-action");
+      const draftLines = [
+        document.getElementById("draft-line-1"),
+        document.getElementById("draft-line-2"),
+        document.getElementById("draft-line-3")
+      ];
 
-      const renderLead = (key) => {
-        const lead = leads[key];
-        fields.title.textContent = lead.title;
-        fields.summary.textContent = lead.summary;
-        fields.profile.textContent = lead.profile;
-        fields.goal.textContent = lead.goal;
-        fields.interest.textContent = lead.interest;
-        fields.missing.textContent = lead.missing;
-        fields.priority.textContent = lead.priority;
-        fields.next.textContent = lead.next;
-        fields.impact.textContent = lead.impact;
-        fields.recommendation.textContent = lead.recommendation;
-        fields.reasons.replaceChildren(
-          ...lead.reasons.map((reason) => {
-            const item = document.createElement("li");
-            item.textContent = reason;
-            return item;
-          })
-        );
-        fields.reply.replaceChildren(
-          ...lead.reply.map((paragraph) => {
-            const item = document.createElement("p");
-            item.textContent = paragraph;
-            return item;
-          })
-        );
+      let activeScenario = "ai";
 
-        document.querySelectorAll(".lead-item").forEach((item) => {
-          item.classList.toggle("active", item.dataset.lead === key);
+      function setList(items) {
+        missingList.replaceChildren();
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          missingList.append(li);
         });
-      };
+      }
 
-      document.querySelectorAll(".lead-item").forEach((item) => {
-        item.addEventListener("click", () => renderLead(item.dataset.lead));
+      function renderScenario(key, updateInput = true) {
+        const scenario = scenarios[key];
+        activeScenario = key;
+
+        tabButtons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.scenario === key);
+        });
+
+        if (updateInput) {
+          enquiry.value = scenario.input;
+        }
+
+        publicCourse.textContent = scenario.publicCourse;
+        publicTiming.textContent = scenario.timing;
+        publicAnswer.textContent = scenario.answer;
+        confidenceValue.textContent = `${scenario.confidence}%`;
+        confidenceMeter.style.width = `${scenario.confidence}%`;
+        whyFit.textContent = scenario.why;
+        setList(scenario.missing);
+        nextStep.textContent = scenario.next;
+        captureTitle.textContent = scenario.captureTitle;
+        captureCopy.textContent = scenario.captureCopy;
+        priorityPill.textContent = scenario.priority;
+        leadName.textContent = scenario.leadName;
+        leadSummary.textContent = scenario.leadSummary;
+        leadSource.textContent = scenario.source;
+        recommendedProgramme.textContent = scenario.recommended;
+        ownerAction.textContent = scenario.ownerAction;
+        draftLines.forEach((line, index) => {
+          line.textContent = scenario.draft[index] || "";
+        });
+
+        analysisState.textContent = "Ready";
+        approveButton.textContent = "Approve draft";
+        editButton.textContent = "Edit in Gmail";
+      }
+
+      function runAnalysis() {
+        demoStage.classList.add("thinking");
+        analysisState.textContent = "Analyzing";
+        runButton.disabled = true;
+        runButton.textContent = "Analyzing enquiry";
+
+        window.setTimeout(() => {
+          demoStage.classList.remove("thinking");
+          renderScenario(activeScenario, false);
+          analysisState.textContent = "Complete";
+          runButton.disabled = false;
+          runButton.textContent = "Run AI analysis";
+        }, 520);
+      }
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          renderScenario(button.dataset.scenario);
+        });
       });
+
+      runButton.addEventListener("click", runAnalysis);
+
+      approveButton.addEventListener("click", () => {
+        approveButton.textContent = "Approved";
+        ownerAction.textContent = "Ready to send";
+        analysisState.textContent = "Approved";
+      });
+
+      editButton.addEventListener("click", () => {
+        editButton.textContent = "Draft opened";
+        ownerAction.textContent = "Edit draft";
+      });
+
+      renderScenario(activeScenario);
     </script>
   </body>
 </html>
