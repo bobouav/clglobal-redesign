@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI Support Desk Demo</title>
+    <title>AI Operations Portal Demo</title>
     <meta
       name="description"
-      content="A quiet internal AI support desk for handling student support questions, staff guidance, next-step plans and case notes."
+      content="A quiet internal AI operations portal that unifies Gmail, Slack and form requests into staff guidance, follow-up tasks and next-step plans."
     >
-    <meta property="og:title" content="AI Support Desk Demo">
+    <meta property="og:title" content="AI Operations Portal Demo">
     <meta
       property="og:description"
-      content="A focused AI support desk for programme operations: staff question, safe AI guidance, next-step plan, review status."
+      content="A focused AI operations portal for programme teams: unified source queue, safe AI guidance, follow-up tasks, next-step plans and reply drafts."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,6 +84,7 @@
       .app {
         display: grid;
         grid-template-rows: 58px minmax(0, 1fr);
+        height: calc(100vh - 36px);
         min-height: calc(100vh - 36px);
         overflow: hidden;
         border: 1px solid var(--line-strong);
@@ -154,7 +155,7 @@
 
       .workspace {
         display: grid;
-        grid-template-columns: 292px minmax(410px, 1fr) 430px;
+        grid-template-columns: 304px minmax(410px, 1fr) 440px;
         min-height: 0;
       }
 
@@ -439,12 +440,17 @@
       }
 
       .assistant-body {
-        display: grid;
-        align-content: start;
+        display: flex;
+        flex-direction: column;
         gap: 12px;
       }
 
+      .assistant-body > section {
+        flex: 0 0 auto;
+      }
+
       .ai-card {
+        min-height: 304px;
         overflow: hidden;
       }
 
@@ -508,8 +514,41 @@
         font-weight: 700;
       }
 
+      .task-list {
+        display: grid;
+        gap: 8px;
+        margin: 12px 14px 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .task-list li {
+        display: grid;
+        grid-template-columns: 86px minmax(0, 1fr);
+        gap: 10px;
+        min-height: 36px;
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--panel);
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .task-list span {
+        color: var(--muted);
+        font-size: 0.66rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
       .draft-card {
         padding-bottom: 14px;
+      }
+
+      .reply-card textarea {
+        min-height: 92px;
       }
 
       textarea {
@@ -591,6 +630,7 @@
         }
 
         .app {
+          height: auto;
           min-height: 100vh;
           border: 0;
           border-radius: 0;
@@ -643,41 +683,42 @@
           <div class="app-title">
             <span class="app-dot" aria-hidden="true"></span>
             <div>
-              <h1 id="main-title">AI Support Desk</h1>
-              <small>Programme operations</small>
+              <h1 id="main-title">Programme Operations Portal</h1>
+              <small>Gmail, Slack and forms organised into cases</small>
             </div>
           </div>
-          <div class="top-status" aria-label="Support desk status">
-            <span>Open 3</span>
-            <span>Review 1</span>
-            <span>Updated 18:42</span>
+          <div class="top-status" aria-label="Operations portal status">
+            <span>Gmail synced</span>
+            <span>Slack live</span>
+            <span>Forms synced</span>
           </div>
         </header>
 
-        <section class="workspace" aria-label="AI support desk preview">
-          <aside class="sidebar" aria-label="Support inbox">
+        <section class="workspace" aria-label="AI operations portal preview">
+          <aside class="sidebar" aria-label="Synced intake">
             <div class="section-head">
-              <h2>Support inbox</h2>
-              <span>Today</span>
+              <h2>Synced intake</h2>
+              <span>3 sources</span>
             </div>
             <div class="filters" aria-label="Inbox filters">
-              <button class="filter active" type="button">Open</button>
-              <button class="filter" type="button">Review</button>
-              <button class="filter" type="button">Logged</button>
+              <button class="filter active" type="button">All</button>
+              <button class="filter" type="button">Gmail</button>
+              <button class="filter" type="button">Slack</button>
+              <button class="filter" type="button">Forms</button>
             </div>
-            <div class="queue-list" role="tablist" aria-label="Support cases">
+            <div class="queue-list" role="tablist" aria-label="Synced cases">
               <button class="case-button active" type="button" data-scenario="unwell">
-                <span class="queue-meta"><span>Wellbeing</span><span>18:42</span></span>
+                <span class="queue-meta"><span>Slack / Wellbeing</span><span>18:42</span></span>
                 <strong>Student feels unwell before dinner</strong>
                 <small>Needs staff guidance</small>
               </button>
               <button class="case-button" type="button" data-scenario="lostkey">
-                <span class="queue-meta"><span>Accommodation</span><span>21:16</span></span>
+                <span class="queue-meta"><span>Gmail / Accommodation</span><span>21:16</span></span>
                 <strong>Student lost room key after activity</strong>
                 <small>Evening support</small>
               </button>
               <button class="case-button" type="button" data-scenario="schedule">
-                <span class="queue-meta"><span>Schedule</span><span>17:08</span></span>
+                <span class="queue-meta"><span>Form / Schedule</span><span>17:08</span></span>
                 <strong>Student missed evening activity briefing</strong>
                 <small>Plan follow-up</small>
               </button>
@@ -686,7 +727,7 @@
 
           <article class="case">
             <div class="section-head">
-              <h2>Active case</h2>
+              <h2>Case workspace</h2>
               <span id="case-time">18:42</span>
             </div>
             <div class="case-body">
@@ -697,10 +738,10 @@
               <div class="message-card">
                 <div class="sender">
                   <div>
-                    <strong id="sender-name">Fellow Advisor / Group B</strong>
-                    <span id="sender-meta">King's Parade</span>
+                    <strong id="sender-name">Fellow Advisor, Group B</strong>
+                    <span id="sender-meta">Evening programme team</span>
                   </div>
-                  <span class="pill">Advisor message</span>
+                  <span class="pill" id="source-pill">Slack #fellows</span>
                 </div>
                 <p class="message" id="incoming-message">
                   A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
@@ -715,8 +756,8 @@
                     <strong id="location-context">College court</strong>
                   </div>
                   <div>
-                    <span>Next check</span>
-                    <strong id="check-context">18:50</strong>
+                    <span>Source</span>
+                    <strong id="source-context">Slack #fellows</strong>
                   </div>
                 </div>
               </div>
@@ -727,23 +768,23 @@
                   <strong id="log-type">Wellbeing / supervision</strong>
                 </div>
                 <div class="detail-card">
-                  <span>Status</span>
-                  <strong id="case-status">Coordinator review pending</strong>
+                  <span>Next check</span>
+                  <strong id="check-context">18:50</strong>
                 </div>
               </div>
 
               <div class="case-note" aria-label="Case history">
                 <div class="note-row">
-                  <span>18:42</span>
-                  <strong>Question received from advisor</strong>
+                  <span id="history-source-time">18:42</span>
+                  <strong id="history-source">Slack item synced into portal</strong>
                 </div>
                 <div class="note-row">
-                  <span>18:43</span>
-                  <strong>AI response drafted with safety guardrail</strong>
+                  <span id="history-plan-time">18:43</span>
+                  <strong>AI plan drafted with safety guardrail</strong>
                 </div>
                 <div class="note-row">
-                  <span>18:50</span>
-                  <strong>Next check-in time prepared</strong>
+                  <span id="history-check-time">18:50</span>
+                  <strong>Follow-up tasks prepared</strong>
                 </div>
               </div>
             </div>
@@ -751,7 +792,7 @@
 
           <aside class="assistant">
             <div class="section-head">
-              <h2>AI assistant</h2>
+              <h2>AI operations assistant</h2>
               <span id="review-pill">Review required</span>
             </div>
             <div class="assistant-body">
@@ -781,6 +822,25 @@
                 </div>
                 <div class="status" id="status-line">Waiting for coordinator assignment.</div>
               </section>
+
+              <section class="draft-card">
+                <div class="draft-head">
+                  <h3>Follow-up tasks</h3>
+                  <span class="pill" id="task-pill">3 tasks</span>
+                </div>
+                <ul class="task-list" id="task-list"></ul>
+              </section>
+
+              <section class="draft-card reply-card">
+                <div class="draft-head">
+                  <h3>Reply draft</h3>
+                  <span class="pill blue" id="reply-pill">Internal reply</span>
+                </div>
+                <textarea id="reply-draft" aria-label="Reply draft"></textarea>
+                <div class="button-row">
+                  <button class="button" type="button" id="copy-reply-button">Copy to source thread</button>
+                </div>
+              </section>
             </div>
           </aside>
         </section>
@@ -793,8 +853,12 @@
           title: "Student feels unwell before formal dinner",
           pill: "Wellbeing",
           time: "18:42",
-          sender: "Fellow Advisor / Group B",
-          meta: "King's Parade",
+          planTime: "18:43",
+          sender: "Fellow Advisor, Group B",
+          meta: "Evening programme team",
+          source: "Slack #fellows",
+          sourceBadge: "Slack #fellows",
+          sourceHistory: "Slack item synced into portal",
           message:
             "A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?",
           student: "Age 16",
@@ -809,6 +873,13 @@
             "Safety guardrail: no medical advice, no unsupervised student, escalate if symptoms worsen.",
           draft:
             "Next-step plan\n\n1. Keep the student seated in a calm, supervised place.\n2. Notify the Programme Coordinator with time, location and symptoms reported.\n3. Ask a Fellow Advisor to stay nearby until coordinator handoff.\n4. Record the 18:50 check-in result in the case note.\n5. Decide whether formal dinner attendance should be changed after the check-in.",
+          tasks: [
+            ["Fellow", "Stay with student until coordinator handoff."],
+            ["Coordinator", "Decide dinner attendance after 18:50 check-in."],
+            ["Ops log", "Record symptoms, location and final check result."]
+          ],
+          reply:
+            "Thanks. Keep the student seated with you for now. I am notifying the Programme Coordinator and setting the 18:50 check-in. Do not leave the student alone.",
           logType: "Wellbeing / supervision",
           check: "18:50"
         },
@@ -816,8 +887,12 @@
           title: "Student lost room key after evening activity",
           pill: "Accommodation",
           time: "21:16",
-          sender: "Fellow Advisor / Group D",
-          meta: "College entrance",
+          planTime: "21:17",
+          sender: "Fellow Advisor, Group D",
+          meta: "Gmail ops thread",
+          source: "Gmail ops inbox",
+          sourceBadge: "Gmail",
+          sourceHistory: "Gmail thread synced into portal",
           message:
             "A student cannot find their room key after the evening activity. The group is back at college. What should I do?",
           student: "Age 17",
@@ -832,6 +907,13 @@
             "Safety guardrail: do not send the student alone, share room-access details in chat, or close without access confirmation.",
           draft:
             "Next-step plan\n\n1. Keep the student with Group D at the college entrance.\n2. Notify the residential lead and confirm the room-access procedure.\n3. Assign one Fellow Advisor to wait with the student until access is resolved.\n4. Log the access outcome and close only after safe room entry is confirmed.\n5. Flag the case for the morning operations review if a replacement key is needed.",
+          tasks: [
+            ["Advisor", "Keep student with Group D at entrance."],
+            ["Residence", "Confirm access procedure and room entry."],
+            ["Morning ops", "Review whether replacement key is needed."]
+          ],
+          reply:
+            "Received. Keep the student with Group D while access is resolved. The residential lead should confirm safe room entry before this case is closed.",
           logType: "Accommodation / access",
           check: "21:30"
         },
@@ -839,8 +921,12 @@
           title: "Student missed evening activity briefing",
           pill: "Schedule",
           time: "17:08",
-          sender: "Fellow Advisor / Group A",
-          meta: "Activity meeting point",
+          planTime: "17:09",
+          sender: "Fellow Advisor, Group A",
+          meta: "Activity form submission",
+          source: "Google Form",
+          sourceBadge: "Form",
+          sourceHistory: "Form submission synced into portal",
           message:
             "One student missed the briefing for tonight's activity and is unsure where to meet the group. How should we handle this?",
           student: "Age 15",
@@ -855,6 +941,13 @@
             "Safety guardrail: do not send the student alone, change the activity plan without coordinator approval, or leave attendance unconfirmed.",
           draft:
             "Next-step plan\n\n1. Confirm the student's exact location and keep them with the Fellow Advisor.\n2. Message the activity lead to confirm the current group location.\n3. Assign one advisor to escort the student to the group if appropriate.\n4. If timing no longer works, create an alternative supervised plan.\n5. Update the activity attendance note before closing the case.",
+          tasks: [
+            ["Advisor", "Confirm the student is supervised at the meeting point."],
+            ["Activity lead", "Confirm current group location and timing."],
+            ["Attendance", "Update briefing attendance before close."]
+          ],
+          reply:
+            "Thanks. Keep the student with you at the meeting point. I am checking the activity lead's current location and will confirm whether to escort or set an alternative supervised plan.",
           logType: "Activity attendance",
           check: "17:20"
         }
@@ -865,6 +958,7 @@
       const runButton = document.getElementById("run-button");
       const approveButton = document.getElementById("approve-button");
       const copyButton = document.getElementById("copy-button");
+      const copyReplyButton = document.getElementById("copy-reply-button");
       const fields = {
         incomingTitle: document.getElementById("incoming-title"),
         issuePill: document.getElementById("issue-pill"),
@@ -875,13 +969,22 @@
         location: document.getElementById("location-context"),
         review: document.getElementById("review-pill"),
         actionList: document.getElementById("action-list"),
+        taskList: document.getElementById("task-list"),
         note: document.getElementById("ai-note"),
         draft: document.getElementById("plan-draft"),
+        reply: document.getElementById("reply-draft"),
         draftPill: document.getElementById("draft-pill"),
+        taskPill: document.getElementById("task-pill"),
         status: document.getElementById("status-line"),
         logType: document.getElementById("log-type"),
         check: document.getElementById("check-context"),
-        time: document.getElementById("case-time")
+        source: document.getElementById("source-context"),
+        sourcePill: document.getElementById("source-pill"),
+        time: document.getElementById("case-time"),
+        historySourceTime: document.getElementById("history-source-time"),
+        historyPlanTime: document.getElementById("history-plan-time"),
+        historyCheckTime: document.getElementById("history-check-time"),
+        historySource: document.getElementById("history-source")
       };
       let activeScenario = "unwell";
 
@@ -894,6 +997,20 @@
         });
       }
 
+      function renderTasks(items) {
+        fields.taskList.replaceChildren();
+        items.forEach(([owner, task]) => {
+          const li = document.createElement("li");
+          const ownerSpan = document.createElement("span");
+          const taskStrong = document.createElement("strong");
+          ownerSpan.textContent = owner;
+          taskStrong.textContent = task;
+          li.append(ownerSpan, taskStrong);
+          fields.taskList.append(li);
+        });
+        fields.taskPill.textContent = `${items.length} tasks`;
+      }
+
       function renderScenario(key) {
         const scenario = scenarios[key];
         activeScenario = key;
@@ -903,18 +1020,26 @@
         fields.issuePill.textContent = scenario.pill;
         fields.senderName.textContent = scenario.sender;
         fields.senderMeta.textContent = scenario.meta;
+        fields.source.textContent = scenario.source;
+        fields.sourcePill.textContent = scenario.sourceBadge;
         fields.message.textContent = scenario.message;
         fields.student.textContent = scenario.student;
         fields.location.textContent = scenario.location;
         fields.review.textContent = scenario.review;
         fields.note.textContent = scenario.note;
         fields.draft.value = scenario.draft;
+        fields.reply.value = scenario.reply;
         fields.draftPill.textContent = "Plan draft";
         fields.status.textContent = "Waiting for coordinator assignment.";
         fields.logType.textContent = scenario.logType;
         fields.check.textContent = scenario.check;
         fields.time.textContent = scenario.time;
+        fields.historySourceTime.textContent = scenario.time;
+        fields.historyPlanTime.textContent = scenario.planTime;
+        fields.historyCheckTime.textContent = scenario.check;
+        fields.historySource.textContent = scenario.sourceHistory;
         renderActions(scenario.actions);
+        renderTasks(scenario.tasks);
       }
 
       buttons.forEach((button) => {
@@ -928,7 +1053,7 @@
           workspace.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Regenerate";
-          fields.status.textContent = "AI answer refreshed. Coordinator assignment still required.";
+          fields.status.textContent = "AI plan refreshed. Coordinator assignment still required.";
         }, 420);
       });
 
@@ -943,6 +1068,15 @@
           fields.status.textContent = "Next-step plan copied for staff follow-up.";
         } catch {
           fields.status.textContent = "Next-step plan is ready to copy after assignment.";
+        }
+      });
+
+      copyReplyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(fields.reply.value);
+          fields.status.textContent = "Reply draft copied back to the source thread.";
+        } catch {
+          fields.status.textContent = "Reply draft is ready to copy.";
         }
       });
 
