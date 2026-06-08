@@ -6,12 +6,12 @@
     <title>AI Support Desk Demo</title>
     <meta
       name="description"
-      content="A quiet internal AI support desk for handling student support questions, staff guidance, reviewed parent updates and case notes."
+      content="A quiet internal AI support desk for handling student support questions, staff guidance, next-step plans and case notes."
     >
     <meta property="og:title" content="AI Support Desk Demo">
     <meta
       property="og:description"
-      content="A focused AI support desk for programme operations: staff question, safe AI guidance, parent draft, review status."
+      content="A focused AI support desk for programme operations: staff question, safe AI guidance, next-step plan, review status."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -676,10 +676,10 @@
                 <strong>Student lost room key after activity</strong>
                 <small>Evening support</small>
               </button>
-              <button class="case-button" type="button" data-scenario="parent">
-                <span class="queue-meta"><span>Parent message</span><span>17:08</span></span>
-                <strong>Parent asks about supervision</strong>
-                <small>Reply draft needed</small>
+              <button class="case-button" type="button" data-scenario="schedule">
+                <span class="queue-meta"><span>Schedule</span><span>17:08</span></span>
+                <strong>Student missed evening activity briefing</strong>
+                <small>Plan follow-up</small>
               </button>
             </div>
           </aside>
@@ -762,7 +762,7 @@
                 </div>
                 <ol class="action-list" id="action-list"></ol>
                 <div class="guardrail" id="ai-note">
-                  Safety guardrail: no medical advice, no unsupervised student, no parent update before coordinator review.
+                  Safety guardrail: no medical advice, no unsupervised student, escalate if symptoms worsen.
                 </div>
                 <div class="button-row">
                   <button class="button" type="button" id="run-button">Regenerate</button>
@@ -771,15 +771,15 @@
 
               <section class="draft-card">
                 <div class="draft-head">
-                  <h3>Parent draft</h3>
-                  <span class="pill blue" id="draft-pill">Draft only</span>
+                  <h3>Next-step plan</h3>
+                  <span class="pill blue" id="draft-pill">Plan draft</span>
                 </div>
-                <textarea id="parent-draft" aria-label="Parent update draft"></textarea>
+                <textarea id="plan-draft" aria-label="Next-step plan draft"></textarea>
                 <div class="button-row">
-                  <button class="button primary" type="button" id="approve-button">Mark reviewed</button>
-                  <button class="button" type="button" id="copy-button">Copy</button>
+                  <button class="button primary" type="button" id="approve-button">Mark assigned</button>
+                  <button class="button" type="button" id="copy-button">Copy plan</button>
                 </div>
-                <div class="status" id="status-line">Waiting for coordinator review before sending.</div>
+                <div class="status" id="status-line">Waiting for coordinator assignment.</div>
               </section>
             </div>
           </aside>
@@ -806,9 +806,9 @@
             "Set the next check-in time before closing the case."
           ],
           note:
-            "Safety guardrail: no medical advice, no unsupervised student, no parent update before coordinator review.",
+            "Safety guardrail: no medical advice, no unsupervised student, escalate if symptoms worsen.",
           draft:
-            "Dear Parent,\n\nA member of our programme team is currently with your child after they reported feeling unwell before this evening's formal dinner. The Programme Coordinator is reviewing the situation and the student is being supported calmly by staff.\n\nWe will provide a further update after the next check-in.\n\nKind regards,\nProgramme Team",
+            "Next-step plan\n\n1. Keep the student seated in a calm, supervised place.\n2. Notify the Programme Coordinator with time, location and symptoms reported.\n3. Ask a Fellow Advisor to stay nearby until coordinator handoff.\n4. Record the 18:50 check-in result in the case note.\n5. Decide whether formal dinner attendance should be changed after the check-in.",
           logType: "Wellbeing / supervision",
           check: "18:50"
         },
@@ -831,31 +831,31 @@
           note:
             "Safety guardrail: do not send the student alone, share room-access details in chat, or close without access confirmation.",
           draft:
-            "Dear Parent,\n\nA student accommodation access issue was reported after the evening activity. The residential team is handling it directly and the student is being supervised while access is resolved.\n\nNo parent action is needed at this time. We will update you if further support is required.\n\nKind regards,\nProgramme Team",
+            "Next-step plan\n\n1. Keep the student with Group D at the college entrance.\n2. Notify the residential lead and confirm the room-access procedure.\n3. Assign one Fellow Advisor to wait with the student until access is resolved.\n4. Log the access outcome and close only after safe room entry is confirmed.\n5. Flag the case for the morning operations review if a replacement key is needed.",
           logType: "Accommodation / access",
           check: "21:30"
         },
-        parent: {
-          title: "Parent asks about evening supervision",
-          pill: "Parent message",
+        schedule: {
+          title: "Student missed evening activity briefing",
+          pill: "Schedule",
           time: "17:08",
-          sender: "Programme inbox / Parent",
-          meta: "Email",
+          sender: "Fellow Advisor / Group A",
+          meta: "Activity meeting point",
           message:
-            "Can you confirm whether students are supervised after dinner and how the programme handles evening activities?",
-          student: "Parent of student",
-          location: "Programme inbox",
-          review: "Reply approval",
+            "One student missed the briefing for tonight's activity and is unsure where to meet the group. How should we handle this?",
+          student: "Age 15",
+          location: "Activity meeting point",
+          review: "Assign follow-up",
           actions: [
-            "Answer the supervision question directly and calmly.",
-            "Use approved programme wording and avoid overpromising.",
-            "Invite the parent to share any specific support concern."
+            "Confirm the student's current location and keep them with a staff member.",
+            "Assign one advisor to reconnect the student with the activity group.",
+            "Update the attendance note after the student rejoins or receives an alternative plan."
           ],
           note:
-            "Safety guardrail: do not make guarantees outside approved policy, discuss another student, or send without a clear contact path.",
+            "Safety guardrail: do not send the student alone, change the activity plan without coordinator approval, or leave attendance unconfirmed.",
           draft:
-            "Dear Parent,\n\nThank you for your question. During evening activities, students are supported by the programme team and staff coordination is in place throughout the schedule.\n\nIf your child has any specific support needs or if there is a particular concern you would like us to note, please share it with the Programme Coordinator.\n\nKind regards,\nProgramme Team",
-          logType: "Parent communication",
+            "Next-step plan\n\n1. Confirm the student's exact location and keep them with the Fellow Advisor.\n2. Message the activity lead to confirm the current group location.\n3. Assign one advisor to escort the student to the group if appropriate.\n4. If timing no longer works, create an alternative supervised plan.\n5. Update the activity attendance note before closing the case.",
+          logType: "Activity attendance",
           check: "17:20"
         }
       };
@@ -876,7 +876,7 @@
         review: document.getElementById("review-pill"),
         actionList: document.getElementById("action-list"),
         note: document.getElementById("ai-note"),
-        draft: document.getElementById("parent-draft"),
+        draft: document.getElementById("plan-draft"),
         draftPill: document.getElementById("draft-pill"),
         status: document.getElementById("status-line"),
         logType: document.getElementById("log-type"),
@@ -909,8 +909,8 @@
         fields.review.textContent = scenario.review;
         fields.note.textContent = scenario.note;
         fields.draft.value = scenario.draft;
-        fields.draftPill.textContent = "Draft only";
-        fields.status.textContent = "Waiting for coordinator review before sending.";
+        fields.draftPill.textContent = "Plan draft";
+        fields.status.textContent = "Waiting for coordinator assignment.";
         fields.logType.textContent = scenario.logType;
         fields.check.textContent = scenario.check;
         fields.time.textContent = scenario.time;
@@ -928,21 +928,21 @@
           workspace.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Regenerate";
-          fields.status.textContent = "AI answer refreshed. Coordinator review still required.";
+          fields.status.textContent = "AI answer refreshed. Coordinator assignment still required.";
         }, 420);
       });
 
       approveButton.addEventListener("click", () => {
-        fields.draftPill.textContent = "Reviewed";
-        fields.status.textContent = "Coordinator review marked. Draft is ready for approved sending.";
+        fields.draftPill.textContent = "Assigned";
+        fields.status.textContent = "Coordinator assignment marked. Plan is ready for staff follow-up.";
       });
 
       copyButton.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(fields.draft.value);
-          fields.status.textContent = "Parent update copied for approved sending.";
+          fields.status.textContent = "Next-step plan copied for staff follow-up.";
         } catch {
-          fields.status.textContent = "Parent update is ready to copy after review.";
+          fields.status.textContent = "Next-step plan is ready to copy after assignment.";
         }
       });
 
