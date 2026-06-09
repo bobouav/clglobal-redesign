@@ -724,17 +724,17 @@
         </header>
 
         <div class="outcome-strip" aria-label="Programme operations status">
-          <span>Updates waiting: 3</span>
+          <span>Notifications waiting: 3</span>
           <span>Drafts ready: 3</span>
           <span>Next team check: 19:15</span>
           <span>Channels: Gmail, Slack, Forms</span>
         </div>
 
         <section class="workspace" aria-label="Programme operations portal">
-          <aside class="sidebar" aria-label="Event updates">
+          <aside class="sidebar" aria-label="Notification center">
             <div class="section-head">
-              <h2>Event updates</h2>
-              <span id="intake-count">3 updates</span>
+              <h2>Notifications</h2>
+              <span id="intake-count">3 notifications</span>
             </div>
             <div class="filters" aria-label="Inbox filters">
               <button class="filter active" type="button" data-source="all">All</button>
@@ -742,26 +742,26 @@
               <button class="filter" type="button" data-source="slack">Slack</button>
               <button class="filter" type="button" data-source="forms">Forms</button>
             </div>
-            <div class="queue-list" role="tablist" aria-label="Synced cases">
+            <div class="queue-list" role="tablist" aria-label="Synced notifications">
               <button class="case-button active" type="button" data-scenario="flight" data-source="slack">
-                <span class="queue-meta"><span>Slack / Flight delay</span><span>18:07</span></span>
+                <span class="queue-meta"><span>Slack / Transport</span><span>18:07</span></span>
                 <strong>Shanghai group delayed</strong>
                 <small>Reply and follow-ups ready</small>
               </button>
-              <button class="case-button" type="button" data-scenario="course" data-source="gmail">
-                <span class="queue-meta"><span>Gmail / Pickup</span><span>14:32</span></span>
-                <strong>Pickup time question</strong>
-                <small>Email draft ready</small>
+              <button class="case-button" type="button" data-scenario="venue" data-source="gmail">
+                <span class="queue-meta"><span>Gmail / Academic schedule</span><span>14:32</span></span>
+                <strong>AI seminar room changed</strong>
+                <small>Student email ready</small>
               </button>
-              <button class="case-button" type="button" data-scenario="dietary" data-source="forms">
-                <span class="queue-meta"><span>Form / Check-in</span><span>11:20</span></span>
-                <strong>Programme form updated</strong>
-                <small>Check-in note ready</small>
+              <button class="case-button" type="button" data-scenario="meal" data-source="forms">
+                <span class="queue-meta"><span>Form / Student support</span><span>11:20</span></span>
+                <strong>Dietary form updated</strong>
+                <small>Catering note ready</small>
               </button>
             </div>
             <div class="queue-summary" aria-label="Today at a glance">
               <h3>Today at a glance</h3>
-              <div class="summary-row"><span>Updates waiting</span><strong>3</strong></div>
+              <div class="summary-row"><span>Notifications waiting</span><strong>3</strong></div>
               <div class="summary-row"><span>Replies drafted</span><strong>3</strong></div>
               <div class="summary-row"><span>Follow-ups written</span><strong>12</strong></div>
               <div class="summary-row"><span>Sent without review</span><strong>0</strong></div>
@@ -916,110 +916,110 @@
             ["Team", "Confirm pickup in Slack at 19:15."]
           ]
         },
-        course: {
-          title: "Airport pickup question",
+        venue: {
+          title: "AI seminar room changed",
           pill: "Gmail",
           time: "14:32",
-          sender: "Sender: driver team",
-          meta: "Inbox: Gmail transport",
+          sender: "Sender: college coordinator",
+          meta: "Inbox: Gmail programme",
           sourceBadge: "Received 14:32",
           message:
-            "Driver team asks whether the Beijing group pickup should wait for two students whose bags are delayed at baggage claim.",
-          studentLabel: "Group",
-          student: "Beijing group",
-          locationLabel: "Place",
-          location: "Heathrow T2 baggage claim",
-          need: "Driver holding plan",
+            "College coordinator says tomorrow's AI seminar has moved from Room B12 to Mill Lane Lecture Room 3 because of maintenance. The change affects 42 students and two instructors, so the timetable and student notice need updating.",
+          studentLabel: "Session",
+          student: "AI seminar, 42 students",
+          locationLabel: "Room",
+          location: "Mill Lane Lecture Room 3",
+          need: "Timetable + student notice",
           review: "Drafts ready",
           records: [
-            ["Roster", "12 students + 1 advisor"],
-            ["Driver", "Coach booked until 17:45"],
-            ["College", "Dinner check-in starts at 19:30"]
+            ["Timetable", "AI seminar listed in Room B12"],
+            ["Students", "42 enrolled students"],
+            ["Staff", "2 instructors attached"]
           ],
           changes: [
-            ["Pickup", "Hold coach for 20 minutes"],
-            ["Gmail", "Reply to driver team with instruction"],
-            ["Staff", "Ask advisor to stay with delayed students"]
+            ["Calendar", "Move seminar to Mill Lane Lecture Room 3"],
+            ["Gmail", "Send room-change notice to students"],
+            ["Venue", "Prepare signage before the session"]
           ],
           plan: [
-            ["14:32", "Driver question received from Gmail transport inbox."],
-            ["14:33", "Coach booking and group roster reviewed."],
-            ["17:35", "Coach either departs or separate car is arranged."],
-            ["17:40", "Pickup status logged for programme team."]
+            ["14:32", "Room change received from Gmail programme inbox."],
+            ["14:33", "Timetable, instructor calendar and student group checked."],
+            ["14:40", "Student email and instructor note prepared."],
+            ["15:00", "Programme team confirms signage and calendar update."]
           ],
           ready: [
-            ["Gmail reply", "Drafted for transfer inbox"],
-            ["Driver message", "Hold plan prepared"],
-            ["Advisor task", "Stay with delayed baggage students"],
-            ["Reminder", "Confirm departure at 17:35"]
+            ["Student email", "Room-change notice drafted"],
+            ["Instructor note", "Room update prepared"],
+            ["Calendar", "Timetable change ready"],
+            ["Reminder", "Confirm signage at 15:00"]
           ],
           status: "AI draft ready. Review it, then send from this portal.",
-          replyTitle: "Gmail reply drafted",
+          replyTitle: "Student email drafted",
           replyPill: "Ready to send",
-          copyLabel: "Send Gmail reply",
-          copyStatus: "Gmail reply sent to the transport thread. Follow-ups remain visible for the team.",
+          copyLabel: "Send student email",
+          copyStatus: "Student email sent to the AI seminar group. Action items remain visible for the team.",
           reply:
-            "Please hold the coach for 20 minutes while the advisor stays with the two students at baggage claim. If bags are not released by 17:35, depart with the main group and we will arrange a separate car.",
+            "Tomorrow's AI seminar has moved to Mill Lane Lecture Room 3. The time is unchanged. Please go directly to the new room; the programme team will update signage and the timetable.",
           draft:
-            "Operations log note\n\nBeijing group pickup: two students delayed at Heathrow T2 baggage claim. Coach can wait until 17:35. Advisor to stay with delayed students. Separate car if bags are not released.",
+            "Operations log note\n\nAI seminar room changed from Room B12 to Mill Lane Lecture Room 3 because of maintenance. 42 students and 2 instructors affected. Student email, instructor note and calendar update prepared. Signage confirmation due at 15:00.",
           tasks: [
-            ["Driver", "Hold coach until 17:35."],
-            ["Advisor", "Stay with two students at baggage claim."],
-            ["Ops", "Prepare separate car option."],
-            ["Gmail", "Send driver instruction after review."]
+            ["Calendar", "Update seminar room to Mill Lane Lecture Room 3."],
+            ["Students", "Send room-change email."],
+            ["Instructors", "Notify both instructors."],
+            ["Venue", "Confirm signage before 15:00."]
           ]
         },
-        dietary: {
-          title: "Late check-in submitted",
+        meal: {
+          title: "Dietary form updated",
           pill: "Form",
           time: "11:20",
-          sender: "Sender: group advisor",
-          meta: "Source: programme form",
+          sender: "Sender: student support form",
+          meta: "Source: welfare form",
           sourceBadge: "Received 11:20",
           message:
-            "Group advisor submitted a late check-in form: the Shenzhen group expects to reach college around 21:10 after immigration delay.",
+            "A new dietary update was submitted for the engineering project group: three students require halal meals and one student has a nut allergy before tonight's college dinner.",
           studentLabel: "Group",
-          student: "Shenzhen group",
-          locationLabel: "Timing",
-          location: "College check-in",
-          need: "Late check-in note",
+          student: "Engineering project group",
+          locationLabel: "Meal",
+          location: "College dinner",
+          need: "Catering + advisor note",
           review: "Drafts ready",
           records: [
-            ["Roster", "15 students + 2 advisors"],
-            ["College", "Reception closes at 21:00"],
-            ["Dinner", "Late meal request needed after 20:30"]
+            ["Roster", "Engineering project group"],
+            ["Meals", "Dinner numbers due today"],
+            ["Support", "Nut allergy requires confirmation"]
           ],
           changes: [
-            ["Check-in", "Ask college to hold reception 15 minutes"],
-            ["Meal", "Request late packed meals"],
-            ["Advisor", "Confirm ETA again at 20:30"]
+            ["Catering", "Add 3 halal meals and 1 nut allergy note"],
+            ["Advisor", "Confirm details with the group"],
+            ["Log", "Update student support record"]
           ],
           plan: [
-            ["11:20", "Late check-in form submitted by group advisor."],
-            ["11:21", "College reception and meal timing reviewed."],
-            ["20:30", "Advisor confirms updated ETA."],
-            ["21:10", "College receives late group."]
+            ["11:20", "Dietary update received from welfare form."],
+            ["11:22", "Roster and dinner group checked."],
+            ["12:00", "Catering note sent to college meal team."],
+            ["16:00", "Advisor confirms meal details with students."]
           ],
           ready: [
-            ["College note", "Late check-in message drafted"],
-            ["Meal note", "Late meal request prepared"],
-            ["Advisor task", "20:30 ETA confirmation created"],
-            ["Log note", "Programme record update ready"]
+            ["Catering note", "Meal update drafted"],
+            ["Advisor note", "Student confirmation prepared"],
+            ["Support log", "Dietary record update ready"],
+            ["Reminder", "Confirm again at 16:00"]
           ],
           status: "AI draft ready. Review it, then send from this portal.",
-          replyTitle: "College note drafted",
+          replyTitle: "Catering note drafted",
           replyPill: "Ready to send",
-          copyLabel: "Send college note",
-          copyStatus: "College note sent to the operations thread. Follow-ups remain visible for the team.",
+          copyLabel: "Send catering note",
+          copyStatus: "Catering note sent to the college meal thread. Action items remain visible for the team.",
           reply:
-            "The Shenzhen group is now expected around 21:10 because of immigration delay. Could reception hold check-in for 15 minutes and confirm whether late packed meals can be arranged?",
+            "Please update tonight's dinner numbers for the engineering project group: 3 halal meals and 1 nut allergy. The group advisor will reconfirm the details with students at 16:00.",
           draft:
-            "Operations log note\n\nShenzhen group form updated. Expected college timing: 21:10. Reception hold requested. Late packed meal request prepared. Advisor to confirm ETA again at 20:30.",
+            "Operations log note\n\nEngineering project group dietary update received. Add 3 halal meals and 1 nut allergy note for tonight's college dinner. Catering note prepared. Group advisor to reconfirm details with students at 16:00.",
           tasks: [
-            ["College", "Confirm reception can hold until 21:15."],
-            ["Meals", "Arrange late packed meals if possible."],
-            ["Advisor", "Confirm updated ETA at 20:30."],
-            ["Ops", "Update programme log after college reply."]
+            ["Catering", "Update dinner numbers and allergy note."],
+            ["Advisor", "Confirm details with affected students."],
+            ["Support", "Update dietary support record."],
+            ["Team", "Check confirmation at 16:00."]
           ]
         }
       };
@@ -1122,7 +1122,7 @@
           button.hidden = !visible;
           return visible;
         });
-        fields.intakeCount.textContent = `${visibleButtons.length} ${visibleButtons.length === 1 ? "update" : "updates"}`;
+        fields.intakeCount.textContent = `${visibleButtons.length} ${visibleButtons.length === 1 ? "notification" : "notifications"}`;
         if (visibleButtons.length && !visibleButtons.some((button) => button.dataset.scenario === activeScenario)) {
           renderScenario(visibleButtons[0].dataset.scenario);
         }
