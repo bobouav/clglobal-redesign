@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CL Global Arrival Copilot</title>
+    <title>CL Global Operations Copilot</title>
     <meta
       name="description"
-      content="An internal arrival operations portal for flight, pickup and check-in updates."
+      content="An internal operations portal for programme events, transport, check-in, schedules and staff follow-ups."
     >
-    <meta property="og:title" content="CL Global Arrival Copilot">
+    <meta property="og:title" content="CL Global Operations Copilot">
     <meta
       property="og:description"
-      content="Arrival operations queue for Slack, Gmail and form updates."
+      content="Programme operations queue for Slack, Gmail and form updates."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="icon" href="data:,">
@@ -712,8 +712,8 @@
           <div class="app-title">
             <span class="app-dot" aria-hidden="true"></span>
             <div>
-              <h1 id="main-title">CL Global Arrival Copilot</h1>
-              <small>Arrival operations queue for Slack, Gmail and forms.</small>
+              <h1 id="main-title">CL Global Operations Copilot</h1>
+              <small>Programme operations queue for Slack, Gmail and forms.</small>
             </div>
           </div>
           <div class="top-status" aria-label="Operations portal status">
@@ -723,17 +723,17 @@
           </div>
         </header>
 
-        <div class="outcome-strip" aria-label="Arrival operations status">
+        <div class="outcome-strip" aria-label="Programme operations status">
           <span>Updates waiting: 3</span>
           <span>Drafts ready: 3</span>
-          <span>Next pickup check: 19:15</span>
+          <span>Next team check: 19:15</span>
           <span>Channels: Gmail, Slack, Forms</span>
         </div>
 
-        <section class="workspace" aria-label="Arrival operations portal">
-          <aside class="sidebar" aria-label="Arrival updates">
+        <section class="workspace" aria-label="Programme operations portal">
+          <aside class="sidebar" aria-label="Event updates">
             <div class="section-head">
-              <h2>Arrival updates</h2>
+              <h2>Event updates</h2>
               <span id="intake-count">3 updates</span>
             </div>
             <div class="filters" aria-label="Inbox filters">
@@ -743,7 +743,7 @@
               <button class="filter" type="button" data-source="forms">Forms</button>
             </div>
             <div class="queue-list" role="tablist" aria-label="Synced cases">
-              <button class="case-button active" type="button" data-scenario="arrival" data-source="slack">
+              <button class="case-button active" type="button" data-scenario="flight" data-source="slack">
                 <span class="queue-meta"><span>Slack / Flight delay</span><span>18:07</span></span>
                 <strong>Shanghai group delayed</strong>
                 <small>Reply and follow-ups ready</small>
@@ -755,7 +755,7 @@
               </button>
               <button class="case-button" type="button" data-scenario="dietary" data-source="forms">
                 <span class="queue-meta"><span>Form / Check-in</span><span>11:20</span></span>
-                <strong>Arrival form updated</strong>
+                <strong>Programme form updated</strong>
                 <small>Check-in note ready</small>
               </button>
             </div>
@@ -782,7 +782,7 @@
                 <div class="sender">
                   <div>
                     <strong id="sender-name">Sender: airport staff</strong>
-                    <span id="sender-meta">Channel: Slack #arrivals</span>
+                    <span id="sender-meta">Channel: Slack #programme-ops</span>
                   </div>
                   <span class="pill" id="source-pill">Received 18:07</span>
                 </div>
@@ -808,9 +808,9 @@
               <section class="timeline-card">
                 <h3>Updated plan</h3>
                 <ul class="plan-list" id="plan-list">
-                  <li><span>18:07</span><strong>Flight delay received from Slack #arrivals.</strong></li>
+                  <li><span>18:07</span><strong>Flight delay received from Slack #programme-ops.</strong></li>
                   <li><span>18:08</span><strong>Roster, driver pickup and college check-in records reviewed.</strong></li>
-                  <li><span>19:05</span><strong>Driver pickup moved to the new arrival time.</strong></li>
+                  <li><span>19:05</span><strong>Driver pickup moved to the updated time.</strong></li>
                   <li><span>19:15</span><strong>Programme team confirms pickup status in Slack.</strong></li>
                 </ul>
               </section>
@@ -863,12 +863,12 @@
 
     <script>
       const scenarios = {
-        arrival: {
+        flight: {
           title: "Shanghai group flight delayed",
           pill: "Slack",
           time: "18:07",
           sender: "Sender: airport staff",
-          meta: "Channel: Slack #arrivals",
+          meta: "Channel: Slack #programme-ops",
           sourceBadge: "Received 18:07",
           message:
             "Flight BA168 from Shanghai to London Heathrow, UK landed 70 minutes late. The 18-student group from China is still at Heathrow Terminal 3, so the driver pickup time and college check-in message need updating.",
@@ -881,7 +881,7 @@
           records: [
             ["Roster", "18 students + 2 advisors"],
             ["Driver", "Original pickup was 18:00"],
-            ["College", "Check-in desk expects arrival before 19:00"]
+            ["College", "Check-in desk expects group before 19:00"]
           ],
           changes: [
             ["Pickup", "Move driver pickup to 19:05"],
@@ -889,13 +889,13 @@
             ["Check-in", "Tell college the group will arrive late"]
           ],
           plan: [
-            ["18:07", "Flight delay received from Slack #arrivals."],
+            ["18:07", "Flight delay received from Slack #programme-ops."],
             ["18:08", "Roster, driver pickup and college check-in records reviewed."],
-            ["19:05", "Driver pickup moved to the new arrival time."],
+            ["19:05", "Driver pickup moved to the updated time."],
             ["19:15", "Programme team confirms pickup status in Slack."]
           ],
           ready: [
-            ["Slack reply", "Drafted for #arrivals"],
+            ["Slack reply", "Drafted for #programme-ops"],
             ["Driver message", "Pickup time changed to 19:05"],
             ["College note", "Late check-in update prepared"],
             ["Reminder", "Confirm pickup in Slack at 19:15"]
@@ -904,11 +904,11 @@
           replyTitle: "Slack reply drafted",
           replyPill: "Ready to send",
           copyLabel: "Send Slack reply",
-          copyStatus: "Slack reply sent to #arrivals. Follow-ups remain visible for the team.",
+          copyStatus: "Slack reply sent to #programme-ops. Follow-ups remain visible for the team.",
           reply:
             "Thanks. I checked the BA168 student group from China against the roster. Updated plan: driver pickup moves to 19:05, college check-in has been alerted, and the next staff confirmation is at 19:15.",
           draft:
-            "Operations log note\n\nBA168 from Shanghai to London Heathrow, UK landed 70 minutes late. Student group from China: 18 students + 2 advisors. Driver pickup moved to 19:05. College check-in notified. Coordinator to confirm arrival status at 19:15.",
+            "Operations log note\n\nBA168 from Shanghai to London Heathrow, UK landed 70 minutes late. Student group from China: 18 students + 2 advisors. Driver pickup moved to 19:05. College check-in notified. Coordinator to confirm group status at 19:15.",
           tasks: [
             ["Airport", "Keep the student group from China together at T3."],
             ["Driver", "Move pickup to 19:05."],
@@ -945,7 +945,7 @@
             ["14:32", "Driver question received from Gmail transport inbox."],
             ["14:33", "Coach booking and group roster reviewed."],
             ["17:35", "Coach either departs or separate car is arranged."],
-            ["17:40", "Pickup status logged for arrivals team."]
+            ["17:40", "Pickup status logged for programme team."]
           ],
           ready: [
             ["Gmail reply", "Drafted for transfer inbox"],
@@ -974,15 +974,15 @@
           pill: "Form",
           time: "11:20",
           sender: "Sender: group advisor",
-          meta: "Source: arrival form",
+          meta: "Source: programme form",
           sourceBadge: "Received 11:20",
           message:
             "Group advisor submitted a late check-in form: the Shenzhen group expects to reach college around 21:10 after immigration delay.",
           studentLabel: "Group",
           student: "Shenzhen group",
-          locationLabel: "Arrival",
+          locationLabel: "Timing",
           location: "College check-in",
-          need: "Late arrival note",
+          need: "Late check-in note",
           review: "Drafts ready",
           records: [
             ["Roster", "15 students + 2 advisors"],
@@ -998,13 +998,13 @@
             ["11:20", "Late check-in form submitted by group advisor."],
             ["11:21", "College reception and meal timing reviewed."],
             ["20:30", "Advisor confirms updated ETA."],
-            ["21:10", "College receives late arrival group."]
+            ["21:10", "College receives late group."]
           ],
           ready: [
             ["College note", "Late check-in message drafted"],
             ["Meal note", "Late meal request prepared"],
             ["Advisor task", "20:30 ETA confirmation created"],
-            ["Log note", "Arrival record update ready"]
+            ["Log note", "Programme record update ready"]
           ],
           status: "AI draft ready. Review it, then send from this portal.",
           replyTitle: "College note drafted",
@@ -1014,12 +1014,12 @@
           reply:
             "The Shenzhen group is now expected around 21:10 because of immigration delay. Could reception hold check-in for 15 minutes and confirm whether late packed meals can be arranged?",
           draft:
-            "Operations log note\n\nShenzhen group arrival form updated. Expected college arrival: 21:10. Reception hold requested. Late packed meal request prepared. Advisor to confirm ETA again at 20:30.",
+            "Operations log note\n\nShenzhen group form updated. Expected college timing: 21:10. Reception hold requested. Late packed meal request prepared. Advisor to confirm ETA again at 20:30.",
           tasks: [
             ["College", "Confirm reception can hold until 21:15."],
             ["Meals", "Arrange late packed meals if possible."],
             ["Advisor", "Confirm updated ETA at 20:30."],
-            ["Ops", "Update arrival log after college reply."]
+            ["Ops", "Update programme log after college reply."]
           ]
         }
       };
@@ -1055,7 +1055,7 @@
         sourcePill: document.getElementById("source-pill"),
         time: document.getElementById("case-time")
       };
-      let activeScenario = "arrival";
+      let activeScenario = "flight";
       let activeFilter = "all";
 
       function renderContext(list, items) {
@@ -1149,7 +1149,7 @@
 
       copyButton.addEventListener("click", () => {
         fields.draftPill.textContent = "Saved";
-        fields.status.textContent = "Operations log note saved in the arrival record.";
+        fields.status.textContent = "Operations log note saved in the programme record.";
       });
 
       copyReplyButton.addEventListener("click", () => {
