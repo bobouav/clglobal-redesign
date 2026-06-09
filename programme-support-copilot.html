@@ -669,8 +669,8 @@
           <div class="app-title">
             <span class="app-dot" aria-hidden="true"></span>
             <div>
-              <h1 id="main-title">Programme Operations Portal</h1>
-              <small>Gmail, Slack and forms organised into cases</small>
+              <h1 id="main-title">CL Global Support Copilot</h1>
+              <small>Collects Gmail, Slack and form updates, drafts replies, and creates staff tasks.</small>
             </div>
           </div>
           <div class="top-status" aria-label="Operations portal status">
@@ -681,10 +681,10 @@
         </header>
 
         <section class="workspace" aria-label="AI operations portal preview">
-          <aside class="sidebar" aria-label="Synced intake">
+          <aside class="sidebar" aria-label="Updates from tools">
             <div class="section-head">
-              <h2>Synced intake</h2>
-              <span id="intake-count">3 cases</span>
+              <h2>Updates from tools</h2>
+              <span id="intake-count">3 source updates</span>
             </div>
             <div class="filters" aria-label="Inbox filters">
               <button class="filter active" type="button" data-source="all">All</button>
@@ -695,17 +695,17 @@
             <div class="queue-list" role="tablist" aria-label="Synced cases">
               <button class="case-button active" type="button" data-scenario="arrival" data-source="slack">
                 <span class="queue-meta"><span>Slack / Transport</span><span>18:07</span></span>
-                <strong>Flight delay pickup plan</strong>
+                <strong>China flight delay from Slack</strong>
                 <small>Slack reply drafted</small>
               </button>
               <button class="case-button" type="button" data-scenario="course" data-source="gmail">
                 <span class="queue-meta"><span>Gmail / Admissions</span><span>14:32</span></span>
-                <strong>Course switch reply</strong>
+                <strong>Course switch request from Gmail</strong>
                 <small>Email reply drafted</small>
               </button>
               <button class="case-button" type="button" data-scenario="dietary" data-source="forms">
                 <span class="queue-meta"><span>Form / Dining</span><span>11:20</span></span>
-                <strong>Dietary note for dinner</strong>
+                <strong>Dietary update from form</strong>
                 <small>Kitchen note planned</small>
               </button>
             </div>
@@ -713,33 +713,33 @@
 
           <article class="case">
             <div class="section-head">
-              <h2>Case workspace</h2>
+              <h2>Source update</h2>
               <span id="case-time">18:07</span>
             </div>
             <div class="case-body">
               <div class="case-header">
-                <h2 class="case-title" id="incoming-title">Flight delay: pickup plan drafted</h2>
+                <h2 class="case-title" id="incoming-title">China flight delay from Slack</h2>
                 <span class="pill gold" id="issue-pill">Transport</span>
               </div>
               <div class="message-card">
                 <div class="sender">
                   <div>
-                    <strong id="sender-name">Airport Advisor, Arrivals Team</strong>
+                    <strong id="sender-name">Shanghai Arrivals Advisor</strong>
                     <span id="sender-meta">Synced from Slack</span>
                   </div>
                   <span class="pill" id="source-pill">Slack #arrivals</span>
                 </div>
                 <p class="message" id="incoming-message">
-                  BA148 is delayed by 70 minutes. Three students are still at Heathrow T3, so the driver timing and college check-in window need updating.
+                  Flight BA168 from Shanghai to London Heathrow, UK landed 70 minutes late. The 18-student group from China is still at Heathrow Terminal 3, so driver pickup and college check-in need updating.
                 </p>
                 <div class="facts">
                   <div>
-                    <span id="student-label">Students</span>
-                    <strong id="student-context">3 arrivals</strong>
+                    <span id="student-label">Group</span>
+                    <strong id="student-context">18 students + 2 advisors</strong>
                   </div>
                   <div>
-                    <span id="location-label">Location</span>
-                    <strong id="location-context">Heathrow T3</strong>
+                    <span id="location-label">Flight</span>
+                    <strong id="location-context">BA168 Shanghai to Heathrow T3</strong>
                   </div>
                   <div>
                     <span>Source</span>
@@ -750,11 +750,11 @@
 
               <div class="detail-grid">
                 <div class="detail-card">
-                  <span>AI matched</span>
-                  <strong id="log-type">Roster, driver, college check-in</strong>
+                  <span>Checked against</span>
+                  <strong id="log-type">Roster, driver schedule, college check-in</strong>
                 </div>
                 <div class="detail-card">
-                  <span>Follow-up due</span>
+                  <span>Next staff check</span>
                   <strong id="check-context">19:15</strong>
                 </div>
               </div>
@@ -766,7 +766,7 @@
                 </div>
                 <div class="note-row">
                   <span id="history-plan-time">18:08</span>
-                  <strong id="history-plan">AI matched arrival roster and driver note</strong>
+                  <strong id="history-plan">Roster and driver schedule checked</strong>
                 </div>
                 <div class="note-row">
                   <span id="history-check-time">18:09</span>
@@ -778,17 +778,17 @@
 
           <aside class="assistant">
             <div class="section-head">
-              <h2>AI operations assistant</h2>
+              <h2>Replies and tasks drafted</h2>
               <span id="review-pill">Review required</span>
             </div>
             <div class="assistant-body">
               <section class="ai-card">
                 <div class="ai-card-head">
-                  <h3>Already planned</h3>
-                  <span class="pill" id="ready-pill">4 ready</span>
+                  <h3>Ready for staff review</h3>
+                  <span class="pill" id="ready-pill">1 reply + 4 tasks</span>
                 </div>
                 <ul class="ready-list" id="ready-list"></ul>
-                <div class="status" id="status-line">AI matched the source message to the roster and prepared the staff follow-up.</div>
+                <div class="status" id="status-line">Checked Slack #arrivals against roster, driver schedule and college check-in. Draft reply and staff tasks are ready.</div>
                 <div class="button-row">
                   <button class="button" type="button" id="run-button">Regenerate</button>
                 </div>
@@ -801,14 +801,14 @@
                 </div>
                 <div class="draft-box" id="reply-draft"></div>
                 <div class="button-row">
-                  <button class="button primary" type="button" id="approve-button">Mark sent</button>
-                  <button class="button" type="button" id="copy-reply-button">Copy to source thread</button>
+                  <button class="button primary" type="button" id="copy-reply-button">Copy reply to Slack</button>
+                  <button class="button" type="button" id="approve-button">Mark as posted</button>
                 </div>
               </section>
 
               <section class="draft-card">
                 <div class="draft-head">
-                  <h3>Next steps</h3>
+                  <h3>Staff tasks created</h3>
                   <span class="pill" id="task-pill">4 tasks</span>
                 </div>
                 <ul class="task-list" id="task-list"></ul>
@@ -816,12 +816,12 @@
 
               <section class="draft-card">
                 <div class="draft-head">
-                  <h3>Internal note</h3>
-                  <span class="pill blue" id="draft-pill">Log draft</span>
+                  <h3>Operations log note</h3>
+                  <span class="pill blue" id="draft-pill">Ready for log</span>
                 </div>
                 <div class="draft-box brief-box" id="plan-draft"></div>
                 <div class="button-row">
-                  <button class="button" type="button" id="copy-button">Copy note</button>
+                  <button class="button" type="button" id="copy-button">Copy ops log note</button>
                 </div>
               </section>
             </div>
@@ -833,50 +833,51 @@
     <script>
       const scenarios = {
         arrival: {
-          title: "Flight delay: pickup plan drafted",
+          title: "China flight delay from Slack",
           pill: "Transport",
           time: "18:07",
           planTime: "18:08",
           readyTime: "18:09",
-          sender: "Airport Advisor, Arrivals Team",
+          sender: "Shanghai Arrivals Advisor",
           meta: "Synced from Slack",
           source: "Slack #arrivals",
           sourceBadge: "Slack #arrivals",
           sourceHistory: "Slack alert synced into portal",
-          historyPlan: "AI matched arrival roster and driver note",
+          historyPlan: "Roster and driver schedule checked",
           historyReady: "Slack reply and follow-up tasks drafted",
           message:
-            "BA148 is delayed by 70 minutes. Three students are still at Heathrow T3, so the driver timing and college check-in window need updating.",
-          studentLabel: "Students",
-          student: "3 arrivals",
-          locationLabel: "Location",
-          location: "Heathrow T3",
+            "Flight BA168 from Shanghai to London Heathrow, UK landed 70 minutes late. The 18-student group from China is still at Heathrow Terminal 3, so driver pickup and college check-in need updating.",
+          studentLabel: "Group",
+          student: "18 students + 2 advisors",
+          locationLabel: "Flight",
+          location: "BA168 Shanghai to Heathrow T3",
           review: "Ready to review",
           ready: [
             ["Slack", "Reply drafted for #arrivals"],
             ["Driver", "Pickup timing update prepared"],
-            ["Roster", "Arrival note updated"],
+            ["Roster", "Student group from China updated"],
             ["Reminder", "19:15 confirmation queued"]
           ],
-          status: "AI matched the Slack alert to the roster, driver note and college check-in window.",
+          status: "Checked Slack #arrivals against roster, driver schedule and college check-in. Draft reply and staff tasks are ready.",
           replyTitle: "Slack reply drafted",
           replyPill: "Ready to paste",
-          copyLabel: "Copy to Slack",
+          copyLabel: "Copy reply to Slack",
+          copyStatus: "Reply copied. Paste it into Slack #arrivals.",
           reply:
-            "Thanks. I matched the BA148 students to the arrival roster. Updated plan: driver pickup moves to 19:05, college check-in has been alerted, and the next confirmation is due at 19:15.",
+            "Thanks. I checked the BA168 student group from China against the roster. Updated plan: driver pickup moves to 19:05, college check-in has been alerted, and the next staff confirmation is at 19:15.",
           draft:
-            "Internal note\n\nBA148 delayed by 70 minutes. Three arrivals affected. Driver timing moved to 19:05. College check-in notified. Coordinator to confirm arrival status at 19:15.",
+            "Operations log note\n\nBA168 from Shanghai to London Heathrow, UK landed 70 minutes late. Student group from China: 18 students + 2 advisors. Driver pickup moved to 19:05. College check-in notified. Coordinator to confirm arrival status at 19:15.",
           tasks: [
-            ["Airport", "Keep the three students together at T3."],
+            ["Airport", "Keep the student group from China together at T3."],
             ["Driver", "Confirm revised pickup time at 19:05."],
             ["College", "Hold check-in window for late arrival."],
             ["Ops", "Confirm status in Slack at 19:15."]
           ],
-          logType: "Roster, driver, college check-in",
+          logType: "Roster, driver schedule, college check-in",
           check: "19:15"
         },
         course: {
-          title: "Course switch: admissions reply drafted",
+          title: "Course switch request from Gmail",
           pill: "Admissions",
           time: "14:32",
           planTime: "14:34",
@@ -886,7 +887,7 @@
           source: "Gmail admissions",
           sourceBadge: "Gmail",
           sourceHistory: "Gmail thread synced into portal",
-          historyPlan: "AI checked course seat note and student profile",
+          historyPlan: "Course seat note and student profile checked",
           historyReady: "Gmail reply and advisor review task drafted",
           message:
             "A confirmed student wants to switch from AI & Data Science to Engineering Design before arriving in Cambridge. Can we confirm whether this is possible and reply today?",
@@ -904,11 +905,12 @@
           status: "AI prepared the reply and flagged the one decision admissions should confirm before sending.",
           replyTitle: "Gmail reply drafted",
           replyPill: "Needs seat check",
-          copyLabel: "Copy to Gmail",
+          copyLabel: "Copy reply to Gmail",
+          copyStatus: "Reply copied. Paste it into the Gmail admissions thread.",
           reply:
             "Thanks for your message. We can review the requested switch from AI & Data Science to Engineering Design. Our admissions team is checking current availability and project fit, and we will confirm the next step shortly.",
           draft:
-            "Internal note\n\nStudent requested switch from AI & Data Science to Engineering Design. Confirm seat availability and project fit. If approved, update course list, student record and pre-arrival email.",
+            "Operations log note\n\nStudent requested switch from AI & Data Science to Engineering Design. Confirm seat availability and project fit. If approved, update course list, student record and pre-arrival email.",
           tasks: [
             ["Admissions", "Confirm Engineering Design availability."],
             ["Academic", "Check project fit for requested switch."],
@@ -919,7 +921,7 @@
           check: "Today"
         },
         dietary: {
-          title: "Dietary update: kitchen note planned",
+          title: "Dietary update from form",
           pill: "Dining",
           time: "11:20",
           planTime: "11:22",
@@ -929,7 +931,7 @@
           source: "Google Form",
           sourceBadge: "Form",
           sourceHistory: "Form submission synced into portal",
-          historyPlan: "AI matched dinner group and dining roster",
+          historyPlan: "Dinner group and dining roster checked",
           historyReady: "Kitchen note and staff alert drafted",
           message:
             "A student submitted a new nut allergy update for tonight's formal dinner. The dining team and group advisor need the note before seating is finalised.",
@@ -947,11 +949,12 @@
           status: "AI prepared the internal dining note and staff reminder from the form submission.",
           replyTitle: "Staff alert drafted",
           replyPill: "Ready to paste",
-          copyLabel: "Copy alert",
+          copyLabel: "Copy staff alert",
+          copyStatus: "Staff alert copied. Paste it into the staff channel.",
           reply:
             "New dietary update for Group C: nut allergy note added for tonight's formal dinner. Please confirm the kitchen has the update before seating is finalised.",
           draft:
-            "Internal note\n\nForm submission added nut allergy update for Group C formal dinner. Dining roster flagged. Kitchen confirmation due by 15:00. Advisor alert drafted.",
+            "Operations log note\n\nForm submission added nut allergy update for Group C formal dinner. Dining roster flagged. Kitchen confirmation due by 15:00. Advisor alert drafted.",
           tasks: [
             ["Kitchen", "Confirm allergy note before menu lock."],
             ["Advisor", "Acknowledge Group C alert."],
@@ -1007,7 +1010,7 @@
       let activeScenario = "arrival";
       let activeFilter = "all";
 
-      function renderReady(items) {
+      function renderReady(items, taskCount) {
         fields.readyList.replaceChildren();
         items.forEach(([label, item]) => {
           const li = document.createElement("li");
@@ -1018,7 +1021,7 @@
           li.append(labelSpan, itemStrong);
           fields.readyList.append(li);
         });
-        fields.readyPill.textContent = `${items.length} ready`;
+        fields.readyPill.textContent = `1 reply + ${taskCount} tasks`;
       }
 
       function renderTasks(items) {
@@ -1056,7 +1059,7 @@
         fields.reply.textContent = scenario.reply;
         fields.replyTitle.textContent = scenario.replyTitle;
         fields.replyPill.textContent = scenario.replyPill;
-        fields.draftPill.textContent = "Log draft";
+        fields.draftPill.textContent = "Ready for log";
         fields.status.textContent = scenario.status;
         copyReplyButton.textContent = scenario.copyLabel;
         fields.logType.textContent = scenario.logType;
@@ -1068,7 +1071,7 @@
         fields.historySource.textContent = scenario.sourceHistory;
         fields.historyPlan.textContent = scenario.historyPlan;
         fields.historyReady.textContent = scenario.historyReady;
-        renderReady(scenario.ready);
+        renderReady(scenario.ready, scenario.tasks.length);
         renderTasks(scenario.tasks);
       }
 
@@ -1080,7 +1083,7 @@
           button.hidden = !visible;
           return visible;
         });
-        fields.intakeCount.textContent = `${visibleButtons.length} ${visibleButtons.length === 1 ? "case" : "cases"}`;
+        fields.intakeCount.textContent = `${visibleButtons.length} ${visibleButtons.length === 1 ? "source update" : "source updates"}`;
         if (visibleButtons.length && !visibleButtons.some((button) => button.dataset.scenario === activeScenario)) {
           renderScenario(visibleButtons[0].dataset.scenario);
         }
@@ -1101,28 +1104,28 @@
           workspace.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Regenerate";
-          fields.status.textContent = "AI prepared work refreshed from the latest synced source.";
+          fields.status.textContent = "Draft reply and staff tasks refreshed from the latest source update.";
         }, 420);
       });
 
       approveButton.addEventListener("click", () => {
-        fields.replyPill.textContent = "Sent";
-        fields.status.textContent = "Marked sent. Follow-up tasks remain visible for the team.";
+        fields.replyPill.textContent = "Posted";
+        fields.status.textContent = "Marked as posted. Staff tasks remain visible for the team.";
       });
 
       copyButton.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(fields.draft.textContent);
-          fields.status.textContent = "Internal note copied for the operations log.";
+          fields.status.textContent = "Operations log note copied.";
         } catch {
-          fields.status.textContent = "Internal note is ready to copy.";
+          fields.status.textContent = "Operations log note is ready to copy.";
         }
       });
 
       copyReplyButton.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(fields.reply.textContent);
-          fields.status.textContent = "Reply draft copied back to the source thread.";
+          fields.status.textContent = scenarios[activeScenario].copyStatus;
         } catch {
           fields.status.textContent = "Reply draft is ready to copy.";
         }
