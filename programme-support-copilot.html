@@ -60,8 +60,7 @@
         line-height: 1.45;
       }
 
-      button,
-      textarea {
+      button {
         font: inherit;
       }
 
@@ -84,9 +83,8 @@
       .app {
         display: grid;
         grid-template-rows: 58px minmax(0, 1fr);
-        height: calc(100vh - 36px);
         min-height: calc(100vh - 36px);
-        overflow: hidden;
+        overflow: visible;
         border: 1px solid var(--line-strong);
         border-radius: 16px;
         background: var(--surface);
@@ -156,7 +154,7 @@
       .workspace {
         display: grid;
         grid-template-columns: 304px minmax(410px, 1fr) 440px;
-        min-height: 0;
+        min-height: calc(100vh - 94px);
       }
 
       .sidebar,
@@ -225,6 +223,10 @@
         padding: 14px;
       }
 
+      .case-button[hidden] {
+        display: none;
+      }
+
       .case-button {
         width: 100%;
         padding: 12px;
@@ -275,7 +277,7 @@
 
       .case-body,
       .assistant-body {
-        overflow: auto;
+        overflow: visible;
         padding: 18px;
       }
 
@@ -450,7 +452,6 @@
       }
 
       .ai-card {
-        min-height: 304px;
         overflow: hidden;
       }
 
@@ -469,49 +470,31 @@
         font-size: 1rem;
       }
 
-      .action-list {
+      .ready-list {
         display: grid;
         gap: 8px;
-        margin: 12px 0 0;
-        padding: 0 14px 14px;
+        margin: 12px 14px 0;
+        padding: 0;
         list-style: none;
-        counter-reset: action;
       }
 
-      .action-list li {
-        position: relative;
-        min-height: 24px;
-        padding-left: 30px;
-        color: var(--ink);
-        font-size: 0.9rem;
-        font-weight: 700;
-      }
-
-      .action-list li::before {
-        position: absolute;
-        top: 0;
-        left: 0;
+      .ready-list li {
         display: grid;
-        place-items: center;
-        width: 21px;
-        height: 21px;
-        border-radius: 999px;
-        color: var(--green-950);
-        background: var(--amber-100);
-        font-size: 0.68rem;
+        grid-template-columns: 100px minmax(0, 1fr);
+        gap: 10px;
+        min-height: 44px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
         font-weight: 800;
-        counter-increment: action;
-        content: counter(action);
       }
 
-      .guardrail {
-        margin: 0 14px 14px;
-        padding: 11px;
-        border-radius: 10px;
-        color: var(--green-950);
-        background: var(--green-100);
-        font-size: 0.82rem;
-        font-weight: 700;
+      .ready-list span {
+        color: var(--green-800);
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
       }
 
       .task-list {
@@ -543,20 +526,15 @@
         text-transform: uppercase;
       }
 
-      .draft-card {
+      .draft-card,
+      .ai-card {
         padding-bottom: 14px;
       }
 
-      .reply-card textarea {
-        min-height: 92px;
-      }
-
-      textarea {
+      .draft-box {
         display: block;
         width: calc(100% - 28px);
-        min-height: 158px;
         margin: 12px 14px 0;
-        resize: vertical;
         padding: 12px;
         border: 1px solid var(--line);
         border-radius: 10px;
@@ -564,7 +542,15 @@
         background: var(--panel);
         font-size: 0.9rem;
         line-height: 1.48;
-        outline: none;
+        white-space: pre-line;
+      }
+
+      .reply-card .draft-box {
+        background: #fffdf7;
+      }
+
+      .brief-box {
+        min-height: 128px;
       }
 
       .button-row {
@@ -698,29 +684,29 @@
           <aside class="sidebar" aria-label="Synced intake">
             <div class="section-head">
               <h2>Synced intake</h2>
-              <span>3 sources</span>
+              <span id="intake-count">3 cases</span>
             </div>
             <div class="filters" aria-label="Inbox filters">
-              <button class="filter active" type="button">All</button>
-              <button class="filter" type="button">Gmail</button>
-              <button class="filter" type="button">Slack</button>
-              <button class="filter" type="button">Forms</button>
+              <button class="filter active" type="button" data-source="all">All</button>
+              <button class="filter" type="button" data-source="gmail">Gmail</button>
+              <button class="filter" type="button" data-source="slack">Slack</button>
+              <button class="filter" type="button" data-source="forms">Forms</button>
             </div>
             <div class="queue-list" role="tablist" aria-label="Synced cases">
-              <button class="case-button active" type="button" data-scenario="unwell">
-                <span class="queue-meta"><span>Slack / Wellbeing</span><span>18:42</span></span>
-                <strong>Student feels unwell before dinner</strong>
-                <small>Needs staff guidance</small>
+              <button class="case-button active" type="button" data-scenario="arrival" data-source="slack">
+                <span class="queue-meta"><span>Slack / Transport</span><span>18:07</span></span>
+                <strong>Flight delay pickup plan</strong>
+                <small>Slack reply drafted</small>
               </button>
-              <button class="case-button" type="button" data-scenario="lostkey">
-                <span class="queue-meta"><span>Gmail / Accommodation</span><span>21:16</span></span>
-                <strong>Student lost room key after activity</strong>
-                <small>Evening support</small>
+              <button class="case-button" type="button" data-scenario="course" data-source="gmail">
+                <span class="queue-meta"><span>Gmail / Admissions</span><span>14:32</span></span>
+                <strong>Course switch reply</strong>
+                <small>Email reply drafted</small>
               </button>
-              <button class="case-button" type="button" data-scenario="schedule">
-                <span class="queue-meta"><span>Form / Schedule</span><span>17:08</span></span>
-                <strong>Student missed evening activity briefing</strong>
-                <small>Plan follow-up</small>
+              <button class="case-button" type="button" data-scenario="dietary" data-source="forms">
+                <span class="queue-meta"><span>Form / Dining</span><span>11:20</span></span>
+                <strong>Dietary note for dinner</strong>
+                <small>Kitchen note planned</small>
               </button>
             </div>
           </aside>
@@ -728,63 +714,63 @@
           <article class="case">
             <div class="section-head">
               <h2>Case workspace</h2>
-              <span id="case-time">18:42</span>
+              <span id="case-time">18:07</span>
             </div>
             <div class="case-body">
               <div class="case-header">
-                <h2 class="case-title" id="incoming-title">Student feels unwell before formal dinner</h2>
-                <span class="pill gold" id="issue-pill">Wellbeing</span>
+                <h2 class="case-title" id="incoming-title">Flight delay: pickup plan drafted</h2>
+                <span class="pill gold" id="issue-pill">Transport</span>
               </div>
               <div class="message-card">
                 <div class="sender">
                   <div>
-                    <strong id="sender-name">Fellow Advisor, Group B</strong>
-                    <span id="sender-meta">Evening programme team</span>
+                    <strong id="sender-name">Airport Advisor, Arrivals Team</strong>
+                    <span id="sender-meta">Synced from Slack</span>
                   </div>
-                  <span class="pill" id="source-pill">Slack #fellows</span>
+                  <span class="pill" id="source-pill">Slack #arrivals</span>
                 </div>
                 <p class="message" id="incoming-message">
-                  A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?
+                  BA148 is delayed by 70 minutes. Three students are still at Heathrow T3, so the driver timing and college check-in window need updating.
                 </p>
                 <div class="facts">
                   <div>
-                    <span>Student</span>
-                    <strong id="student-context">Age 16</strong>
+                    <span id="student-label">Students</span>
+                    <strong id="student-context">3 arrivals</strong>
                   </div>
                   <div>
-                    <span>Location</span>
-                    <strong id="location-context">College court</strong>
+                    <span id="location-label">Location</span>
+                    <strong id="location-context">Heathrow T3</strong>
                   </div>
                   <div>
                     <span>Source</span>
-                    <strong id="source-context">Slack #fellows</strong>
+                    <strong id="source-context">Slack #arrivals</strong>
                   </div>
                 </div>
               </div>
 
               <div class="detail-grid">
                 <div class="detail-card">
-                  <span>Case note</span>
-                  <strong id="log-type">Wellbeing / supervision</strong>
+                  <span>AI matched</span>
+                  <strong id="log-type">Roster, driver, college check-in</strong>
                 </div>
                 <div class="detail-card">
-                  <span>Next check</span>
-                  <strong id="check-context">18:50</strong>
+                  <span>Follow-up due</span>
+                  <strong id="check-context">19:15</strong>
                 </div>
               </div>
 
               <div class="case-note" aria-label="Case history">
                 <div class="note-row">
-                  <span id="history-source-time">18:42</span>
-                  <strong id="history-source">Slack item synced into portal</strong>
+                  <span id="history-source-time">18:07</span>
+                  <strong id="history-source">Slack alert synced into portal</strong>
                 </div>
                 <div class="note-row">
-                  <span id="history-plan-time">18:43</span>
-                  <strong>AI plan drafted with safety guardrail</strong>
+                  <span id="history-plan-time">18:08</span>
+                  <strong id="history-plan">AI matched arrival roster and driver note</strong>
                 </div>
                 <div class="note-row">
-                  <span id="history-check-time">18:50</span>
-                  <strong>Follow-up tasks prepared</strong>
+                  <span id="history-check-time">18:09</span>
+                  <strong id="history-ready">Slack reply and follow-up tasks drafted</strong>
                 </div>
               </div>
             </div>
@@ -798,47 +784,44 @@
             <div class="assistant-body">
               <section class="ai-card">
                 <div class="ai-card-head">
-                  <h3>Staff guidance</h3>
-                  <span class="pill red">Not sent</span>
+                  <h3>Already planned</h3>
+                  <span class="pill" id="ready-pill">4 ready</span>
                 </div>
-                <ol class="action-list" id="action-list"></ol>
-                <div class="guardrail" id="ai-note">
-                  Safety guardrail: no medical advice, no unsupervised student, escalate if symptoms worsen.
-                </div>
+                <ul class="ready-list" id="ready-list"></ul>
+                <div class="status" id="status-line">AI matched the source message to the roster and prepared the staff follow-up.</div>
                 <div class="button-row">
                   <button class="button" type="button" id="run-button">Regenerate</button>
                 </div>
               </section>
 
-              <section class="draft-card">
+              <section class="draft-card reply-card">
                 <div class="draft-head">
-                  <h3>Next-step plan</h3>
-                  <span class="pill blue" id="draft-pill">Plan draft</span>
+                  <h3 id="reply-title">Slack reply drafted</h3>
+                  <span class="pill blue" id="reply-pill">Ready to paste</span>
                 </div>
-                <textarea id="plan-draft" aria-label="Next-step plan draft"></textarea>
+                <div class="draft-box" id="reply-draft"></div>
                 <div class="button-row">
-                  <button class="button primary" type="button" id="approve-button">Mark assigned</button>
-                  <button class="button" type="button" id="copy-button">Copy plan</button>
+                  <button class="button primary" type="button" id="approve-button">Mark sent</button>
+                  <button class="button" type="button" id="copy-reply-button">Copy to source thread</button>
                 </div>
-                <div class="status" id="status-line">Waiting for coordinator assignment.</div>
               </section>
 
               <section class="draft-card">
                 <div class="draft-head">
-                  <h3>Follow-up tasks</h3>
-                  <span class="pill" id="task-pill">3 tasks</span>
+                  <h3>Next steps</h3>
+                  <span class="pill" id="task-pill">4 tasks</span>
                 </div>
                 <ul class="task-list" id="task-list"></ul>
               </section>
 
-              <section class="draft-card reply-card">
+              <section class="draft-card">
                 <div class="draft-head">
-                  <h3>Reply draft</h3>
-                  <span class="pill blue" id="reply-pill">Internal reply</span>
+                  <h3>Internal note</h3>
+                  <span class="pill blue" id="draft-pill">Log draft</span>
                 </div>
-                <textarea id="reply-draft" aria-label="Reply draft"></textarea>
+                <div class="draft-box brief-box" id="plan-draft"></div>
                 <div class="button-row">
-                  <button class="button" type="button" id="copy-reply-button">Copy to source thread</button>
+                  <button class="button" type="button" id="copy-button">Copy note</button>
                 </div>
               </section>
             </div>
@@ -849,130 +832,163 @@
 
     <script>
       const scenarios = {
-        unwell: {
-          title: "Student feels unwell before formal dinner",
-          pill: "Wellbeing",
-          time: "18:42",
-          planTime: "18:43",
-          sender: "Fellow Advisor, Group B",
-          meta: "Evening programme team",
-          source: "Slack #fellows",
-          sourceBadge: "Slack #fellows",
-          sourceHistory: "Slack item synced into portal",
+        arrival: {
+          title: "Flight delay: pickup plan drafted",
+          pill: "Transport",
+          time: "18:07",
+          planTime: "18:08",
+          readyTime: "18:09",
+          sender: "Airport Advisor, Arrivals Team",
+          meta: "Synced from Slack",
+          source: "Slack #arrivals",
+          sourceBadge: "Slack #arrivals",
+          sourceHistory: "Slack alert synced into portal",
+          historyPlan: "AI matched arrival roster and driver note",
+          historyReady: "Slack reply and follow-up tasks drafted",
           message:
-            "A student says they feel dizzy and does not want to attend formal dinner. What should I do right now?",
-          student: "Age 16",
-          location: "College court",
-          review: "Review required",
-          actions: [
-            "Keep the student in a calm, supervised place.",
-            "Tell the Programme Coordinator the time, location and symptoms reported.",
-            "Set the next check-in time before closing the case."
+            "BA148 is delayed by 70 minutes. Three students are still at Heathrow T3, so the driver timing and college check-in window need updating.",
+          studentLabel: "Students",
+          student: "3 arrivals",
+          locationLabel: "Location",
+          location: "Heathrow T3",
+          review: "Ready to review",
+          ready: [
+            ["Slack", "Reply drafted for #arrivals"],
+            ["Driver", "Pickup timing update prepared"],
+            ["Roster", "Arrival note updated"],
+            ["Reminder", "19:15 confirmation queued"]
           ],
-          note:
-            "Safety guardrail: no medical advice, no unsupervised student, escalate if symptoms worsen.",
-          draft:
-            "Next-step plan\n\n1. Keep the student seated in a calm, supervised place.\n2. Notify the Programme Coordinator with time, location and symptoms reported.\n3. Ask a Fellow Advisor to stay nearby until coordinator handoff.\n4. Record the 18:50 check-in result in the case note.\n5. Decide whether formal dinner attendance should be changed after the check-in.",
-          tasks: [
-            ["Fellow", "Stay with student until coordinator handoff."],
-            ["Coordinator", "Decide dinner attendance after 18:50 check-in."],
-            ["Ops log", "Record symptoms, location and final check result."]
-          ],
+          status: "AI matched the Slack alert to the roster, driver note and college check-in window.",
+          replyTitle: "Slack reply drafted",
+          replyPill: "Ready to paste",
+          copyLabel: "Copy to Slack",
           reply:
-            "Thanks. Keep the student seated with you for now. I am notifying the Programme Coordinator and setting the 18:50 check-in. Do not leave the student alone.",
-          logType: "Wellbeing / supervision",
-          check: "18:50"
+            "Thanks. I matched the BA148 students to the arrival roster. Updated plan: driver pickup moves to 19:05, college check-in has been alerted, and the next confirmation is due at 19:15.",
+          draft:
+            "Internal note\n\nBA148 delayed by 70 minutes. Three arrivals affected. Driver timing moved to 19:05. College check-in notified. Coordinator to confirm arrival status at 19:15.",
+          tasks: [
+            ["Airport", "Keep the three students together at T3."],
+            ["Driver", "Confirm revised pickup time at 19:05."],
+            ["College", "Hold check-in window for late arrival."],
+            ["Ops", "Confirm status in Slack at 19:15."]
+          ],
+          logType: "Roster, driver, college check-in",
+          check: "19:15"
         },
-        lostkey: {
-          title: "Student lost room key after evening activity",
-          pill: "Accommodation",
-          time: "21:16",
-          planTime: "21:17",
-          sender: "Fellow Advisor, Group D",
-          meta: "Gmail ops thread",
-          source: "Gmail ops inbox",
+        course: {
+          title: "Course switch: admissions reply drafted",
+          pill: "Admissions",
+          time: "14:32",
+          planTime: "14:34",
+          readyTime: "14:36",
+          sender: "Admissions Inbox",
+          meta: "Synced from Gmail",
+          source: "Gmail admissions",
           sourceBadge: "Gmail",
           sourceHistory: "Gmail thread synced into portal",
+          historyPlan: "AI checked course seat note and student profile",
+          historyReady: "Gmail reply and advisor review task drafted",
           message:
-            "A student cannot find their room key after the evening activity. The group is back at college. What should I do?",
-          student: "Age 17",
-          location: "College entrance",
-          review: "Staff review",
-          actions: [
-            "Keep the student with the advisor group while access is resolved.",
-            "Notify the residential lead and follow accommodation procedure.",
-            "Confirm safe room access before closing the evening check-in."
+            "A confirmed student wants to switch from AI & Data Science to Engineering Design before arriving in Cambridge. Can we confirm whether this is possible and reply today?",
+          studentLabel: "Applicant",
+          student: "Confirmed offer",
+          locationLabel: "Programme",
+          location: "OxCam summer",
+          review: "Advisor review",
+          ready: [
+            ["Gmail", "Reply drafted for admissions inbox"],
+            ["Course", "Availability question flagged"],
+            ["Advisor", "Review task assigned"],
+            ["CRM", "Student note prepared"]
           ],
-          note:
-            "Safety guardrail: do not send the student alone, share room-access details in chat, or close without access confirmation.",
-          draft:
-            "Next-step plan\n\n1. Keep the student with Group D at the college entrance.\n2. Notify the residential lead and confirm the room-access procedure.\n3. Assign one Fellow Advisor to wait with the student until access is resolved.\n4. Log the access outcome and close only after safe room entry is confirmed.\n5. Flag the case for the morning operations review if a replacement key is needed.",
-          tasks: [
-            ["Advisor", "Keep student with Group D at entrance."],
-            ["Residence", "Confirm access procedure and room entry."],
-            ["Morning ops", "Review whether replacement key is needed."]
-          ],
+          status: "AI prepared the reply and flagged the one decision admissions should confirm before sending.",
+          replyTitle: "Gmail reply drafted",
+          replyPill: "Needs seat check",
+          copyLabel: "Copy to Gmail",
           reply:
-            "Received. Keep the student with Group D while access is resolved. The residential lead should confirm safe room entry before this case is closed.",
-          logType: "Accommodation / access",
-          check: "21:30"
+            "Thanks for your message. We can review the requested switch from AI & Data Science to Engineering Design. Our admissions team is checking current availability and project fit, and we will confirm the next step shortly.",
+          draft:
+            "Internal note\n\nStudent requested switch from AI & Data Science to Engineering Design. Confirm seat availability and project fit. If approved, update course list, student record and pre-arrival email.",
+          tasks: [
+            ["Admissions", "Confirm Engineering Design availability."],
+            ["Academic", "Check project fit for requested switch."],
+            ["CRM", "Update course preference after decision."],
+            ["Email", "Send drafted reply after approval."]
+          ],
+          logType: "Course seat note, student profile",
+          check: "Today"
         },
-        schedule: {
-          title: "Student missed evening activity briefing",
-          pill: "Schedule",
-          time: "17:08",
-          planTime: "17:09",
-          sender: "Fellow Advisor, Group A",
-          meta: "Activity form submission",
+        dietary: {
+          title: "Dietary update: kitchen note planned",
+          pill: "Dining",
+          time: "11:20",
+          planTime: "11:22",
+          readyTime: "11:23",
+          sender: "Student Services Form",
+          meta: "Synced from form",
           source: "Google Form",
           sourceBadge: "Form",
           sourceHistory: "Form submission synced into portal",
+          historyPlan: "AI matched dinner group and dining roster",
+          historyReady: "Kitchen note and staff alert drafted",
           message:
-            "One student missed the briefing for tonight's activity and is unsure where to meet the group. How should we handle this?",
-          student: "Age 15",
-          location: "Activity meeting point",
-          review: "Assign follow-up",
-          actions: [
-            "Confirm the student's current location and keep them with a staff member.",
-            "Assign one advisor to reconnect the student with the activity group.",
-            "Update the attendance note after the student rejoins or receives an alternative plan."
+            "A student submitted a new nut allergy update for tonight's formal dinner. The dining team and group advisor need the note before seating is finalised.",
+          studentLabel: "Student",
+          student: "Group C",
+          locationLabel: "Event",
+          location: "Formal dinner",
+          review: "Kitchen note ready",
+          ready: [
+            ["Kitchen", "Dietary note prepared"],
+            ["Advisor", "Group C alert drafted"],
+            ["Roster", "Dinner list flagged"],
+            ["Reminder", "15:00 confirmation queued"]
           ],
-          note:
-            "Safety guardrail: do not send the student alone, change the activity plan without coordinator approval, or leave attendance unconfirmed.",
-          draft:
-            "Next-step plan\n\n1. Confirm the student's exact location and keep them with the Fellow Advisor.\n2. Message the activity lead to confirm the current group location.\n3. Assign one advisor to escort the student to the group if appropriate.\n4. If timing no longer works, create an alternative supervised plan.\n5. Update the activity attendance note before closing the case.",
-          tasks: [
-            ["Advisor", "Confirm the student is supervised at the meeting point."],
-            ["Activity lead", "Confirm current group location and timing."],
-            ["Attendance", "Update briefing attendance before close."]
-          ],
+          status: "AI prepared the internal dining note and staff reminder from the form submission.",
+          replyTitle: "Staff alert drafted",
+          replyPill: "Ready to paste",
+          copyLabel: "Copy alert",
           reply:
-            "Thanks. Keep the student with you at the meeting point. I am checking the activity lead's current location and will confirm whether to escort or set an alternative supervised plan.",
-          logType: "Activity attendance",
-          check: "17:20"
+            "New dietary update for Group C: nut allergy note added for tonight's formal dinner. Please confirm the kitchen has the update before seating is finalised.",
+          draft:
+            "Internal note\n\nForm submission added nut allergy update for Group C formal dinner. Dining roster flagged. Kitchen confirmation due by 15:00. Advisor alert drafted.",
+          tasks: [
+            ["Kitchen", "Confirm allergy note before menu lock."],
+            ["Advisor", "Acknowledge Group C alert."],
+            ["Roster", "Keep dietary flag on dinner list."],
+            ["Ops", "Check confirmation at 15:00."]
+          ],
+          logType: "Dinner roster, Group C advisor",
+          check: "15:00"
         }
       };
 
       const buttons = [...document.querySelectorAll(".case-button")];
+      const filters = [...document.querySelectorAll(".filter")];
       const workspace = document.querySelector(".workspace");
       const runButton = document.getElementById("run-button");
       const approveButton = document.getElementById("approve-button");
       const copyButton = document.getElementById("copy-button");
       const copyReplyButton = document.getElementById("copy-reply-button");
       const fields = {
+        intakeCount: document.getElementById("intake-count"),
         incomingTitle: document.getElementById("incoming-title"),
         issuePill: document.getElementById("issue-pill"),
         senderName: document.getElementById("sender-name"),
         senderMeta: document.getElementById("sender-meta"),
         message: document.getElementById("incoming-message"),
+        studentLabel: document.getElementById("student-label"),
         student: document.getElementById("student-context"),
+        locationLabel: document.getElementById("location-label"),
         location: document.getElementById("location-context"),
         review: document.getElementById("review-pill"),
-        actionList: document.getElementById("action-list"),
+        readyList: document.getElementById("ready-list"),
+        readyPill: document.getElementById("ready-pill"),
         taskList: document.getElementById("task-list"),
-        note: document.getElementById("ai-note"),
         draft: document.getElementById("plan-draft"),
         reply: document.getElementById("reply-draft"),
+        replyTitle: document.getElementById("reply-title"),
+        replyPill: document.getElementById("reply-pill"),
         draftPill: document.getElementById("draft-pill"),
         taskPill: document.getElementById("task-pill"),
         status: document.getElementById("status-line"),
@@ -984,17 +1000,25 @@
         historySourceTime: document.getElementById("history-source-time"),
         historyPlanTime: document.getElementById("history-plan-time"),
         historyCheckTime: document.getElementById("history-check-time"),
-        historySource: document.getElementById("history-source")
+        historySource: document.getElementById("history-source"),
+        historyPlan: document.getElementById("history-plan"),
+        historyReady: document.getElementById("history-ready")
       };
-      let activeScenario = "unwell";
+      let activeScenario = "arrival";
+      let activeFilter = "all";
 
-      function renderActions(items) {
-        fields.actionList.replaceChildren();
-        items.forEach((item) => {
+      function renderReady(items) {
+        fields.readyList.replaceChildren();
+        items.forEach(([label, item]) => {
           const li = document.createElement("li");
-          li.textContent = item;
-          fields.actionList.append(li);
+          const labelSpan = document.createElement("span");
+          const itemStrong = document.createElement("strong");
+          labelSpan.textContent = label;
+          itemStrong.textContent = item;
+          li.append(labelSpan, itemStrong);
+          fields.readyList.append(li);
         });
+        fields.readyPill.textContent = `${items.length} ready`;
       }
 
       function renderTasks(items) {
@@ -1023,27 +1047,51 @@
         fields.source.textContent = scenario.source;
         fields.sourcePill.textContent = scenario.sourceBadge;
         fields.message.textContent = scenario.message;
+        fields.studentLabel.textContent = scenario.studentLabel;
         fields.student.textContent = scenario.student;
+        fields.locationLabel.textContent = scenario.locationLabel;
         fields.location.textContent = scenario.location;
         fields.review.textContent = scenario.review;
-        fields.note.textContent = scenario.note;
-        fields.draft.value = scenario.draft;
-        fields.reply.value = scenario.reply;
-        fields.draftPill.textContent = "Plan draft";
-        fields.status.textContent = "Waiting for coordinator assignment.";
+        fields.draft.textContent = scenario.draft;
+        fields.reply.textContent = scenario.reply;
+        fields.replyTitle.textContent = scenario.replyTitle;
+        fields.replyPill.textContent = scenario.replyPill;
+        fields.draftPill.textContent = "Log draft";
+        fields.status.textContent = scenario.status;
+        copyReplyButton.textContent = scenario.copyLabel;
         fields.logType.textContent = scenario.logType;
         fields.check.textContent = scenario.check;
         fields.time.textContent = scenario.time;
         fields.historySourceTime.textContent = scenario.time;
         fields.historyPlanTime.textContent = scenario.planTime;
-        fields.historyCheckTime.textContent = scenario.check;
+        fields.historyCheckTime.textContent = scenario.readyTime;
         fields.historySource.textContent = scenario.sourceHistory;
-        renderActions(scenario.actions);
+        fields.historyPlan.textContent = scenario.historyPlan;
+        fields.historyReady.textContent = scenario.historyReady;
+        renderReady(scenario.ready);
         renderTasks(scenario.tasks);
+      }
+
+      function setFilter(source) {
+        activeFilter = source;
+        filters.forEach((filter) => filter.classList.toggle("active", filter.dataset.source === source));
+        const visibleButtons = buttons.filter((button) => {
+          const visible = source === "all" || button.dataset.source === source;
+          button.hidden = !visible;
+          return visible;
+        });
+        fields.intakeCount.textContent = `${visibleButtons.length} ${visibleButtons.length === 1 ? "case" : "cases"}`;
+        if (visibleButtons.length && !visibleButtons.some((button) => button.dataset.scenario === activeScenario)) {
+          renderScenario(visibleButtons[0].dataset.scenario);
+        }
       }
 
       buttons.forEach((button) => {
         button.addEventListener("click", () => renderScenario(button.dataset.scenario));
+      });
+
+      filters.forEach((filter) => {
+        filter.addEventListener("click", () => setFilter(filter.dataset.source));
       });
 
       runButton.addEventListener("click", () => {
@@ -1053,27 +1101,27 @@
           workspace.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Regenerate";
-          fields.status.textContent = "AI plan refreshed. Coordinator assignment still required.";
+          fields.status.textContent = "AI prepared work refreshed from the latest synced source.";
         }, 420);
       });
 
       approveButton.addEventListener("click", () => {
-        fields.draftPill.textContent = "Assigned";
-        fields.status.textContent = "Coordinator assignment marked. Plan is ready for staff follow-up.";
+        fields.replyPill.textContent = "Sent";
+        fields.status.textContent = "Marked sent. Follow-up tasks remain visible for the team.";
       });
 
       copyButton.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(fields.draft.value);
-          fields.status.textContent = "Next-step plan copied for staff follow-up.";
+          await navigator.clipboard.writeText(fields.draft.textContent);
+          fields.status.textContent = "Internal note copied for the operations log.";
         } catch {
-          fields.status.textContent = "Next-step plan is ready to copy after assignment.";
+          fields.status.textContent = "Internal note is ready to copy.";
         }
       });
 
       copyReplyButton.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(fields.reply.value);
+          await navigator.clipboard.writeText(fields.reply.textContent);
           fields.status.textContent = "Reply draft copied back to the source thread.";
         } catch {
           fields.status.textContent = "Reply draft is ready to copy.";
@@ -1081,6 +1129,7 @@
       });
 
       renderScenario(activeScenario);
+      setFilter(activeFilter);
     </script>
   </body>
 </html>
