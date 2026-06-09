@@ -6,12 +6,12 @@
     <title>CL Global Arrival Copilot Demo</title>
     <meta
       name="description"
-      content="A focused internal AI copilot that turns flight, pickup and check-in updates into drafted replies, staff tasks and arrival notes."
+      content="A focused internal AI copilot that turns flight, pickup and check-in updates into drafted replies, follow-ups and arrival notes."
     >
     <meta property="og:title" content="CL Global Arrival Copilot Demo">
     <meta
       property="og:description"
-      content="A focused internal AI copilot for programme teams: arrival updates, drafted replies, pickup tasks and check-in notes."
+      content="A focused internal AI copilot for programme teams: arrival updates, drafted replies, pickup follow-ups and check-in notes."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -757,7 +757,7 @@
             <span class="app-dot" aria-hidden="true"></span>
             <div>
               <h1 id="main-title">CL Global Arrival Copilot</h1>
-              <small>Turns arrival-day Slack, Gmail and form updates into reviewed replies, staff tasks and ops notes.</small>
+              <small>Turns arrival-day Slack, Gmail and form updates into reviewed replies, follow-ups and ops notes.</small>
             </div>
           </div>
           <div class="top-status" aria-label="Operations portal status">
@@ -790,7 +790,7 @@
               <button class="case-button active" type="button" data-scenario="arrival" data-source="slack">
                 <span class="queue-meta"><span>Slack / Flight delay</span><span>18:07</span></span>
                 <strong>Shanghai group delayed</strong>
-                <small>Reply and tasks drafted</small>
+                <small>Reply and follow-ups ready</small>
               </button>
               <button class="case-button" type="button" data-scenario="course" data-source="gmail">
                 <span class="queue-meta"><span>Gmail / Pickup</span><span>14:32</span></span>
@@ -807,7 +807,7 @@
               <h3>Today at a glance</h3>
               <div class="summary-row"><span>Updates waiting</span><strong>3</strong></div>
               <div class="summary-row"><span>Replies drafted</span><strong>3</strong></div>
-              <div class="summary-row"><span>Staff tasks prepared</span><strong>12</strong></div>
+              <div class="summary-row"><span>Follow-ups written</span><strong>12</strong></div>
               <div class="summary-row"><span>Messages auto-sent</span><strong>0</strong></div>
             </div>
           </aside>
@@ -902,8 +902,8 @@
 
               <section class="draft-card">
                 <div class="draft-head">
-                  <h3>Staff tasks created</h3>
-                  <span class="pill" id="task-pill">4 tasks</span>
+                  <h3>Who needs to do what</h3>
+                  <span class="pill" id="task-pill">4 follow-ups</span>
                 </div>
                 <ul class="task-list" id="task-list"></ul>
               </section>
@@ -1148,7 +1148,7 @@
           li.append(ownerSpan, taskStrong);
           fields.taskList.append(li);
         });
-        fields.taskPill.textContent = `${items.length} tasks`;
+        fields.taskPill.textContent = `${items.length} follow-ups`;
       }
 
       function renderScenario(key) {
@@ -1217,7 +1217,7 @@
 
       approveButton.addEventListener("click", () => {
         fields.replyPill.textContent = "Posted";
-        fields.status.textContent = "Marked as posted. Staff tasks remain visible for the team.";
+        fields.status.textContent = "Marked as posted. The who-does-what list stays visible for the team.";
       });
 
       copyButton.addEventListener("click", async () => {
