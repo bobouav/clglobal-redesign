@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CL Global Support Copilot Demo</title>
+    <title>CL Global Arrival Copilot Demo</title>
     <meta
       name="description"
-      content="A focused internal AI copilot that turns Gmail, Slack and form updates into drafted replies, staff tasks and operations notes."
+      content="A focused internal AI copilot that turns flight, pickup and check-in updates into drafted replies, staff tasks and arrival notes."
     >
-    <meta property="og:title" content="CL Global Support Copilot Demo">
+    <meta property="og:title" content="CL Global Arrival Copilot Demo">
     <meta
       property="og:description"
-      content="A focused internal AI copilot for programme teams: incoming updates, drafted replies, staff tasks and operations notes."
+      content="A focused internal AI copilot for programme teams: arrival updates, drafted replies, pickup tasks and check-in notes."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,7 +82,7 @@
 
       .app {
         display: grid;
-        grid-template-rows: 58px minmax(0, 1fr);
+        grid-template-rows: 58px 42px minmax(0, 1fr);
         min-height: calc(100vh - 36px);
         overflow: visible;
         border: 1px solid var(--line-strong);
@@ -151,10 +151,38 @@
         white-space: nowrap;
       }
 
+      .outcome-strip {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        overflow-x: auto;
+        padding: 0 18px;
+        border-bottom: 1px solid var(--line);
+        color: var(--green-950);
+        background: #e7eee8;
+        font-size: 0.78rem;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .outcome-strip span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .outcome-strip span::before {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--green-800);
+        content: "";
+      }
+
       .workspace {
         display: grid;
         grid-template-columns: 304px minmax(410px, 1fr) 440px;
-        min-height: calc(100vh - 94px);
+        min-height: calc(100vh - 136px);
       }
 
       .sidebar,
@@ -222,6 +250,42 @@
         gap: 8px;
         padding: 14px;
       }
+
+      .queue-summary {
+        display: grid;
+        gap: 8px;
+        margin: 0 14px 14px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fbfbf8;
+      }
+
+      .queue-summary h3 {
+        margin: 0;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding-top: 8px;
+        border-top: 1px solid var(--line);
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .summary-row span {
+        color: var(--muted);
+      }
+
+      .summary-row strong {
+        text-align: right;
+      }
+
 
       .case-button[hidden] {
         display: none;
@@ -328,8 +392,6 @@
       }
 
       .message-card,
-      .detail-card,
-      .ai-card,
       .draft-card {
         border: 1px solid var(--line);
         border-radius: 12px;
@@ -374,8 +436,7 @@
         margin-top: 12px;
       }
 
-      .facts div,
-      .detail-card {
+      .facts div {
         padding: 10px;
         background: var(--surface);
       }
@@ -386,9 +447,7 @@
         border-radius: 9px;
       }
 
-      .facts span,
-      .detail-card span,
-      .note-row span {
+      .facts span {
         display: block;
         margin-bottom: 4px;
         color: var(--faint);
@@ -398,41 +457,94 @@
         text-transform: uppercase;
       }
 
-      .facts strong,
-      .detail-card strong,
-      .note-row strong {
+      .facts strong {
         font-size: 0.84rem;
       }
 
-      .detail-grid {
+      .context-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
-        margin-top: 12px;
+        margin-top: 14px;
       }
 
-      .case-note {
-        display: grid;
-        gap: 8px;
-        margin-top: 14px;
-        padding: 12px;
+      .context-card {
+        min-height: 190px;
+        padding: 14px;
         border: 1px solid var(--line);
         border-radius: 12px;
         background: #fbfbf8;
       }
 
-      .note-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--line);
+      .context-card h3 {
+        margin: 0 0 10px;
+        font-size: 0.95rem;
       }
 
-      .note-row:last-child {
-        padding-bottom: 0;
+      .context-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .context-list li {
+        display: grid;
+        grid-template-columns: 90px minmax(0, 1fr);
+        gap: 10px;
+        padding: 9px 0;
+        border-top: 1px solid var(--line);
+        font-weight: 800;
+      }
+
+      .context-list span {
+        color: var(--muted);
+        font-size: 0.66rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .timeline-card {
+        margin-top: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fbfbf8;
+      }
+
+      .timeline-card h3 {
+        margin: 0;
+        padding: 14px 14px 0;
+        font-size: 0.95rem;
+      }
+
+      .plan-list {
+        display: grid;
+        gap: 0;
+        margin: 10px 0 0;
+        padding: 0 14px 14px;
+        list-style: none;
+      }
+
+      .plan-list li {
+        display: grid;
+        grid-template-columns: 74px minmax(0, 1fr);
+        gap: 12px;
+        min-height: 42px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        font-weight: 800;
+      }
+
+      .plan-list li:last-child {
         border-bottom: 0;
+      }
+
+      .plan-list span {
+        color: var(--green-800);
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
       }
 
       .assistant {
@@ -451,11 +563,6 @@
         flex: 0 0 auto;
       }
 
-      .ai-card {
-        overflow: hidden;
-      }
-
-      .ai-card-head,
       .draft-head {
         display: flex;
         align-items: flex-start;
@@ -464,37 +571,9 @@
         padding: 14px 14px 0;
       }
 
-      .ai-card-head h3,
       .draft-head h3 {
         margin: 0;
         font-size: 1rem;
-      }
-
-      .ready-list {
-        display: grid;
-        gap: 8px;
-        margin: 12px 14px 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .ready-list li {
-        display: grid;
-        grid-template-columns: 100px minmax(0, 1fr);
-        gap: 10px;
-        min-height: 44px;
-        padding: 10px;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        background: var(--panel);
-        font-weight: 800;
-      }
-
-      .ready-list span {
-        color: var(--green-800);
-        font-size: 0.68rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
       }
 
       .task-list {
@@ -526,8 +605,7 @@
         text-transform: uppercase;
       }
 
-      .draft-card,
-      .ai-card {
+      .draft-card {
         padding-bottom: 14px;
       }
 
@@ -581,7 +659,7 @@
 
       .status {
         min-height: 38px;
-        margin: 12px 14px 0;
+        margin: 0;
         padding: 9px 10px;
         border-radius: 9px;
         color: var(--green-950);
@@ -590,7 +668,7 @@
         font-weight: 800;
       }
 
-      .thinking .ai-card {
+      .thinking .reply-card {
         border-color: rgba(36, 98, 87, 0.45);
         box-shadow: inset 3px 0 0 var(--green-800);
       }
@@ -616,6 +694,7 @@
         }
 
         .app {
+          grid-template-rows: auto auto minmax(0, 1fr);
           height: auto;
           min-height: 100vh;
           border: 0;
@@ -630,12 +709,21 @@
 
         .top-status {
           justify-content: flex-start;
+          flex-wrap: wrap;
+        }
+
+        .outcome-strip {
+          flex-wrap: wrap;
+          gap: 8px 14px;
+          overflow: visible;
+          padding-block: 10px;
+          white-space: normal;
         }
 
         .workspace,
         .assistant-body,
         .facts,
-        .detail-grid {
+        .context-grid {
           grid-template-columns: 1fr;
         }
 
@@ -647,7 +735,6 @@
 
         .case-header,
         .sender,
-        .ai-card-head,
         .draft-head {
           display: grid;
         }
@@ -669,21 +756,28 @@
           <div class="app-title">
             <span class="app-dot" aria-hidden="true"></span>
             <div>
-              <h1 id="main-title">CL Global Support Copilot</h1>
-              <small>Collects Gmail, Slack and form updates, drafts replies, and creates staff tasks.</small>
+              <h1 id="main-title">CL Global Arrival Copilot</h1>
+              <small>Turns arrival-day Slack, Gmail and form updates into reviewed replies, staff tasks and ops notes.</small>
             </div>
           </div>
           <div class="top-status" aria-label="Operations portal status">
-            <span>Gmail synced</span>
-            <span>Slack live</span>
-            <span>Forms synced</span>
+            <span>3 channels connected</span>
+            <span>Human review required</span>
+            <span>Nothing auto-sends</span>
           </div>
         </header>
 
+        <div class="outcome-strip" aria-label="Arrival copilot outcomes">
+          <span>Faster arrival replies</span>
+          <span>Fewer missed handoffs</span>
+          <span>Clear pickup and check-in log</span>
+          <span>Works with existing Gmail, Slack and forms</span>
+        </div>
+
         <section class="workspace" aria-label="AI operations portal preview">
-          <aside class="sidebar" aria-label="Updates from tools">
+          <aside class="sidebar" aria-label="Arrival updates">
             <div class="section-head">
-              <h2>Updates from tools</h2>
+              <h2>1. Arrival updates</h2>
               <span id="intake-count">3 updates</span>
             </div>
             <div class="filters" aria-label="Inbox filters">
@@ -694,40 +788,47 @@
             </div>
             <div class="queue-list" role="tablist" aria-label="Synced cases">
               <button class="case-button active" type="button" data-scenario="arrival" data-source="slack">
-                <span class="queue-meta"><span>Slack / Arrivals</span><span>18:07</span></span>
-                <strong>Shanghai flight delayed</strong>
+                <span class="queue-meta"><span>Slack / Flight delay</span><span>18:07</span></span>
+                <strong>Shanghai group delayed</strong>
                 <small>Reply and tasks drafted</small>
               </button>
               <button class="case-button" type="button" data-scenario="course" data-source="gmail">
-                <span class="queue-meta"><span>Gmail / Admissions</span><span>14:32</span></span>
-                <strong>Course switch request</strong>
+                <span class="queue-meta"><span>Gmail / Pickup</span><span>14:32</span></span>
+                <strong>Pickup time question</strong>
                 <small>Email draft ready</small>
               </button>
               <button class="case-button" type="button" data-scenario="dietary" data-source="forms">
-                <span class="queue-meta"><span>Form / Dining</span><span>11:20</span></span>
-                <strong>Dietary update submitted</strong>
-                <small>Kitchen note ready</small>
+                <span class="queue-meta"><span>Form / Check-in</span><span>11:20</span></span>
+                <strong>Arrival form updated</strong>
+                <small>Check-in note ready</small>
               </button>
+            </div>
+            <div class="queue-summary" aria-label="Today at a glance">
+              <h3>Today at a glance</h3>
+              <div class="summary-row"><span>Updates waiting</span><strong>3</strong></div>
+              <div class="summary-row"><span>Replies drafted</span><strong>3</strong></div>
+              <div class="summary-row"><span>Staff tasks prepared</span><strong>12</strong></div>
+              <div class="summary-row"><span>Messages auto-sent</span><strong>0</strong></div>
             </div>
           </aside>
 
           <article class="case">
             <div class="section-head">
-              <h2>Original update</h2>
+              <h2>2. Original message + facts</h2>
               <span id="case-time">18:07</span>
             </div>
             <div class="case-body">
               <div class="case-header">
-                <h2 class="case-title" id="incoming-title">Slack: Shanghai flight is delayed</h2>
+                <h2 class="case-title" id="incoming-title">Slack message: Shanghai group flight delayed</h2>
                 <span class="pill gold" id="issue-pill">Arrivals</span>
               </div>
               <div class="message-card">
                 <div class="sender">
                   <div>
-                    <strong id="sender-name">Shanghai Arrivals Advisor</strong>
-                    <span id="sender-meta">Synced from Slack</span>
+                    <strong id="sender-name">Sender: airport staff</strong>
+                    <span id="sender-meta">Channel: Slack #arrivals</span>
                   </div>
-                  <span class="pill" id="source-pill">From Slack</span>
+                  <span class="pill" id="source-pill">Received 18:07</span>
                 </div>
                 <p class="message" id="incoming-message">
                   Flight BA168 from Shanghai to London Heathrow, UK landed 70 minutes late. The 18-student group from China is still at Heathrow Terminal 3, so the driver pickup time and college check-in message need updating.
@@ -742,31 +843,49 @@
                     <strong id="location-context">BA168 Shanghai to Heathrow T3</strong>
                   </div>
                   <div>
-                    <span>Needs</span>
+                    <span>Action needed</span>
                     <strong id="source-context">Driver + check-in update</strong>
                   </div>
                 </div>
               </div>
+
+              <div class="context-grid">
+                <section class="context-card">
+                  <h3>What the portal uses</h3>
+                  <ul class="context-list" id="record-list">
+                    <li><span>Roster</span><strong>18 students + 2 advisors</strong></li>
+                    <li><span>Driver</span><strong>Original pickup was 18:00</strong></li>
+                    <li><span>College</span><strong>Check-in desk expects arrival before 19:00</strong></li>
+                  </ul>
+                </section>
+                <section class="context-card">
+                  <h3>What needs to change</h3>
+                  <ul class="context-list" id="change-list">
+                    <li><span>Pickup</span><strong>Move driver pickup to 19:05</strong></li>
+                    <li><span>Slack</span><strong>Reply to airport staff with the new plan</strong></li>
+                    <li><span>Check-in</span><strong>Tell college the group will arrive late</strong></li>
+                  </ul>
+                </section>
+              </div>
+              <section class="timeline-card">
+                <h3>Arrival plan</h3>
+                <ul class="plan-list" id="plan-list">
+                  <li><span>18:07</span><strong>Flight delay received from Slack #arrivals.</strong></li>
+                  <li><span>18:08</span><strong>Roster, driver pickup and college check-in records reviewed.</strong></li>
+                  <li><span>19:05</span><strong>Driver pickup moved to the new arrival time.</strong></li>
+                  <li><span>19:15</span><strong>Arrivals team confirms pickup status in Slack.</strong></li>
+                </ul>
+              </section>
             </div>
           </article>
 
           <aside class="assistant">
             <div class="section-head">
-              <h2>AI output</h2>
+              <h2>3. Drafts for staff review</h2>
               <span id="review-pill">Drafts ready</span>
             </div>
             <div class="assistant-body">
-              <section class="ai-card">
-                <div class="ai-card-head">
-                  <h3>AI prepared this</h3>
-                  <span class="pill" id="ready-pill">Reply + tasks</span>
-                </div>
-                <ul class="ready-list" id="ready-list"></ul>
-                <div class="status" id="status-line">Nothing is sent automatically. Staff copy the draft back to Slack after review.</div>
-                <div class="button-row">
-                  <button class="button" type="button" id="run-button">Regenerate</button>
-                </div>
-              </section>
+              <div class="status" id="status-line">Copilot drafts only. CL Global staff approve before anything is sent.</div>
 
               <section class="draft-card reply-card">
                 <div class="draft-head">
@@ -775,7 +894,8 @@
                 </div>
                 <div class="draft-box" id="reply-draft"></div>
                 <div class="button-row">
-                  <button class="button primary" type="button" id="copy-reply-button">Copy reply to Slack</button>
+                  <button class="button primary" type="button" id="copy-reply-button">Copy reviewed Slack reply</button>
+                  <button class="button" type="button" id="run-button">Regenerate draft</button>
                   <button class="button" type="button" id="approve-button">Mark as posted</button>
                 </div>
               </section>
@@ -807,12 +927,12 @@
     <script>
       const scenarios = {
         arrival: {
-          title: "Slack: Shanghai flight is delayed",
+          title: "Slack message: Shanghai group flight delayed",
           pill: "Arrivals",
           time: "18:07",
-          sender: "Shanghai Arrivals Advisor",
-          meta: "Synced from Slack",
-          sourceBadge: "From Slack",
+          sender: "Sender: airport staff",
+          meta: "Channel: Slack #arrivals",
+          sourceBadge: "Received 18:07",
           message:
             "Flight BA168 from Shanghai to London Heathrow, UK landed 70 minutes late. The 18-student group from China is still at Heathrow Terminal 3, so the driver pickup time and college check-in message need updating.",
           studentLabel: "Group",
@@ -821,16 +941,32 @@
           location: "BA168 Shanghai to Heathrow T3",
           need: "Driver + check-in update",
           review: "Drafts ready",
+          records: [
+            ["Roster", "18 students + 2 advisors"],
+            ["Driver", "Original pickup was 18:00"],
+            ["College", "Check-in desk expects arrival before 19:00"]
+          ],
+          changes: [
+            ["Pickup", "Move driver pickup to 19:05"],
+            ["Slack", "Reply to airport staff with the new plan"],
+            ["Check-in", "Tell college the group will arrive late"]
+          ],
+          plan: [
+            ["18:07", "Flight delay received from Slack #arrivals."],
+            ["18:08", "Roster, driver pickup and college check-in records reviewed."],
+            ["19:05", "Driver pickup moved to the new arrival time."],
+            ["19:15", "Arrivals team confirms pickup status in Slack."]
+          ],
           ready: [
             ["Slack reply", "Drafted for #arrivals"],
             ["Driver message", "Pickup time changed to 19:05"],
             ["College note", "Late check-in update prepared"],
             ["Reminder", "Confirm pickup in Slack at 19:15"]
           ],
-          status: "Nothing is sent automatically. Staff copy the draft back to Slack after review.",
+          status: "Copilot drafts only. CL Global staff approve before anything is sent.",
           replyTitle: "Slack reply drafted",
           replyPill: "Ready to paste",
-          copyLabel: "Copy reply to Slack",
+          copyLabel: "Copy reviewed Slack reply",
           copyStatus: "Reply copied. Paste it into Slack #arrivals.",
           reply:
             "Thanks. I checked the BA168 student group from China against the roster. Updated plan: driver pickup moves to 19:05, college check-in has been alerted, and the next staff confirmation is at 19:15.",
@@ -844,77 +980,109 @@
           ]
         },
         course: {
-          title: "Gmail: course switch request",
-          pill: "Admissions",
+          title: "Gmail: airport pickup question",
+          pill: "Pickup",
           time: "14:32",
-          sender: "Admissions Inbox",
-          meta: "Synced from Gmail",
-          sourceBadge: "From Gmail",
+          sender: "Sender: driver team",
+          meta: "Inbox: Gmail transport",
+          sourceBadge: "Received 14:32",
           message:
-            "A confirmed student wants to switch from AI & Data Science to Engineering Design before arriving in Cambridge. Can we confirm whether this is possible and reply today?",
-          studentLabel: "Applicant",
-          student: "Confirmed offer",
-          locationLabel: "Programme",
-          location: "OxCam summer",
-          need: "Reply + seat check",
+            "Driver team asks whether the Beijing group pickup should wait for two students whose bags are delayed at baggage claim.",
+          studentLabel: "Group",
+          student: "Beijing group",
+          locationLabel: "Place",
+          location: "Heathrow T2 baggage claim",
+          need: "Driver holding plan",
           review: "Drafts ready",
-          ready: [
-            ["Gmail reply", "Drafted for admissions inbox"],
-            ["Seat check", "Engineering Design availability flagged"],
-            ["Advisor task", "Academic fit review created"],
-            ["CRM note", "Student preference update prepared"]
+          records: [
+            ["Roster", "12 students + 1 advisor"],
+            ["Driver", "Coach booked until 17:45"],
+            ["College", "Dinner check-in starts at 19:30"]
           ],
-          status: "Nothing is sent automatically. Admissions reviews the seat check before copying the reply to Gmail.",
+          changes: [
+            ["Pickup", "Hold coach for 20 minutes"],
+            ["Gmail", "Reply to driver team with instruction"],
+            ["Staff", "Ask advisor to stay with delayed students"]
+          ],
+          plan: [
+            ["14:32", "Driver question received from Gmail transport inbox."],
+            ["14:33", "Coach booking and group roster reviewed."],
+            ["17:35", "Coach either departs or separate car is arranged."],
+            ["17:40", "Pickup status logged for arrivals team."]
+          ],
+          ready: [
+            ["Gmail reply", "Drafted for transfer inbox"],
+            ["Driver message", "Hold plan prepared"],
+            ["Advisor task", "Stay with delayed baggage students"],
+            ["Reminder", "Confirm departure at 17:35"]
+          ],
+          status: "Copilot drafts only. CL Global staff approve before anything is sent.",
           replyTitle: "Gmail reply drafted",
-          replyPill: "Needs seat check",
-          copyLabel: "Copy reply to Gmail",
-          copyStatus: "Reply copied. Paste it into the Gmail admissions thread.",
+          replyPill: "Ready to paste",
+          copyLabel: "Copy reviewed Gmail reply",
+          copyStatus: "Reply copied. Paste it into the Gmail transfer thread.",
           reply:
-            "Thanks for your message. We can review the requested switch from AI & Data Science to Engineering Design. Our admissions team is checking current availability and project fit, and we will confirm the next step shortly.",
+            "Please hold the coach for 20 minutes while the advisor stays with the two students at baggage claim. If bags are not released by 17:35, depart with the main group and we will arrange a separate car.",
           draft:
-            "Operations log note\n\nStudent requested switch from AI & Data Science to Engineering Design. Confirm seat availability and project fit. If approved, update course list, student record and pre-arrival email.",
+            "Operations log note\n\nBeijing group pickup: two students delayed at Heathrow T2 baggage claim. Coach can wait until 17:35. Advisor to stay with delayed students. Separate car if bags are not released.",
           tasks: [
-            ["Admissions", "Confirm Engineering Design availability."],
-            ["Academic", "Check project fit for requested switch."],
-            ["CRM", "Update course preference after decision."],
-            ["Email", "Send drafted reply after approval."]
+            ["Driver", "Hold coach until 17:35."],
+            ["Advisor", "Stay with two students at baggage claim."],
+            ["Ops", "Prepare separate car option."],
+            ["Gmail", "Send driver instruction after review."]
           ]
         },
         dietary: {
-          title: "Form: dietary update submitted",
-          pill: "Dining",
+          title: "Form: late check-in submitted",
+          pill: "Check-in",
           time: "11:20",
-          sender: "Student Services Form",
-          meta: "Synced from form",
-          sourceBadge: "From Form",
+          sender: "Sender: group advisor",
+          meta: "Source: arrival form",
+          sourceBadge: "Received 11:20",
           message:
-            "A student submitted a new nut allergy update for tonight's formal dinner. The dining team and group advisor need the note before seating is finalised.",
-          studentLabel: "Student",
-          student: "Group C",
-          locationLabel: "Event",
-          location: "Formal dinner",
-          need: "Kitchen + advisor alert",
+            "Group advisor submitted a late check-in form: the Shenzhen group expects to reach college around 21:10 after immigration delay.",
+          studentLabel: "Group",
+          student: "Shenzhen group",
+          locationLabel: "Arrival",
+          location: "College check-in",
+          need: "Late arrival note",
           review: "Drafts ready",
-          ready: [
-            ["Kitchen note", "Dietary update prepared"],
-            ["Staff alert", "Group C advisor message drafted"],
-            ["Dinner list", "Allergy flag prepared"],
-            ["Reminder", "Kitchen confirmation due at 15:00"]
+          records: [
+            ["Roster", "15 students + 2 advisors"],
+            ["College", "Reception closes at 21:00"],
+            ["Dinner", "Late meal request needed after 20:30"]
           ],
-          status: "Nothing is sent automatically. Staff review the alert before sharing it with the dining team.",
-          replyTitle: "Staff alert drafted",
+          changes: [
+            ["Check-in", "Ask college to hold reception 15 minutes"],
+            ["Meal", "Request late packed meals"],
+            ["Advisor", "Confirm ETA again at 20:30"]
+          ],
+          plan: [
+            ["11:20", "Late check-in form submitted by group advisor."],
+            ["11:21", "College reception and meal timing reviewed."],
+            ["20:30", "Advisor confirms updated ETA."],
+            ["21:10", "College receives late arrival group."]
+          ],
+          ready: [
+            ["College note", "Late check-in message drafted"],
+            ["Meal note", "Late meal request prepared"],
+            ["Advisor task", "20:30 ETA confirmation created"],
+            ["Log note", "Arrival record update ready"]
+          ],
+          status: "Copilot drafts only. CL Global staff approve before anything is sent.",
+          replyTitle: "College note drafted",
           replyPill: "Ready to paste",
-          copyLabel: "Copy staff alert",
-          copyStatus: "Staff alert copied. Paste it into the staff channel.",
+          copyLabel: "Copy reviewed college note",
+          copyStatus: "College note copied. Paste it into the college operations thread.",
           reply:
-            "New dietary update for Group C: nut allergy note added for tonight's formal dinner. Please confirm the kitchen has the update before seating is finalised.",
+            "The Shenzhen group is now expected around 21:10 because of immigration delay. Could reception hold check-in for 15 minutes and confirm whether late packed meals can be arranged?",
           draft:
-            "Operations log note\n\nForm submission added nut allergy update for Group C formal dinner. Dining roster flagged. Kitchen confirmation due by 15:00. Advisor alert drafted.",
+            "Operations log note\n\nShenzhen group arrival form updated. Expected college arrival: 21:10. Reception hold requested. Late packed meal request prepared. Advisor to confirm ETA again at 20:30.",
           tasks: [
-            ["Kitchen", "Confirm allergy note before menu lock."],
-            ["Advisor", "Acknowledge Group C alert."],
-            ["Roster", "Keep dietary flag on dinner list."],
-            ["Ops", "Check confirmation at 15:00."]
+            ["College", "Confirm reception can hold until 21:15."],
+            ["Meals", "Arrange late packed meals if possible."],
+            ["Advisor", "Confirm updated ETA at 20:30."],
+            ["Ops", "Update arrival log after college reply."]
           ]
         }
       };
@@ -938,8 +1106,9 @@
         locationLabel: document.getElementById("location-label"),
         location: document.getElementById("location-context"),
         review: document.getElementById("review-pill"),
-        readyList: document.getElementById("ready-list"),
-        readyPill: document.getElementById("ready-pill"),
+        recordList: document.getElementById("record-list"),
+        changeList: document.getElementById("change-list"),
+        planList: document.getElementById("plan-list"),
         taskList: document.getElementById("task-list"),
         draft: document.getElementById("plan-draft"),
         reply: document.getElementById("reply-draft"),
@@ -955,8 +1124,8 @@
       let activeScenario = "arrival";
       let activeFilter = "all";
 
-      function renderReady(items, taskCount) {
-        fields.readyList.replaceChildren();
+      function renderContext(list, items) {
+        list.replaceChildren();
         items.forEach(([label, item]) => {
           const li = document.createElement("li");
           const labelSpan = document.createElement("span");
@@ -964,9 +1133,8 @@
           labelSpan.textContent = label;
           itemStrong.textContent = item;
           li.append(labelSpan, itemStrong);
-          fields.readyList.append(li);
+          list.append(li);
         });
-        fields.readyPill.textContent = `1 reply + ${taskCount} tasks`;
       }
 
       function renderTasks(items) {
@@ -1008,7 +1176,9 @@
         fields.status.textContent = scenario.status;
         copyReplyButton.textContent = scenario.copyLabel;
         fields.time.textContent = scenario.time;
-        renderReady(scenario.ready, scenario.tasks.length);
+        renderContext(fields.recordList, scenario.records);
+        renderContext(fields.changeList, scenario.changes);
+        renderContext(fields.planList, scenario.plan);
         renderTasks(scenario.tasks);
       }
 
@@ -1041,7 +1211,7 @@
           workspace.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Regenerate";
-          fields.status.textContent = "Draft reply and staff tasks refreshed from the latest incoming update.";
+          fields.status.textContent = "Drafts refreshed. CL Global staff still approve before anything is sent.";
         }, 420);
       });
 
