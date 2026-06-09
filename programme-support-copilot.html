@@ -725,7 +725,7 @@
 
         <div class="outcome-strip" aria-label="Programme operations status">
           <span>Notifications waiting: 3</span>
-          <span>Drafts ready: 3</span>
+          <span>Next steps ready: 3</span>
           <span>Next team check: 19:15</span>
           <span>Channels: Gmail, Slack, Forms</span>
         </div>
@@ -762,7 +762,7 @@
             <div class="queue-summary" aria-label="Today at a glance">
               <h3>Today at a glance</h3>
               <div class="summary-row"><span>Notifications waiting</span><strong>3</strong></div>
-              <div class="summary-row"><span>Replies drafted</span><strong>3</strong></div>
+              <div class="summary-row"><span>Replies ready</span><strong>3</strong></div>
               <div class="summary-row"><span>Follow-ups written</span><strong>12</strong></div>
               <div class="summary-row"><span>Sent without review</span><strong>0</strong></div>
             </div>
@@ -819,11 +819,11 @@
 
           <aside class="assistant">
             <div class="section-head">
-              <h2>Drafts</h2>
-              <span id="review-pill">Drafts ready</span>
+              <h2>Next Steps</h2>
+              <span id="review-pill">Ready</span>
             </div>
             <div class="assistant-body">
-              <div class="status" id="status-line">AI draft ready. Review it, then send from this portal.</div>
+              <div class="status" id="status-line">Review the prepared reply and action items, then send from this portal.</div>
 
               <section class="draft-card reply-card">
                 <div class="draft-head">
@@ -833,7 +833,7 @@
                 <div class="draft-box" id="reply-draft"></div>
                 <div class="button-row">
                   <button class="button primary" type="button" id="copy-reply-button">Send Slack reply</button>
-                  <button class="button" type="button" id="run-button">Regenerate draft</button>
+                  <button class="button" type="button" id="run-button">Regenerate</button>
                 </div>
               </section>
 
@@ -877,7 +877,7 @@
           locationLabel: "Flight",
           location: "BA168 Shanghai to Heathrow T3",
           need: "Driver + check-in update",
-          review: "Drafts ready",
+          review: "Ready",
           records: [
             ["Roster", "18 students + 2 advisors"],
             ["Driver", "Original pickup was 18:00"],
@@ -900,7 +900,7 @@
             ["College note", "Late check-in update prepared"],
             ["Reminder", "Confirm pickup in Slack at 19:15"]
           ],
-          status: "AI draft ready. Review it, then send from this portal.",
+          status: "Review the prepared reply and action items, then send from this portal.",
           replyTitle: "Slack reply drafted",
           replyPill: "Ready to send",
           copyLabel: "Send Slack reply",
@@ -930,7 +930,7 @@
           locationLabel: "Room",
           location: "Mill Lane Lecture Room 3",
           need: "Timetable + student notice",
-          review: "Drafts ready",
+          review: "Ready",
           records: [
             ["Timetable", "AI seminar listed in Room B12"],
             ["Students", "42 enrolled students"],
@@ -953,7 +953,7 @@
             ["Calendar", "Timetable change ready"],
             ["Reminder", "Confirm signage at 15:00"]
           ],
-          status: "AI draft ready. Review it, then send from this portal.",
+          status: "Review the prepared reply and action items, then send from this portal.",
           replyTitle: "Student email drafted",
           replyPill: "Ready to send",
           copyLabel: "Send student email",
@@ -983,7 +983,7 @@
           locationLabel: "Meal",
           location: "College dinner",
           need: "Catering + advisor note",
-          review: "Drafts ready",
+          review: "Ready",
           records: [
             ["Roster", "Engineering project group"],
             ["Meals", "Dinner numbers due today"],
@@ -1006,7 +1006,7 @@
             ["Support log", "Dietary record update ready"],
             ["Reminder", "Confirm again at 16:00"]
           ],
-          status: "AI draft ready. Review it, then send from this portal.",
+          status: "Review the prepared reply and action items, then send from this portal.",
           replyTitle: "Catering note drafted",
           replyPill: "Ready to send",
           copyLabel: "Send catering note",
@@ -1143,7 +1143,7 @@
           workspace.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Regenerate";
-          fields.status.textContent = "Drafts refreshed. CL Global staff can send the reviewed reply from this portal.";
+          fields.status.textContent = "Next steps refreshed. CL Global staff can send the reviewed reply from this portal.";
         }, 420);
       });
 
