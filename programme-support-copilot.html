@@ -461,50 +461,6 @@
         font-size: 0.84rem;
       }
 
-      .context-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-        margin-top: 14px;
-      }
-
-      .context-card {
-        min-height: 190px;
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: #fbfbf8;
-      }
-
-      .context-card h3 {
-        margin: 0 0 10px;
-        font-size: 0.95rem;
-      }
-
-      .context-list {
-        display: grid;
-        gap: 8px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .context-list li {
-        display: grid;
-        grid-template-columns: 90px minmax(0, 1fr);
-        gap: 10px;
-        padding: 9px 0;
-        border-top: 1px solid var(--line);
-        font-weight: 800;
-      }
-
-      .context-list span {
-        color: var(--muted);
-        font-size: 0.66rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-
       .timeline-card {
         margin-top: 14px;
         border: 1px solid var(--line);
@@ -722,8 +678,7 @@
 
         .workspace,
         .assistant-body,
-        .facts,
-        .context-grid {
+        .facts {
           grid-template-columns: 1fr;
         }
 
@@ -849,26 +804,8 @@
                 </div>
               </div>
 
-              <div class="context-grid">
-                <section class="context-card">
-                  <h3>Records checked</h3>
-                  <ul class="context-list" id="record-list">
-                    <li><span>Roster</span><strong>18 students + 2 advisors</strong></li>
-                    <li><span>Driver</span><strong>Original pickup was 18:00</strong></li>
-                    <li><span>College</span><strong>Check-in desk expects arrival before 19:00</strong></li>
-                  </ul>
-                </section>
-                <section class="context-card">
-                  <h3>Updates needed</h3>
-                  <ul class="context-list" id="change-list">
-                    <li><span>Pickup</span><strong>Move driver pickup to 19:05</strong></li>
-                    <li><span>Slack</span><strong>Reply to airport staff with the new plan</strong></li>
-                    <li><span>Check-in</span><strong>Tell college the group will arrive late</strong></li>
-                  </ul>
-                </section>
-              </div>
               <section class="timeline-card">
-                <h3>Arrival plan</h3>
+                <h3>Updated plan</h3>
                 <ul class="plan-list" id="plan-list">
                   <li><span>18:07</span><strong>Flight delay received from Slack #arrivals.</strong></li>
                   <li><span>18:08</span><strong>Roster, driver pickup and college check-in records reviewed.</strong></li>
@@ -1104,8 +1041,6 @@
         locationLabel: document.getElementById("location-label"),
         location: document.getElementById("location-context"),
         review: document.getElementById("review-pill"),
-        recordList: document.getElementById("record-list"),
-        changeList: document.getElementById("change-list"),
         planList: document.getElementById("plan-list"),
         taskList: document.getElementById("task-list"),
         draft: document.getElementById("plan-draft"),
@@ -1174,8 +1109,6 @@
         fields.status.textContent = scenario.status;
         copyReplyButton.textContent = scenario.copyLabel;
         fields.time.textContent = scenario.time;
-        renderContext(fields.recordList, scenario.records);
-        renderContext(fields.changeList, scenario.changes);
         renderContext(fields.planList, scenario.plan);
         renderTasks(scenario.tasks);
       }
