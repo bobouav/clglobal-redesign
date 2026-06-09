@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CL Global Arrival Copilot Demo</title>
+    <title>CL Global Arrival Copilot</title>
     <meta
       name="description"
-      content="A focused internal AI copilot that turns flight, pickup and check-in updates into drafted replies, follow-ups and arrival notes."
+      content="An internal arrival operations portal for flight, pickup and check-in updates."
     >
-    <meta property="og:title" content="CL Global Arrival Copilot Demo">
+    <meta property="og:title" content="CL Global Arrival Copilot">
     <meta
       property="og:description"
-      content="A focused internal AI copilot for programme teams: arrival updates, drafted replies, pickup follow-ups and check-in notes."
+      content="Arrival operations queue for Slack, Gmail and form updates."
     >
     <meta property="og:image" content="https://bobouav.github.io/clglobal-redesign/programme-support-copilot-thumbnail.jpg">
+    <link rel="icon" href="data:,">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -712,7 +713,7 @@
             <span class="app-dot" aria-hidden="true"></span>
             <div>
               <h1 id="main-title">CL Global Arrival Copilot</h1>
-              <small>Turns arrival-day Slack, Gmail and form updates into reviewed replies, follow-ups and ops notes.</small>
+              <small>Arrival operations queue for Slack, Gmail and forms.</small>
             </div>
           </div>
           <div class="top-status" aria-label="Operations portal status">
@@ -722,17 +723,17 @@
           </div>
         </header>
 
-        <div class="outcome-strip" aria-label="Arrival copilot outcomes">
-          <span>Faster arrival replies</span>
-          <span>Fewer missed handoffs</span>
-          <span>Clear pickup and check-in log</span>
-          <span>Works with existing Gmail, Slack and forms</span>
+        <div class="outcome-strip" aria-label="Arrival operations status">
+          <span>Updates waiting: 3</span>
+          <span>Drafts ready: 3</span>
+          <span>Next pickup check: 19:15</span>
+          <span>Channels: Gmail, Slack, Forms</span>
         </div>
 
-        <section class="workspace" aria-label="AI operations portal preview">
+        <section class="workspace" aria-label="Arrival operations portal">
           <aside class="sidebar" aria-label="Arrival updates">
             <div class="section-head">
-              <h2>1. Arrival updates</h2>
+              <h2>Arrival updates</h2>
               <span id="intake-count">3 updates</span>
             </div>
             <div class="filters" aria-label="Inbox filters">
@@ -769,13 +770,13 @@
 
           <article class="case">
             <div class="section-head">
-              <h2>2. Original message + facts</h2>
+              <h2>Current update</h2>
               <span id="case-time">18:07</span>
             </div>
             <div class="case-body">
               <div class="case-header">
-                <h2 class="case-title" id="incoming-title">Slack message: Shanghai group flight delayed</h2>
-                <span class="pill gold" id="issue-pill">Arrivals</span>
+                <h2 class="case-title" id="incoming-title">Shanghai group flight delayed</h2>
+                <span class="pill gold" id="issue-pill">Slack</span>
               </div>
               <div class="message-card">
                 <div class="sender">
@@ -810,7 +811,7 @@
                   <li><span>18:07</span><strong>Flight delay received from Slack #arrivals.</strong></li>
                   <li><span>18:08</span><strong>Roster, driver pickup and college check-in records reviewed.</strong></li>
                   <li><span>19:05</span><strong>Driver pickup moved to the new arrival time.</strong></li>
-                  <li><span>19:15</span><strong>Arrivals team confirms pickup status in Slack.</strong></li>
+                  <li><span>19:15</span><strong>Programme team confirms pickup status in Slack.</strong></li>
                 </ul>
               </section>
             </div>
@@ -818,11 +819,11 @@
 
           <aside class="assistant">
             <div class="section-head">
-              <h2>3. Drafts for staff review</h2>
+              <h2>Drafts</h2>
               <span id="review-pill">Drafts ready</span>
             </div>
             <div class="assistant-body">
-              <div class="status" id="status-line">Copilot drafts the reply. CL Global staff review it, then send from this portal.</div>
+              <div class="status" id="status-line">AI draft ready. Review it, then send from this portal.</div>
 
               <section class="draft-card reply-card">
                 <div class="draft-head">
@@ -863,8 +864,8 @@
     <script>
       const scenarios = {
         arrival: {
-          title: "Slack message: Shanghai group flight delayed",
-          pill: "Arrivals",
+          title: "Shanghai group flight delayed",
+          pill: "Slack",
           time: "18:07",
           sender: "Sender: airport staff",
           meta: "Channel: Slack #arrivals",
@@ -891,7 +892,7 @@
             ["18:07", "Flight delay received from Slack #arrivals."],
             ["18:08", "Roster, driver pickup and college check-in records reviewed."],
             ["19:05", "Driver pickup moved to the new arrival time."],
-            ["19:15", "Arrivals team confirms pickup status in Slack."]
+            ["19:15", "Programme team confirms pickup status in Slack."]
           ],
           ready: [
             ["Slack reply", "Drafted for #arrivals"],
@@ -899,7 +900,7 @@
             ["College note", "Late check-in update prepared"],
             ["Reminder", "Confirm pickup in Slack at 19:15"]
           ],
-          status: "Copilot drafts the reply. CL Global staff review it, then send from this portal.",
+          status: "AI draft ready. Review it, then send from this portal.",
           replyTitle: "Slack reply drafted",
           replyPill: "Ready to send",
           copyLabel: "Send Slack reply",
@@ -912,12 +913,12 @@
             ["Airport", "Keep the student group from China together at T3."],
             ["Driver", "Move pickup to 19:05."],
             ["College", "Send late check-in update."],
-            ["Arrivals", "Confirm pickup in Slack at 19:15."]
+            ["Team", "Confirm pickup in Slack at 19:15."]
           ]
         },
         course: {
-          title: "Gmail: airport pickup question",
-          pill: "Pickup",
+          title: "Airport pickup question",
+          pill: "Gmail",
           time: "14:32",
           sender: "Sender: driver team",
           meta: "Inbox: Gmail transport",
@@ -952,7 +953,7 @@
             ["Advisor task", "Stay with delayed baggage students"],
             ["Reminder", "Confirm departure at 17:35"]
           ],
-          status: "Copilot drafts the reply. CL Global staff review it, then send from this portal.",
+          status: "AI draft ready. Review it, then send from this portal.",
           replyTitle: "Gmail reply drafted",
           replyPill: "Ready to send",
           copyLabel: "Send Gmail reply",
@@ -969,8 +970,8 @@
           ]
         },
         dietary: {
-          title: "Form: late check-in submitted",
-          pill: "Check-in",
+          title: "Late check-in submitted",
+          pill: "Form",
           time: "11:20",
           sender: "Sender: group advisor",
           meta: "Source: arrival form",
@@ -1005,7 +1006,7 @@
             ["Advisor task", "20:30 ETA confirmation created"],
             ["Log note", "Arrival record update ready"]
           ],
-          status: "Copilot drafts the reply. CL Global staff review it, then send from this portal.",
+          status: "AI draft ready. Review it, then send from this portal.",
           replyTitle: "College note drafted",
           replyPill: "Ready to send",
           copyLabel: "Send college note",
