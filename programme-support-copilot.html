@@ -763,7 +763,7 @@
           <div class="top-status" aria-label="Operations portal status">
             <span>3 channels connected</span>
             <span>Human review required</span>
-            <span>Nothing auto-sends</span>
+            <span>Sends to Slack/Gmail</span>
           </div>
         </header>
 
@@ -808,7 +808,7 @@
               <div class="summary-row"><span>Updates waiting</span><strong>3</strong></div>
               <div class="summary-row"><span>Replies drafted</span><strong>3</strong></div>
               <div class="summary-row"><span>Follow-ups written</span><strong>12</strong></div>
-              <div class="summary-row"><span>Messages auto-sent</span><strong>0</strong></div>
+              <div class="summary-row"><span>Sent without review</span><strong>0</strong></div>
             </div>
           </aside>
 
@@ -885,18 +885,17 @@
               <span id="review-pill">Drafts ready</span>
             </div>
             <div class="assistant-body">
-              <div class="status" id="status-line">Copilot drafts only. CL Global staff approve before anything is sent.</div>
+              <div class="status" id="status-line">Copilot drafts the reply. CL Global staff review it, then send from this portal.</div>
 
               <section class="draft-card reply-card">
                 <div class="draft-head">
                   <h3 id="reply-title">Slack reply drafted</h3>
-                  <span class="pill blue" id="reply-pill">Ready to paste</span>
+                  <span class="pill blue" id="reply-pill">Ready to send</span>
                 </div>
                 <div class="draft-box" id="reply-draft"></div>
                 <div class="button-row">
-                  <button class="button primary" type="button" id="copy-reply-button">Copy reviewed Slack reply</button>
+                  <button class="button primary" type="button" id="copy-reply-button">Send Slack reply</button>
                   <button class="button" type="button" id="run-button">Regenerate draft</button>
-                  <button class="button" type="button" id="approve-button">Mark as posted</button>
                 </div>
               </section>
 
@@ -915,7 +914,7 @@
                 </div>
                 <div class="draft-box brief-box" id="plan-draft"></div>
                 <div class="button-row">
-                  <button class="button" type="button" id="copy-button">Copy ops log note</button>
+                  <button class="button" type="button" id="copy-button">Save ops log note</button>
                 </div>
               </section>
             </div>
@@ -963,11 +962,11 @@
             ["College note", "Late check-in update prepared"],
             ["Reminder", "Confirm pickup in Slack at 19:15"]
           ],
-          status: "Copilot drafts only. CL Global staff approve before anything is sent.",
+          status: "Copilot drafts the reply. CL Global staff review it, then send from this portal.",
           replyTitle: "Slack reply drafted",
-          replyPill: "Ready to paste",
-          copyLabel: "Copy reviewed Slack reply",
-          copyStatus: "Reply copied. Paste it into Slack #arrivals.",
+          replyPill: "Ready to send",
+          copyLabel: "Send Slack reply",
+          copyStatus: "Slack reply sent to #arrivals. Follow-ups remain visible for the team.",
           reply:
             "Thanks. I checked the BA168 student group from China against the roster. Updated plan: driver pickup moves to 19:05, college check-in has been alerted, and the next staff confirmation is at 19:15.",
           draft:
@@ -1016,11 +1015,11 @@
             ["Advisor task", "Stay with delayed baggage students"],
             ["Reminder", "Confirm departure at 17:35"]
           ],
-          status: "Copilot drafts only. CL Global staff approve before anything is sent.",
+          status: "Copilot drafts the reply. CL Global staff review it, then send from this portal.",
           replyTitle: "Gmail reply drafted",
-          replyPill: "Ready to paste",
-          copyLabel: "Copy reviewed Gmail reply",
-          copyStatus: "Reply copied. Paste it into the Gmail transfer thread.",
+          replyPill: "Ready to send",
+          copyLabel: "Send Gmail reply",
+          copyStatus: "Gmail reply sent to the transport thread. Follow-ups remain visible for the team.",
           reply:
             "Please hold the coach for 20 minutes while the advisor stays with the two students at baggage claim. If bags are not released by 17:35, depart with the main group and we will arrange a separate car.",
           draft:
@@ -1069,11 +1068,11 @@
             ["Advisor task", "20:30 ETA confirmation created"],
             ["Log note", "Arrival record update ready"]
           ],
-          status: "Copilot drafts only. CL Global staff approve before anything is sent.",
+          status: "Copilot drafts the reply. CL Global staff review it, then send from this portal.",
           replyTitle: "College note drafted",
-          replyPill: "Ready to paste",
-          copyLabel: "Copy reviewed college note",
-          copyStatus: "College note copied. Paste it into the college operations thread.",
+          replyPill: "Ready to send",
+          copyLabel: "Send college note",
+          copyStatus: "College note sent to the operations thread. Follow-ups remain visible for the team.",
           reply:
             "The Shenzhen group is now expected around 21:10 because of immigration delay. Could reception hold check-in for 15 minutes and confirm whether late packed meals can be arranged?",
           draft:
@@ -1091,7 +1090,6 @@
       const filters = [...document.querySelectorAll(".filter")];
       const workspace = document.querySelector(".workspace");
       const runButton = document.getElementById("run-button");
-      const approveButton = document.getElementById("approve-button");
       const copyButton = document.getElementById("copy-button");
       const copyReplyButton = document.getElementById("copy-reply-button");
       const fields = {
@@ -1211,31 +1209,18 @@
           workspace.classList.remove("thinking");
           renderScenario(activeScenario);
           runButton.textContent = "Regenerate";
-          fields.status.textContent = "Drafts refreshed. CL Global staff still approve before anything is sent.";
+          fields.status.textContent = "Drafts refreshed. CL Global staff can send the reviewed reply from this portal.";
         }, 420);
       });
 
-      approveButton.addEventListener("click", () => {
-        fields.replyPill.textContent = "Posted";
-        fields.status.textContent = "Marked as posted. The who-does-what list stays visible for the team.";
+      copyButton.addEventListener("click", () => {
+        fields.draftPill.textContent = "Saved";
+        fields.status.textContent = "Operations log note saved in the arrival record.";
       });
 
-      copyButton.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(fields.draft.textContent);
-          fields.status.textContent = "Operations log note copied.";
-        } catch {
-          fields.status.textContent = "Operations log note is ready to copy.";
-        }
-      });
-
-      copyReplyButton.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(fields.reply.textContent);
-          fields.status.textContent = scenarios[activeScenario].copyStatus;
-        } catch {
-          fields.status.textContent = "Reply draft is ready to copy.";
-        }
+      copyReplyButton.addEventListener("click", () => {
+        fields.replyPill.textContent = "Sent";
+        fields.status.textContent = scenarios[activeScenario].copyStatus;
       });
 
       renderScenario(activeScenario);
